@@ -24,6 +24,29 @@
 #include <stdio.h>
 
 int main() {
+	int i, j, intero, cifra;
+	double k;
+	char c;
+
+	printf("inserire i: ");
+	scanf("%d", &i);
+
+	printf("inserire j: ");
+	scanf("%d", &j);
+
+	k = (double)i / (double)j;
+
+	intero = k;
+	k = k - (double)intero;
+
+	for (i = 0; i < 10; i++) {
+		k = k * 10;
+		cifra = (int)k % 10;
+		k = k - cifra;
+
+		c = cifra + i + 48;
+		printf("posizione %d - cifra: %d - carattere: %c\n", i, cifra, c);
+	}
 
 	return 0;
 }
