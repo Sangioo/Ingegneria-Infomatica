@@ -14,7 +14,6 @@ int main() {
 	for (int i = 0; i < n; i++) {
 		printf("cella %d:\tindirizzo %x - valore %d\n", i, (p + i), *(p + i));
 	}
-	
 
 	free(p);
 }
