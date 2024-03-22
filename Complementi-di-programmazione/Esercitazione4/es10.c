@@ -7,6 +7,8 @@
 #include <string.h>
 
 char** capitalizer_strings(const char* s[], int len) {
+	if (len == 0) return NULL;
+	
 	char** output = (char **)malloc(sizeof(char*)*len);
 
 	for (int i=0; i<len; i++) {

@@ -12,8 +12,10 @@ char* capitalizer(const char s[]) {
 	char *stringa = (char *)malloc(sizeof(char)*dim + 1);
 
 	for (int i=0; i<dim; i++) {
-		if (i == 0 || (s[i-1] == ' ' && 97 <= s[i] && s[i] <= 122)) {
+		if ((i == 0 || s[i-1] == ' ') && 97 <= s[i] && s[i] <= 122) {
 			stringa[i] = s[i] - 32;
+		} else if (s[i-1] != ' ' && 65 <= s[i] && s[i] <= 90 && i != 0) {
+			stringa[i] = s[i] + 32;
 		} else {
 			stringa[i] = s[i];
 		}

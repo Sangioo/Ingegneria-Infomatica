@@ -15,13 +15,38 @@ char** split_string(const char* s, char sep) {
 		}
 	}
 
-	char *output = (char *)malloc(sizeof(char)*dim + 1);
-
+	char **output = (char **)malloc(sizeof(char*)*dim);
+	int first = 0;
+	int indice = 0;
 	for (int i=0; i<len; i++) {
-		
+		if (s[i] == sep) {
+			output[indice] = (char *)malloc(sizeof(char)*(i-first) + 1);
+
+			for (int j=first; j<i; j++) {
+				output[indice][j-first] = s[j];
+			}
+			output[indice][i-first] = '\0';
+			indice++;
+			first = i+1;
+		} else if (i == len-1) {
+			output[indice] = (char *)malloc(sizeof(char)*(i-first+1) + 1);
+
+			for (int j=first; j<=i; j++) {
+				output[indice][j-first] = s[j];
+			}
+			output[indice][i-first+1] = '\0';
+		}
 	}
+
+	return output;
 }
 
 int main() {
-	
+	char *s = "abcd efgh ijkl mnop qrst uvwx";
+
+	char **out = split_string(s, ' ');
+	for (int i=0; i<6; i++) {
+		for (int j=0; j<strlen(out[i]); j++) printf("%c", out[i][j]);
+		printf("\n");
+	}
 }
