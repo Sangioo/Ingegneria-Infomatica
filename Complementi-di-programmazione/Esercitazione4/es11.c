@@ -8,10 +8,10 @@
 
 char** split_string(const char* s, char sep) {
 	int len = strlen(s);
-	int dim = len;
+	int dim = 1;
 	for (int i=0; i<len; i++) {
 		if (s[i] == sep) {
-			dim--;
+			dim++;
 		}
 	}
 
