@@ -93,5 +93,6 @@
 # # Windows shortcuts
 # *.lnk
 
-!*.c
-!Makefile
+*
+!*.*
+!*/
