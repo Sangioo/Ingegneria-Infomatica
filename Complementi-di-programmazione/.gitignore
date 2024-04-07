@@ -1,3 +1,8 @@
+*
+!*.*
+*.exe
+!*/
+
 # ### C ###
 # # Prerequisites
 # *.d
@@ -92,8 +97,3 @@
 
 # # Windows shortcuts
 # *.lnk
-
-*
-!*.*
-*.exe
-!*/
