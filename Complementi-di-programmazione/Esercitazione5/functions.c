@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <math.h>
 
-#include "aux.h"
+#include "auxiliary.h"
 
 // *ESERCIZI
 /*ESERCIZIO 1*/
@@ -185,6 +185,81 @@ Mat* mat_product(Mat *m1, Mat *m2) {
 	return prod;
 }
 
+/*ESERCIZIO 9*/
+// Scrivere una funzione:
+// Mat* game_of_life(Mat* mat);
+// Basata sull’algoritmo di Conway che implementa una iterazione del gioco.
+// La funzione deve prendere in input una matrice al tempo i e restituire la matrice al tempo i+1.
+// Indicare una cella viva con il float 1, e una cella morta con 0.
+// Scrivere un main per testare la funzione. Suggerimento: il main potrebbe usare mat_alloc per creare una matrice iniziale,
+// e mat_free, mat_print ad ogni chiamata di game_of_life per il normale avanzamento.
+Mat* game_of_life(Mat* mat) {
+	int neighbors = 0;
+	for (int i=0; i<mat->rows; i++) {
+		for (int j=0; j<mat->cols; j++) {
+			neighbors = 0;
+			if (i-1>=0 && j-1>=0 && mat->mat[i-1][j-1] == 1) {
+				neighbors++;
+			}
+			if (i-1>=0 && mat->mat[i-1][j] == 1) {
+				neighbors++;
+			}
+			if (i-1>=0 && j+1<mat->cols && mat->mat[i-1][j+1] == 1) {
+				neighbors++;
+			}
+			if (j-1>=0 && mat->mat[i][j-1] == 1) {
+				neighbors++;
+			}
+			if (j+1<mat->cols && mat->mat[i][j+1] == 1) {
+				neighbors++;
+			}
+			if (i+1<mat->rows && j-1>=0 && mat->mat[i+1][j-1] == 1) {
+				neighbors++;
+			}
+			if (i+1<mat->rows && mat->mat[i+1][j] == 1) {
+				neighbors++;
+			}
+			if (i+1<mat->rows && j+1<mat->cols && mat->mat[i+1][j+1] == 1) {
+				neighbors++;
+			}
+
+			if (mat->mat[i][j] == 1) {
+				if (neighbors != 2 && neighbors != 3) {
+					mat->mat[i][j] = 0;
+				}
+			} else if (mat->mat[i][j] == 0) {
+				if (neighbors == 3) {
+					mat->mat[i][j] = 1;
+				}
+			}
+		}
+	}
+	return mat;
+}
+
+/*ESERCIZIO 10*/
+// Scrivere una funzione
+// void sort_strings(char **array);
+// che riceve in input un array di N stringhe. L’elenco è terminato da un puntatore NULL in posizione array[N].
+// La funzione deve modificare l’array, ordinando le stringhe per lunghezza: in array[0] ci deve essere la
+// stringa più lunga e in array[len-1] la più corta.
+void sort_strings(char **array) {
+	int len = 0;
+	char *tmp;
+	while (array[len] != NULL) {
+		len++;
+	}
+
+	for (int i=0; i<len; i++) {
+		for (int j=i+1; j<len; j++) {
+			if (mystrlen(array[i]) < mystrlen(array[j])) {
+				tmp = array[i];
+				array[i] = array[j];
+				array[j] = tmp;
+			}
+		}
+	}
+}
 
 
 
@@ -296,7 +371,11 @@ void test8() {
 }
 
 void test9() {
+	Mati *m = mat_alloc(4, 4);
+	mat_init_bool(m);
 
+	printf("\nTEST ESERCIZIO 9\n");
+	mat_print_int(m);
 }
 
 void test10() {

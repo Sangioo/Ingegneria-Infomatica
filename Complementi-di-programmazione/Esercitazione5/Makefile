@@ -1,6 +1,6 @@
 CC=g++
 CFLAGS= -I. -s -Werror=return-type
-OBJS=functions.o main.o aux.o
+OBJS=functions.o main.o auxiliary.o
 TGT=main
 
 all: $(TGT)

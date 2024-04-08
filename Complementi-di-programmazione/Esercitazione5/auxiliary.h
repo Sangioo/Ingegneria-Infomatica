@@ -7,10 +7,20 @@ typedef struct {
   float **mat;
 } Mat;
 
+typedef struct {
+  int rows;
+  int cols;
+  int **mat;
+} Mati;
+
 /*FUNZIONI AUSILIARIE*/
 void mat_init(Mat *m);
 
 void mat_init_symmetric(Mat *m);
+
+void mat_init_bool(Mati *m);
+
+void mat_print_int(Mati *m);
 
 
 /*ESERCIZIO 1*/

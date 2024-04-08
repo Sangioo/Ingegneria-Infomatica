@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
-#include "aux.h"
+#include "auxiliary.h"
 
 
 /*FUNZIONI DI TEST*/
