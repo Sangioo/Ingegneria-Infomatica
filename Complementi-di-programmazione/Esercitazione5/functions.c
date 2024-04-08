@@ -195,6 +195,7 @@ Mat* mat_product(Mat *m1, Mat *m2) {
 // e mat_free, mat_print ad ogni chiamata di game_of_life per il normale avanzamento.
 Mat* game_of_life(Mat* mat) {
 	int neighbors = 0;
+	Mat *m = mat_alloc(mat->rows, mat->cols);
 	for (int i=0; i<mat->rows; i++) {
 		for (int j=0; j<mat->cols; j++) {
 			neighbors = 0;
@@ -225,16 +226,20 @@ Mat* game_of_life(Mat* mat) {
 
 			if (mat->mat[i][j] == 1) {
 				if (neighbors != 2 && neighbors != 3) {
-					mat->mat[i][j] = 0;
-				}
+					m->mat[i][j] = 0;
+				} else {
+                    m->mat[i][j] = 1;
+                }
 			} else if (mat->mat[i][j] == 0) {
 				if (neighbors == 3) {
-					mat->mat[i][j] = 1;
-				}
+					m->mat[i][j] = 1;
+				} else {
+                    m->mat[i][j] = 0;
+                }
 			}
 		}
 	}
-	return mat;
+	return m;
 }
 
 /*ESERCIZIO 10*/
@@ -261,6 +266,82 @@ void sort_strings(char **array) {
 	}
 }
 
+/*ESERCIZIO 11*/
+// Scrivere una funzione:
+// Mat* mat_read(const char *filename)
+// che, dato in ingresso il nome di un file filename, allochi e restituisca una struttura Mat contenente una matrice letta dal file filename.
+// Il file contiene un primo numero che indica il numero di righe ed un secondo che indica il numero di colonne della matrice, seguiti dalla
+// lista di elementi che la compongono. 
+// Per esempio il file contenente la matrice
+// m =
+// [1.1 2.2 3.3]
+// [4.4 5.5 6.6]
+// avrà la seguente forma:
+// 2 3
+// 1.1 2.2 3.3
+// 4.4 5.5 6.6
+Mat* mat_read(const char *filename) {
+	int rows, cols;
+	FILE *file = fopen(filename, "r");
+
+	if (file == NULL) {
+		printf("ERRORE NELL'APERTURA DEL FILE\n");
+		exit(1);
+	}
+
+	fscanf(file, "%d %d", &rows, &cols);
+	Mat *m = mat_alloc(rows, cols);
+
+	float buff;
+	int i=0, j=0;
+	while(fscanf(file, "%f", &buff) != EOF) {
+		m->mat[i][j] = buff;
+		j++;
+		if (j >= cols) {
+			j = j%cols;
+			i++;
+		}
+	}
+	int ok = fclose(file);
+	if (ok != 0) {
+		printf("ERRORE NELLA CHIUSURA DEL FILE\n");
+		exit(1);
+	}
+
+	return m;
+}
+
+/*ESERCIZIO 12*/
+// Scrivere una funzione:
+// void mat_write(const char *filename, Mat *m)
+// che, dati in ingresso il nome di un file e una struttura Mat contenente una matrice,
+// salvi la matrice in un file al percorso filename. La matrice deve essere scritta sul file
+// seguendo la formattazione indicata nell'esercizio 5.10. Provare a scrivere, rileggere e
+// comparare la matrice letta per controllare il corretto funzionamento delle ultime due funzioni.
+void mat_write(const char *filename, Mat *m) {
+	FILE *file = fopen(filename, "w");
+
+	if (file == NULL) {
+		printf("ERRORE NELL'APERTURA DEL FILE\n");
+		exit(1);
+	}
+
+	fprintf(file, "%d %d\n", m->rows, m->cols);
+	for (int i=0; i<m->rows; i++) {
+		for (int j=0; j<m->cols; j++) {
+			fprintf(file, "%f ", m->mat[i][j]);
+		}
+		fprintf(file, "\n");
+	}
+
+	int ok = fclose(file);
+	if (ok != 0) {
+		printf("ERRORE NELLA CHIUSURA DEL FILE\n");
+		exit(1);
+	}
+
+	return m;
+}
 
 
 // *FUNZIONI DI TEST
@@ -371,21 +452,52 @@ void test8() {
 }
 
 void test9() {
-	Mati *m = mat_alloc(4, 4);
+	Mati *m = mat_alloc(10, 10), *next;
 	mat_init_bool(m);
 
-	printf("\nTEST ESERCIZIO 9\n");
-	mat_print_int(m);
+	printf("\nTEST ESERCIZIO 9\n");  
+	for (int i=0; i<20; i++) {
+		printf("\e[1;1H\e[2J");
+		mat_print(m);
+		next = game_of_life(m);
+		mat_free(m);
+		m = next;
+	}
 }
 
 void test10() {
+	int len = 8;
+	char **a = (char **) malloc(sizeof(char *)*len+1);
 
+	a[0] = "asdfghjkl";
+	a[1] = "qwertyuiop9";
+	a[2] = "zxcvbnm";
+	a[3] = "1234567890";
+	a[4] = "jjjjjjjjjjjjjjjjjj";
+	a[5] = NULL;
+
+	sort_strings(a);
+	for (int i=0; i<len; i++) {
+	  	for (int j=0; j<mystrlen(a[i]); j++) {
+			printf("%c", a[i][j]);
+		}
+		printf("\n");
+	}
 }
 
 void test11() {
+	char *filename = "matrice.txt";
+    Mat *m = mat_read(filename);
 
+    printf("\nTEST ESERCIZIO 11\n");
+    mat_print(m);
 }
 
 void test12() {
+	char *filename = "matrice.txt";
+	Mat *m = mat_read(filename);
+   	mat_write(filename, m);
 
+    printf("\nTEST ESERCIZIO 11\n");
+    mat_print(m);
 }

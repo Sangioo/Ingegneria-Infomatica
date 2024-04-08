@@ -22,6 +22,8 @@ void mat_init_bool(Mati *m);
 
 void mat_print_int(Mati *m);
 
+int mystrlen(char *s);
+
 
 /*ESERCIZIO 1*/
 Mat* mat_alloc(int rows, int cols);
