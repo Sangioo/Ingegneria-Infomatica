@@ -189,7 +189,6 @@ void filter_write(char * message, FILE * file) {
 bool same_content(FILE *f1, FILE *f2) {
 	char c1 = fgetc(f1);
 	char c2 = fgetc(f2);
-	printf("%c %c\n", c1, c2);
 	if (c1 == EOF || c2 == EOF) {
 		return true;
 	} else if (c1 == c2) {
@@ -330,7 +329,7 @@ void test10() {
 		exit(1);
 	}
 
-	printf("\nTEST ESERCIZIO 9:\n");
+	printf("\nTEST ESERCIZIO 10:\n");
 	bool s = same_content(f1, f2);
 	printf("stesso contenuto: %s\n", (s == 1)? "true" : "false");
 
