@@ -82,7 +82,7 @@ void copy(char * dest, char * src);
  * @param dest stringa destinazione
  * @param src stringa sorgente
 */
-void concat(char * dest, const char * src);
+void concat(char * dest, char * src);
 
 /**
  * *ESERCIZIO 9:

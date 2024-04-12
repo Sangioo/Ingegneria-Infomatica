@@ -8,6 +8,6 @@
  * Restituisce la lunghezza della stringa in input
  * @param s stringa
 */
-int mystrlen(char *s) {
+// int mystrlen(char *s) {
 	
-}
+// }
