@@ -9,14 +9,22 @@ struct ElemSCL {
 typedef struct ElemSCL TipoNodoSCL;
 typedef TipoNodoSCL * TipoSCL;
 
-// typedef char TipoInfoSCL;
+typedef char TipoInfoSCLC;
+struct ElemSCLC {
+    TipoInfoSCLC info;
+    struct ElemSCLC *next;
+};
+
+typedef struct ElemSCLC TipoNodoSCLC;
+typedef TipoNodoSCLC * TipoSCLC;
 
 
 void addSCL(TipoSCL *scl, TipoInfoSCL e);
+void addSCLC(TipoSCLC *scl, TipoInfoSCLC e);
 
 void delSCL(TipoSCL *scl);
 
-int emptySCL(TipoSCL scl);
+void delSCLC(TipoSCLC *scl);
 
 void writeSCL(TipoSCL scl);
 
@@ -77,12 +85,13 @@ void scl_positives(TipoSCL scl, TipoSCL *ris);
 */
 TipoSCL scl_positives_(TipoSCL scl);
 
+
 /**
  * *ESERCIZIO 7:
  * Scrivere la funzione che data in input la struttura s, ne stampi a schermo tutti i caratteri. Una SCL vuota corrisponderà alla stringa vuota "".
  * @param s struttura collegata lineare input
 */
-void sclstring_print(TipoSCL s);
+void sclstring_print(TipoSCLC s);
 
 /**
  * *ESERCIZIO 8:
@@ -90,14 +99,14 @@ void sclstring_print(TipoSCL s);
  * @param s stringa input
  * @param ris struttura collegata lineare output
 */
-void sclstring_create(const char *s, TipoSCL *ris);
+void sclstring_create(const char *s, TipoSCLC *ris);
 
 /**
  * *ESERCIZIO 8b:
  * Scrivere una funzione che data in input una stringa, ritorni una struttura SCL che la rappresenti.
  * @param s stringa input
 */
-TipoSCL sclstring_create_(const char *s);
+TipoSCLC sclstring_create_(const char *s);
 
 /**
  * *ESERCIZIO 9:
@@ -105,7 +114,7 @@ TipoSCL sclstring_create_(const char *s);
  * @param scl struttura collegata lineare input
  * @param s stringa input
 */
-bool sclstring_equals(TipoSCL scl, const char *s);
+bool sclstring_equals(TipoSCLC scl, const char *s);
 
 /**
  * *ESERCIZIO 10:
@@ -113,4 +122,4 @@ bool sclstring_equals(TipoSCL scl, const char *s);
  * @param scl_p puntatore a struttura collegata lineare input
  * @param val carattere da matchare
 */
-void sclstring_remove(TipoSCL *scl_p, char val);
+void sclstring_remove(TipoSCLC *scl_p, char val);

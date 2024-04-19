@@ -74,6 +74,11 @@ void scl_duplicate_pos(TipoSCL scl, int pos) {
 void scl_positives(TipoSCL scl, TipoSCL *ris) {
 	if (scl == NULL) {
 		return;
+	} else if (scl->info >= 0) {
+		scl_positives(scl->next, ris);
+		addSCL(ris, scl->info);
+	} else {
+		scl_positives(scl->next, ris);
 	}
 }
 
@@ -82,14 +87,31 @@ void scl_positives(TipoSCL scl, TipoSCL *ris) {
  * Scrivere una funzione che restituisca una nuova SCL contenente solo gli elementi con valori maggiori o uguali di zero di scl.
  * @param scl struttura collegata lineare input
 */
-// TipoSCL scl_positives_(TipoSCL scl);
+TipoSCL scl_positives_(TipoSCL scl) {
+	if (scl == NULL) {
+		return NULL;
+	} else if (scl->info >= 0) {
+		TipoSCL s = scl_positives_(scl->next);
+		addSCL(&s, scl->info);
+		return s;
+	} else {
+		return scl_positives_(scl->next);
+	}
+}
 
 /**
  * *ESERCIZIO 7:
  * Scrivere la funzione che data in input la struttura s, ne stampi a schermo tutti i caratteri. Una SCL vuota corrisponderà alla stringa vuota "".
  * @param s struttura collegata lineare input
 */
-// void sclstring_print(TipoSCL s);
+void sclstring_print(TipoSCLC s) {
+	if (s == NULL) {
+		printf("\n");
+	} else {
+		printf("%c", s->info);
+		sclstring_print(s->next);
+	}
+}
 
 /**
  * *ESERCIZIO 8:
@@ -97,14 +119,30 @@ void scl_positives(TipoSCL scl, TipoSCL *ris) {
  * @param s stringa input
  * @param ris struttura collegata lineare output
 */
-// void sclstring_create(const char *s, TipoSCL *ris);
+void sclstring_create(const char *s, TipoSCLC *ris) {
+	if (*s == '\0') {
+		return;
+	} else {
+		TipoInfoSCLC c = *s;
+		sclstring_create(s+1, ris);
+		addSCLC(ris, c);
+	}
+}
 
 /**
  * *ESERCIZIO 8b:
  * Scrivere una funzione che data in input una stringa, ritorni una struttura SCL che la rappresenti.
  * @param s stringa input
 */
-// TipoSCL sclstring_create_(const char *s);
+TipoSCLC sclstring_create_(const char *s) {
+	if (*s == '\0') {
+		return NULL;
+	} else {
+		TipoSCLC scl = sclstring_create_(s+1);
+		addSCLC(&scl, *s);
+		return scl;
+	}
+}
 
 /**
  * *ESERCIZIO 9:
@@ -112,7 +150,17 @@ void scl_positives(TipoSCL scl, TipoSCL *ris) {
  * @param scl struttura collegata lineare input
  * @param s stringa input
 */
-// bool sclstring_equals(TipoSCL scl, const char *s);
+bool sclstring_equals(TipoSCLC scl, const char *s) {
+	if (*s == '\0' && scl == NULL) {
+		return true;
+	} else if (*s == '\0' || scl == NULL) {
+		return false;
+	} else if (*s == scl->info) {
+		return true && sclstring_equals(scl->next, s+1);
+	} else {
+		return false;
+	}
+}
 
 /**
  * *ESERCIZIO 10:
@@ -120,7 +168,16 @@ void scl_positives(TipoSCL scl, TipoSCL *ris) {
  * @param scl_p puntatore a struttura collegata lineare input
  * @param val carattere da matchare
 */
-// void sclstring_remove(TipoSCL *scl_p, char val);
+void sclstring_remove(TipoSCLC *scl_p, char val) {
+	if (*scl_p == NULL) {
+		return;
+	} else if ((*scl_p)->info == val) {
+		sclstring_remove(&((*scl_p)->next), val);
+		delSCLC(scl_p);
+	} else {
+		sclstring_remove(&((*scl_p)->next), val);
+	}
+}
 
 
 void test1() {
@@ -164,29 +221,69 @@ void test5() {
 }
 
 void test6() {
-	
+	TipoSCL scl = initSCL_rand(10, -100, 100);
+	TipoSCL ris = NULL;
+
+	printf("\nTEST ESERCIZIO 6:\n");
+	writeSCL(scl);
+	scl_positives(scl, &ris);
+	writeSCL(ris);
 }
 
 void test6b() {
-	
+	TipoSCL scl = initSCL_rand(10, -100, 100);
+	TipoSCL ris = scl_positives_(scl);
+
+	printf("\nTEST ESERCIZIO 6b:\n");
+	writeSCL(scl);
+	writeSCL(ris);
 }
 
 void test7() {
-	
+	TipoSCLC scl = NULL;
+	char s[] = "Lorem ipsum dolor sit amet";
+	sclstring_create(s, &scl);
+
+	printf("\nTEST ESERCIZIO 7:\n");
+	sclstring_print(scl);
 }
 
 void test8() {
-	
+	TipoSCLC scl = NULL;
+	char s[] = "Lorem ipsum dolor sit amet";
+	sclstring_create(s, &scl);
+
+	printf("\nTEST ESERCIZIO 8:\n");
+	sclstring_print(scl);
 }
 
 void test8b() {
+	char s[] = "Lorem ipsum dolor sit amet";
+	TipoSCLC scl = sclstring_create_(s);
 
+	printf("\nTEST ESERCIZIO 8b:\n");
+	sclstring_print(scl);
 }
 
 void test9() {
-	
+	char check[] = "Lorem ipsum dolor sit amet";
+	char s[] = "Lorem ipsum dolor sit amet";
+	TipoSCLC scl = sclstring_create_(s);
+
+	printf("\nTEST ESERCIZIO 9:\n");
+	printf("SCL: ");
+	sclstring_print(scl);
+	printf("stringa: %s\n", check);
+	printf("uguali: %s\n", (sclstring_equals(scl, check)) ? "true" : "false");
 }
 
 void test10() {
-	
+	char s[] = "oLorem ipsum dolor sit ameto";
+	TipoSCLC scl = sclstring_create_(s);
+	char c = 'o';
+
+	printf("\nTEST ESERCIZIO 8b:\n");
+	sclstring_print(scl);
+	sclstring_remove(&scl, c);
+	sclstring_print(scl);
 }
