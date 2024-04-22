@@ -35,7 +35,10 @@ float scl_sum(TipoSCL scl) {
  * Implementare la funzione che restituisce il valore medio degli elementi della lista. L’esercizio deve essere svolto senza l’ausilio delle precedenti due funzioni.
  * @param scl struttura collegata lineare input
 */
-// float scl_media(TipoSCL scl) {}
+float scl_media(TipoSCL scl) {
+	int n = 0;
+	return scl_avg(scl, &n);
+}
 
 /**
  * *ESERCIZIO 4:
@@ -47,7 +50,7 @@ float scl_dot(TipoSCL scl1, TipoSCL scl2) {
 	if (scl1 == NULL || scl2 == NULL) {
 		return 1;
 	} else {
-		return scl1->info * scl2->info * scl_dot(scl1->next, scl2->next);
+		return scl1->info * scl2->info + scl_dot(scl1->next, scl2->next);
 	}
 }
 
@@ -197,7 +200,11 @@ void test2() {
 }
 
 void test3() {
-	
+	TipoSCL scl = initSCL_rand(10, 0, 10);
+
+	printf("\nTEST ESERCIZIO 3:\n");
+	writeSCL(scl);
+	printf("media elementi: %f\n", scl_media(scl));
 }
 
 void test4() {

@@ -53,3 +53,16 @@ TipoSCL initSCL_rand(int size, int min, int max) {
 	}
     return scl;
 }
+
+float scl_avg(TipoSCL scl, int *n) {
+    if (scl == NULL) {
+        return 0;
+    } else if (*n == 0) {
+        *n += 1;
+        float avg = scl->info + scl_avg(scl->next, n);
+        return avg / *n;
+    } else {
+        *n += 1;
+        return scl->info + scl_avg(scl->next, n);
+    }
+}

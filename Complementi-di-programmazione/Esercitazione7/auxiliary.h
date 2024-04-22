@@ -32,6 +32,8 @@ TipoSCL initSCL(TipoInfoSCL e, int size);
 
 TipoSCL initSCL_rand(int size, int min, int max);
 
+float scl_avg(TipoSCL scl, int *n);
+
 
 /**
  * *ESERCIZIO 1:
