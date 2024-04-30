@@ -10,10 +10,10 @@
  * @param scl struttura collegata lineare input
 */
 int scl_len(TipoSCL scl) {
-	if(scl == NULL) {
+	if (isemptySCL(scl)) {
 		return 0;
 	} else {
-		return 1 + scl_len(scl->next);
+		return 1 + scl_len(restoSCL(scl));
 	}
 }
 
@@ -23,18 +23,32 @@ int scl_len(TipoSCL scl) {
  * @param scl struttura collegata lineare input
 */
 float scl_sum(TipoSCL scl) {
-	if (scl == NULL) {
+	if (isemptySCL(scl)) {
 		return 0;
 	} else {
-		return scl->info + scl_sum(scl->next);
+		return primoSCL(scl) + scl_sum(restoSCL(scl));
 	}
 }
+
 
 /**
  * *ESERCIZIO 3:
  * Implementare la funzione che restituisce il valore medio degli elementi della lista. L’esercizio deve essere svolto senza l’ausilio delle precedenti due funzioni.
  * @param scl struttura collegata lineare input
 */
+float scl_avg(TipoSCL scl, int *n) {
+    if (isemptySCL(scl)) {
+        return 0;
+    } else if (*n == 0) {
+        *n += 1;
+        float avg = primoSCL(scl) + scl_avg(restoSCL(scl), n);
+        return avg / *n;
+    } else {
+        *n += 1;
+        return primoSCL(scl) + scl_avg(restoSCL(scl), n);
+    }
+}
+
 float scl_media(TipoSCL scl) {
 	int n = 0;
 	return scl_avg(scl, &n);
@@ -47,10 +61,10 @@ float scl_media(TipoSCL scl) {
  * @param scl1 struttura collegata lineare numero 2
 */
 float scl_dot(TipoSCL scl1, TipoSCL scl2) {
-	if (scl1 == NULL || scl2 == NULL) {
+	if (isemptySCL(scl1) || isemptySCL(scl2)) {
 		return 1;
 	} else {
-		return scl1->info * scl2->info + scl_dot(scl1->next, scl2->next);
+		return primoSCL(scl1) * primoSCL(scl2) + scl_dot(restoSCL(scl1), restoSCL(scl2));
 	}
 }
 
@@ -60,11 +74,11 @@ float scl_dot(TipoSCL scl1, TipoSCL scl2) {
  * @param scl struttura collegata lineare input
  * @param pos posizione
 */
-void scl_duplicate_pos(TipoSCL scl, int pos) {
+TipoSCL scl_duplicate_pos(TipoSCL scl, int pos) {
 	if (pos == 0) {
-		addSCL(&scl->next, scl->info);
+		return addSCL(scl, primoSCL(scl));
 	} else {
-		scl_duplicate_pos(scl->next, pos-1);
+		return addSCL(scl_duplicate_pos(restoSCL(scl), pos-1), primoSCL(scl));
 	}
 }
 
@@ -72,33 +86,14 @@ void scl_duplicate_pos(TipoSCL scl, int pos) {
  * *ESERCIZIO 6:
  * Scrivere una funzione che modifichi la SCL ris contenente solo gli elementi con valori maggiori o uguali di zero di scl.
  * @param scl struttura collegata lineare input
- * @param ris struttura collegata lineare da modificare
 */
-void scl_positives(TipoSCL scl, TipoSCL *ris) {
-	if (scl == NULL) {
-		return;
-	} else if (scl->info >= 0) {
-		scl_positives(scl->next, ris);
-		addSCL(ris, scl->info);
-	} else {
-		scl_positives(scl->next, ris);
-	}
-}
-
-/**
- * *ESERCIZIO 6b:
- * Scrivere una funzione che restituisca una nuova SCL contenente solo gli elementi con valori maggiori o uguali di zero di scl.
- * @param scl struttura collegata lineare input
-*/
-TipoSCL scl_positives_(TipoSCL scl) {
-	if (scl == NULL) {
+TipoSCL scl_positives(TipoSCL scl) {
+	if (isemptySCL(scl)) {
 		return NULL;
-	} else if (scl->info >= 0) {
-		TipoSCL s = scl_positives_(scl->next);
-		addSCL(&s, scl->info);
-		return s;
+	} else if (primoSCL(scl) >= 0) {
+		return addSCL(scl_positives(restoSCL(scl)), primoSCL(scl));
 	} else {
-		return scl_positives_(scl->next);
+		return scl_positives(restoSCL(scl));
 	}
 }
 
@@ -108,11 +103,11 @@ TipoSCL scl_positives_(TipoSCL scl) {
  * @param s struttura collegata lineare input
 */
 void sclstring_print(TipoSCLC s) {
-	if (s == NULL) {
+	if (isemptySCLC(s)) {
 		printf("\n");
 	} else {
-		printf("%c", s->info);
-		sclstring_print(s->next);
+		printf("%c", primoSCLC(s));
+		sclstring_print(restoSCLC(s));
 	}
 }
 
@@ -120,30 +115,13 @@ void sclstring_print(TipoSCLC s) {
  * *ESERCIZIO 8:
  * Scrivere una funzione che data in input una stringa, generi una struttura SCL che la rappresenti.
  * @param s stringa input
- * @param ris struttura collegata lineare output
 */
-void sclstring_create(const char *s, TipoSCLC *ris) {
-	if (*s == '\0') {
-		return;
-	} else {
-		TipoInfoSCLC c = *s;
-		sclstring_create(s+1, ris);
-		addSCLC(ris, c);
-	}
-}
-
-/**
- * *ESERCIZIO 8b:
- * Scrivere una funzione che data in input una stringa, ritorni una struttura SCL che la rappresenti.
- * @param s stringa input
-*/
-TipoSCLC sclstring_create_(const char *s) {
+TipoSCLC sclstring_create(const char *s) {
 	if (*s == '\0') {
 		return NULL;
 	} else {
-		TipoSCLC scl = sclstring_create_(s+1);
-		addSCLC(&scl, *s);
-		return scl;
+		TipoInfoSCLC c = *s;
+		return addSCLC(sclstring_create(s+1), c);
 	}
 }
 
@@ -154,12 +132,12 @@ TipoSCLC sclstring_create_(const char *s) {
  * @param s stringa input
 */
 bool sclstring_equals(TipoSCLC scl, const char *s) {
-	if (*s == '\0' && scl == NULL) {
+	if (*s == '\0' && isemptySCLC(scl)) {
 		return true;
-	} else if (*s == '\0' || scl == NULL) {
+	} else if (*s == '\0' || isemptySCLC(scl)) {
 		return false;
-	} else if (*s == scl->info) {
-		return true && sclstring_equals(scl->next, s+1);
+	} else if (*s == primoSCLC(scl)) {
+		return true && sclstring_equals(restoSCLC(scl), s+1);
 	} else {
 		return false;
 	}
@@ -167,18 +145,17 @@ bool sclstring_equals(TipoSCLC scl, const char *s) {
 
 /**
  * *ESERCIZIO 10:
- * Scrivere una funzione che modifichi la struttura puntata da scl_p, eliminando tutti gli elementi con valore uguale a val. Se val non è presente, non va fatta alcuna modifica.
- * @param scl_p puntatore a struttura collegata lineare input
+ * Scrivere una funzione che modifichi la struttura puntata da scl, eliminando tutti gli elementi con valore uguale a val. Se val non è presente, non va fatta alcuna modifica.
+ * @param scl struttura collegata lineare in input
  * @param val carattere da matchare
 */
-void sclstring_remove(TipoSCLC *scl_p, char val) {
-	if (*scl_p == NULL) {
-		return;
-	} else if ((*scl_p)->info == val) {
-		sclstring_remove(&((*scl_p)->next), val);
-		delSCLC(scl_p);
+TipoSCLC sclstring_remove(TipoSCLC scl, char val) {
+	if (isemptySCLC(scl)) {
+		return NULL;
+	} else if (primoSCLC(scl) == val) {
+		return sclstring_remove(restoSCLC(scl), val);
 	} else {
-		sclstring_remove(&((*scl_p)->next), val);
+		return addSCLC(sclstring_remove(restoSCLC(scl), val), primoSCLC(scl));
 	}
 }
 
@@ -209,7 +186,6 @@ void test3() {
 
 void test4() {
 	TipoSCL scl1 = initSCL(2, 10);
-
 	TipoSCL scl2 = initSCL(3, 10);
 
 	printf("\nTEST ESERCIZIO 4:\n");
@@ -223,59 +199,39 @@ void test5() {
 
 	printf("\nTEST ESERCIZIO 5:\n");
 	writeSCL(scl);
-	scl_duplicate_pos(scl, 5);
-	writeSCL(scl);
+	TipoSCL ris = scl_duplicate_pos(scl, 5);
+	writeSCL(ris);
 }
 
 void test6() {
 	TipoSCL scl = initSCL_rand(10, -100, 100);
-	TipoSCL ris = NULL;
+	TipoSCL ris = scl_positives(scl);
 
 	printf("\nTEST ESERCIZIO 6:\n");
-	writeSCL(scl);
-	scl_positives(scl, &ris);
-	writeSCL(ris);
-}
-
-void test6b() {
-	TipoSCL scl = initSCL_rand(10, -100, 100);
-	TipoSCL ris = scl_positives_(scl);
-
-	printf("\nTEST ESERCIZIO 6b:\n");
 	writeSCL(scl);
 	writeSCL(ris);
 }
 
 void test7() {
-	TipoSCLC scl = NULL;
 	char s[] = "Lorem ipsum dolor sit amet";
-	sclstring_create(s, &scl);
+	TipoSCLC scl = sclstring_create(s);
 
 	printf("\nTEST ESERCIZIO 7:\n");
 	sclstring_print(scl);
 }
 
 void test8() {
-	TipoSCLC scl = NULL;
 	char s[] = "Lorem ipsum dolor sit amet";
-	sclstring_create(s, &scl);
+	TipoSCLC scl = sclstring_create(s);
 
 	printf("\nTEST ESERCIZIO 8:\n");
 	sclstring_print(scl);
 }
 
-void test8b() {
-	char s[] = "Lorem ipsum dolor sit amet";
-	TipoSCLC scl = sclstring_create_(s);
-
-	printf("\nTEST ESERCIZIO 8b:\n");
-	sclstring_print(scl);
-}
-
 void test9() {
-	char check[] = "Lorem ipsum dolor sit amet";
 	char s[] = "Lorem ipsum dolor sit amet";
-	TipoSCLC scl = sclstring_create_(s);
+	char check[] = "Lorem ipsum dolor sit amet";
+	TipoSCLC scl = sclstring_create(s);
 
 	printf("\nTEST ESERCIZIO 9:\n");
 	printf("SCL: ");
@@ -286,11 +242,14 @@ void test9() {
 
 void test10() {
 	char s[] = "oLorem ipsum dolor sit ameto";
-	TipoSCLC scl = sclstring_create_(s);
 	char c = 'o';
+	TipoSCLC scl = sclstring_create(s);
+	TipoSCLC ris = sclstring_remove(scl, c);
 
 	printf("\nTEST ESERCIZIO 10:\n");
+	printf("stringa: ");
 	sclstring_print(scl);
-	sclstring_remove(&scl, c);
-	sclstring_print(scl);
+	printf("carattere: %c\n", c);
+	printf("risultato: ");
+	sclstring_print(ris);
 }
