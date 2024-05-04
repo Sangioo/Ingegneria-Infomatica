@@ -20,14 +20,18 @@ typedef TipoNodo* Insieme;
 
 typedef Insieme* IteratoreInsieme;
 
+
 // Funzioni primitive del tipo:
+
 Insieme insiemeVuoto();
 bool estVuoto(Insieme ins);
 Insieme inserisci(Insieme ins, T e);
 Insieme elimina(Insieme ins, T e);
 bool membro(Insieme ins, T e);
 
+
 // Iteratore:
+
 IteratoreInsieme creaIteratoreInsieme(Insieme ins);
 bool hasNext(IteratoreInsieme it);
 T next(IteratoreInsieme it);
