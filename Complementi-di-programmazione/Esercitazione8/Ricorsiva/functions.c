@@ -11,13 +11,11 @@
  * @param n dimensione dell'array
 */
 Insieme init(int *arr, int n) {
-	Insieme ins = insiemeVuoto();
-
-    for (int i=n-1; i>=0; i--) {
-        ins = inserisci(ins, arr[i]);
+	if (n == 0) {
+        return insiemeVuoto();
+    } else {
+        return inserisci(init(arr+1, n-1), *arr);
     }
-
-    return ins;
 }
 
 /**
@@ -25,12 +23,22 @@ Insieme init(int *arr, int n) {
  * Implementare la funzione che stampi a schermo il contenuto dell’insieme.
  * @param s insieme da stampare
 */
+void printer(Insieme s, IteratoreInsieme iter) {
+    if (!hasNext(iter)) {
+        printf("\n");
+    } else {
+        printf("%d ", next(iter));
+        printer(s, iter);
+    }
+}
+/**
+ * *ESERCIZIO 2:
+ * Implementare la funzione che stampi a schermo il contenuto dell’insieme.
+ * @param s insieme da stampare
+*/
 void print(Insieme s) {
     IteratoreInsieme iter = creaIteratoreInsieme(s);
-    while (hasNext(iter)) {
-        printf("%d ", next(iter));
-    }
-    printf("\n");
+    printer(s, iter);
 }
 
 /**
@@ -38,15 +46,21 @@ void print(Insieme s) {
  * Implementare la funzione che restituisce una copia dell’insieme s.
  * @param s insieme da copiare
 */
-Insieme copy(Insieme s) {
-    Insieme ins = insiemeVuoto();
-    IteratoreInsieme iter = creaIteratoreInsieme(s);
-
-    while (hasNext(iter)) {
-        ins = inserisci(ins, next(iter));
+Insieme copier(Insieme s, IteratoreInsieme iter) {
+    if (!hasNext(iter)) {
+        return insiemeVuoto();
+    } else {
+        return inserisci(copier(s, iter), next(iter));
     }
-
-    return ins;
+}
+/**
+ * *ESERCIZIO 3:
+ * Implementare la funzione che restituisce una copia dell’insieme s.
+ * @param s insieme da copiare
+*/
+Insieme copy(Insieme s) {
+    IteratoreInsieme iter = creaIteratoreInsieme(s);
+    return copier(s, iter);
 }
 
 /**
@@ -54,16 +68,22 @@ Insieme copy(Insieme s) {
  * Implementare la funzione che restituisce la dimensione dell’insieme.
  * @param s insieme in input
 */
+int sizer(Insieme s, IteratoreInsieme iter) {
+    if (!hasNext(iter)) {
+        return 0;
+    } else {
+        next(iter);
+        return 1 + sizer(s, iter);
+    }
+}
+/**
+ * *ESERCIZIO 4:
+ * Implementare la funzione che restituisce la dimensione dell’insieme.
+ * @param s insieme in input
+*/
 int size(Insieme s) {
     IteratoreInsieme iter = creaIteratoreInsieme(s);
-    int count = 0;
-
-    while (hasNext(iter)) {
-        count++;
-        next(iter);
-    }
-
-    return count;
+    return sizer(s, iter);
 }
 
 /**
@@ -72,18 +92,41 @@ int size(Insieme s) {
  * @param a insieme a
  * @param b insieme b
 */
+bool subsetter(Insieme ins, IteratoreInsieme iter) {
+    if (!hasNext(iter)) {
+        return true;
+    } else {
+        return membro(ins, next(iter)) && subsetter(ins, iter);
+    }
+}
+/**
+ * *ESERCIZIO 5:
+ * Implementare la funzione che, dati in ingresso due insiemi a e b, restituisce true se l'insieme a è completamente contenuto dentro l'insieme b.
+ * @param a insieme a
+ * @param b insieme b
+*/
 bool subset(Insieme a, Insieme b) {
     IteratoreInsieme iter = creaIteratoreInsieme(a);
-    bool incluso = true;
-
-    while (hasNext(iter)) {
-        T e = next(iter);
-        incluso = incluso && membro(b, e);
-    }
-    
-    return incluso;
+    return subsetter(b, iter);
 }
 
+/**
+ * *ESERCIZIO 6:
+ * Implementare la funzione che, dati in ingresso due insiemi a e b, restituisce true se e solo se gli insiemi a e b sono uguali.
+ * @param a insieme a
+ * @param b insieme b
+*/
+bool equaler(Insieme a, IteratoreInsieme iter_a, Insieme b, IteratoreInsieme iter_b) {
+    if (!hasNext(iter_a) && !hasNext(iter_b)) {
+        return true;
+    } else if (!hasNext(iter_a) || !hasNext(iter_b)) {
+        return false;
+    } else {
+        T elem_a = next(iter_a);
+        T elem_b = next(iter_b);
+        return membro(a, elem_b) && membro(b, elem_a) && equaler(a, iter_a, b, iter_b);
+    }
+}
 /**
  * *ESERCIZIO 6:
  * Implementare la funzione che, dati in ingresso due insiemi a e b, restituisce true se e solo se gli insiemi a e b sono uguali.
@@ -93,19 +136,7 @@ bool subset(Insieme a, Insieme b) {
 bool equal(Insieme a, Insieme b) {
     IteratoreInsieme iter_a = creaIteratoreInsieme(a);
     IteratoreInsieme iter_b = creaIteratoreInsieme(b);
-    bool uguali = true;
-
-    if (size(a) != size(b)) {
-        return false;
-    } else {
-        while (hasNext(iter_a) && hasNext(iter_b)) {
-            T elem_a = next(iter_a);
-            T elem_b = next(iter_b);
-            uguali = uguali && membro(a, elem_b) && membro(b, elem_a);
-        }
-    }
-
-    return uguali;
+    return equaler(a, iter_a, b, iter_b);
 }
 
 /**
@@ -114,18 +145,26 @@ bool equal(Insieme a, Insieme b) {
  * @param a insieme a
  * @param b insieme b
 */
-Insieme intersection(Insieme a, Insieme b) {
-    Insieme res = insiemeVuoto();
-    IteratoreInsieme iter = creaIteratoreInsieme(a);
-
-    while (hasNext(iter)) {
-        T e = next(iter);
-        if (membro(b, e)) {
-            res = inserisci(res, e);
-        }
+Insieme intersectioner(Insieme ins, IteratoreInsieme iter) {
+    if (!hasNext(iter)) {
+        return insiemeVuoto();
     }
-
-    return res;
+    T e = next(iter);
+    if (membro(ins, e)) {
+        return inserisci(intersectioner(ins, iter), e);
+    } else {
+        return intersectioner(ins, iter);
+    }
+}
+/**
+ * *ESERCIZIO 7:
+ * Implementare la funzione che, dati in ingresso due insiemi a e b, restituisce l’insieme corrispondente all’intersezione tra i due.
+ * @param a insieme a
+ * @param b insieme b
+*/
+Insieme intersection(Insieme a, Insieme b) {
+    IteratoreInsieme iter = creaIteratoreInsieme(a);
+    return intersectioner(b, iter);
 }
 
 /**
@@ -134,17 +173,23 @@ Insieme intersection(Insieme a, Insieme b) {
  * @param a insieme a
  * @param b insieme b
 */
-Insieme union_(Insieme a, Insieme b) {
-    Insieme res = insiemeVuoto();
-    IteratoreInsieme iter = creaIteratoreInsieme(b);
-    res = copy(a);
-
-    while (hasNext(iter)) {
+Insieme unioner(Insieme ins, IteratoreInsieme iter) {
+    if (!hasNext(iter)) {
+        return copy(ins);
+    } else {
         T e = next(iter);
-        res = inserisci(res, e);
+        return inserisci(unioner(ins, iter), e);
     }
-
-    return res;
+}
+/**
+ * *ESERCIZIO 8:
+ * Implementare la funzione che, dati in ingresso due insiemi a e b, restituisce l’insieme corrispondente all’unione dei due.
+ * @param a insieme a
+ * @param b insieme b
+*/
+Insieme union_(Insieme a, Insieme b) {
+    IteratoreInsieme iter = creaIteratoreInsieme(b);
+    return unioner(a, iter);
 }
 
 
@@ -214,7 +259,7 @@ void test5() {
 void test6() {
 	printf("\nTEST ESERCIZIO 6:\n");
     const int n = 5, m = 5;
-	int a[n] = {1, 2, 3, 4, 5};
+	int a[n] = {1, 3, 2, 4, 5};
     int b[m] = {1, 2, 3, 4, 5};
     Insieme ins1 = init(a, n);
     Insieme ins2 = init(b, m);
