@@ -1,107 +1,79 @@
-#include <stdlib.h>
 #include <stdio.h>
-#include <stdbool.h>
+#include <stdlib.h>
 #include "auxiliary.h"
 
 /**
- * Crea un insieme vuoto, O(1)
- * @returns un insieme vuoto
+ * Crea una lista vuota.
+ * @returns una lista vuota
 */
-Insieme insiemeVuoto() {
-  return NULL;
+TipoLista listaVuota() {
+    return NULL;
 }
 
 /**
- * Verifica che un insieme sia vuoto o meno, O(1)
- * @param ins insieme da valutare
- * @returns true se l'insieme e' vuoto, false altrimenti
+ * Verifica se una lista e' vuota.
+ * @param l lista in input
+ * @returns true se la lista e' vuota, false altrimenti
 */
-bool estVuoto(Insieme ins) {
-    return ins == NULL;
+int estVuota(TipoLista l) {
+    return l == NULL;
 }
 
 /**
- * Inserisce un elemento nell'insieme, O(n)
- * @param ins insieme a cui aggiungere l'elemento
- * @param e elemento da aggiungere
- * @returns un'insieme costituito dall'insieme in input con aggiunto l'elemento
+ * Aggiunge un elemento in testa alla lista.
+ * @param e elemnento da aggiungere
+ * @param l lista a cui aggiungere l'elemento
+ * @returns una lista composta dalla lista in input con in testa l'elemento
 */
-Insieme inserisci(Insieme ins, T e) {
-    if (!membro(ins,e)) {
-        TipoNodo* n = (TipoNodo*) malloc(sizeof(TipoNodo));
-        n->info = e;
-        n->next = ins;
-        return n;
+TipoLista cons(T e, TipoLista l) {
+    TipoLista nuovo = (TipoLista)malloc(sizeof(TipoNodo));
+    nuovo->info = e;
+    nuovo->next = l;
+    return nuovo;
+}
+
+/**
+ * Legge il valore del primo elemento della lista
+ * @param l lista da cui leggere
+ * @returns il primo elemento della lista
+*/
+T car(TipoLista l) {
+    if (l == NULL) {
+        printf("ERRORE: lista vuota \n ");
+        exit(1);
     }
-    else
-        return ins;
+    return l->info;
 }
 
 /**
- * Elimina l'elemento specificato dall'insieme, O(n)
- * @param ins insieme da cui eliminare
- * @param e elemento da eliminare
- * @returns un insieme privo dell'elemento, se l'elemento non e' presente ritorna l'insieme di input
+ * Restituisce la lista data in input meno il primo elemento
+ * @param l lista in input
+ * @returns la lista in input meno il primo elemento
 */
-Insieme elimina(Insieme ins, T e) {
-    if (!membro(ins,e))
-        return ins;
-    else if (ins->info == e) {
-      return ins->next; // non si deve deallocare memoria
+TipoLista cdr(TipoLista l) {
+    if (l == NULL) {
+        printf("ERRORE: lista vuota \n ");
+        exit(1);
     }
-    else {
-        TipoNodo* n = (TipoNodo*) malloc(sizeof(TipoNodo));
-        n->info = ins->info;
-        n->next = elimina(ins->next,e);
-        return n;
-    }
+    return l->next;
 }
 
 /**
- * Verifica che l'elemento specificato sia presente nell'insieme, O(n)
- * @param ins insieme in input
- * @param e elemento da cercare
- * @returns true se l'elemento e' presente, false altrimenti
+ * Helper per la funzione printlist()
+ * @param l lista da stampare
 */
-bool membro(Insieme ins, T e) {
-    if (estVuoto(ins))
-        return false;
-    else
-        return ins->info==e || membro(ins->next, e);
+void printlist_aux(TipoLista l) {
+	if (estVuota(l))
+        return;
+	printf("%d ", car(l));
+	printlist_aux(cdr(l));
 }
 
 /**
- * Crea un iteratore per l'insieme, O(1)
- * @param ins l'insieme per cui creare l'iteratore
- * @returns l'iteratore per l'insieme specificato
+ * Stampa in output la lista
+ * @param l lista da stampare
 */
-IteratoreInsieme creaIteratoreInsieme(Insieme ins) {
-  IteratoreInsieme it = (IteratoreInsieme) malloc (sizeof(Insieme));
-  *it = ins;
-  return it;
-}
-
-/**
- * Verifica che sia presente un altro elemento nell'insieme, O(1)
- * @param it iteratore per l'insieme
- * @returns true se e' presente un altro elemento, false altrimenti
-*/
-bool hasNext(IteratoreInsieme it) {
-    return *it!=NULL;
-}
-
-/**
- * Restituisce il valore dell'elemento corrente nell'insieme, O(1)
- * @param it iteratore per l'insieme
- * @returns il valore dell'elemento se e' presente, TERRORVALUE altrimenti
-*/
-T next(IteratoreInsieme it) {
-    T r = TERRORVALUE;
-    if (*it!=NULL) {
-        r = (*it)->info;
-        *it = (*it)->next;
-    }
-    else
-        printf("ERRORE Iteratore non valido.\n");
-    return r;
+void printlist(TipoLista l) {
+	printlist_aux(l);
+	printf("\n");
 }

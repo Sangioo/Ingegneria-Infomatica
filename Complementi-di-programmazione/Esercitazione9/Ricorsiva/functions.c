@@ -6,306 +6,191 @@
 
 /**
  * *ESERCIZIO 1:
- * Implementare la funzione che inizializza una struttura insieme contenente gli elementi dell’array arr di dimensione n.
- * @param *arr array in input
- * @param n dimensione dell'array
+ * Implementare la funzione che, dato un array in ingresso di lunghezza len, restituisca una nuova Lista corrispondente alla sequenza contenuta nell’array.
+ * @param *vec array in input
+ * @param len dimensione dell'array
+ * @returns lista corrispondente all'array fornito
 */
-Insieme init(int *arr, int n) {
-	if (n == 0) {
-        return insiemeVuoto();
+TipoLista init(T *vec, int len) {
+    if (len == 0) {
+        return listaVuota();
     } else {
-        return inserisci(init(arr+1, n-1), *arr);
+        return cons(*vec, init(vec+1, len-1));
     }
 }
 
 /**
  * *ESERCIZIO 2:
- * Implementare la funzione che stampi a schermo il contenuto dell’insieme.
- * @param s insieme da stampare
+ * Implementare la funzione che data una lista di input, restituisca una nuova lista che contiene, per ogni elemento della lista di input, due ripetizioni contigue dello stesso.
+ * Se la lista in input è vuota, si restituisca la lista vuota.
+ * @param list lista in input
+ * @returns una lista con due istanze contigue di ogni elemento
 */
-void printer(Insieme s, IteratoreInsieme iter) {
-    if (!hasNext(iter)) {
-        printf("\n");
+TipoLista doubledCopy(TipoLista list) {
+    if (estVuota(list)) {
+        return listaVuota();
     } else {
-        printf("%d ", next(iter));
-        printer(s, iter);
+        TipoLista l = doubledCopy(cdr(list));
+        T e = car(list);
+        l = cons(e, l);
+        l = cons(e, l);
+        return l;
     }
-}
-/**
- * *ESERCIZIO 2:
- * Implementare la funzione che stampi a schermo il contenuto dell’insieme.
- * @param s insieme da stampare
-*/
-void print(Insieme s) {
-    IteratoreInsieme iter = creaIteratoreInsieme(s);
-    printer(s, iter);
 }
 
 /**
  * *ESERCIZIO 3:
- * Implementare la funzione che restituisce una copia dell’insieme s.
- * @param s insieme da copiare
+ * Implementare la funzione che data in input una lista list, restituisca una nuova lista che contiene i soli elementi di list i cui valori sono multipli di m.
+ * Se la lista in input è vuota, si restituisca la lista vuota.
+ * @param list insieme da copiare
+ * @param m numero in input
+ * @returns una lista contenente solo gli elementi multipli di m
 */
-Insieme copier(Insieme s, IteratoreInsieme iter) {
-    if (!hasNext(iter)) {
-        return insiemeVuoto();
-    } else {
-        return inserisci(copier(s, iter), next(iter));
+TipoLista multipleSublist(TipoLista list, unsigned int m) {
+    if (estVuota(list)) {
+        return listaVuota();
     }
-}
-/**
- * *ESERCIZIO 3:
- * Implementare la funzione che restituisce una copia dell’insieme s.
- * @param s insieme da copiare
-*/
-Insieme copy(Insieme s) {
-    IteratoreInsieme iter = creaIteratoreInsieme(s);
-    return copier(s, iter);
+    T e = car(list);
+    if (e%m == 0) {
+        return cons(e, multipleSublist(cdr(list), m));
+    } else {
+        return multipleSublist(cdr(list), m);
+    }
 }
 
 /**
  * *ESERCIZIO 4:
- * Implementare la funzione che restituisce la dimensione dell’insieme.
- * @param s insieme in input
+ * Implementare la funzione che data in input una lista e due posizioni start e end, restituisca una nuova Lista che contiene i valori dell’input da start a end.
+ * Il valore in posizione start deve essere incluso nell’output mentre quello in posizione end no.
+ * @param list lista in input
+ * @param start indice di inizio
+ * @param end indice di fine
+ * @returns una sottolista dall'indice start (incluso) all'indice end (escluso)
 */
-int sizer(Insieme s, IteratoreInsieme iter) {
-    if (!hasNext(iter)) {
-        return 0;
+TipoLista sublister(TipoLista list, int start, int end, int i) {
+    if (estVuota(list) || i >= end) {
+        return listaVuota();
+    } else if (start <= i && i < end) {
+        T e = car(list);
+        return cons(e, sublister(cdr(list), start, end, ++i));
     } else {
-        next(iter);
-        return 1 + sizer(s, iter);
+        return sublister(cdr(list), start, end, ++i);
     }
 }
 /**
  * *ESERCIZIO 4:
- * Implementare la funzione che restituisce la dimensione dell’insieme.
- * @param s insieme in input
+ * Implementare la funzione che data in input una lista e due posizioni start e end, restituisca una nuova Lista che contiene i valori dell’input da start a end.
+ * Il valore in posizione start deve essere incluso nell’output mentre quello in posizione end no.
+ * @param list lista in input
+ * @param start indice di inizio
+ * @param end indice di fine
+ * @returns una sottolista dall'indice start (incluso) all'indice end (escluso)
 */
-int size(Insieme s) {
-    IteratoreInsieme iter = creaIteratoreInsieme(s);
-    return sizer(s, iter);
+TipoLista subList(TipoLista list, int start, int end) {
+    return sublister(list, start, end, 0);
 }
 
 /**
  * *ESERCIZIO 5:
- * Implementare la funzione che, dati in ingresso due insiemi a e b, restituisce true se l'insieme a è completamente contenuto dentro l'insieme b.
- * @param a insieme a
- * @param b insieme b
+ * Scrivere una funzione che, date due liste in input, ritorni una nuova lista contenente tutti gli elementi di l1 nelle posizioni pari, e tutti quelli di l2 nelle posizioni dispari.
+ * Si assuma che l1 e l2 abbiano la stessa lunghezza.
+ * @param l1 lista 1
+ * @param l2 lista 2
+ * @returns una lista con gli elementi di l1 in posizioni pari e quelli di l2 in posizioni dispari
 */
-bool subsetter(Insieme ins, IteratoreInsieme iter) {
-    if (!hasNext(iter)) {
-        return true;
+TipoLista interleaver(TipoLista l1, TipoLista l2, int i) {
+    if (estVuota(l1) && estVuota(l2)) {
+        return listaVuota();
+    } else if (i%2 == 0) {
+        T e = car(l1);
+        return cons(e, interleaver(cdr(l1), l2, ++i));
     } else {
-        return membro(ins, next(iter)) && subsetter(ins, iter);
+        T e = car(l2);
+        return cons(e, interleaver(l1, cdr(l2), ++i));
     }
 }
 /**
  * *ESERCIZIO 5:
- * Implementare la funzione che, dati in ingresso due insiemi a e b, restituisce true se l'insieme a è completamente contenuto dentro l'insieme b.
- * @param a insieme a
- * @param b insieme b
+ * Scrivere una funzione che, date due liste in input, ritorni una nuova lista contenente tutti gli elementi di l1 nelle posizioni pari, e tutti quelli di l2 nelle posizioni dispari.
+ * Si assuma che l1 e l2 abbiano la stessa lunghezza.
+ * @param l1 lista 1
+ * @param l2 lista 2
+ * @returns una lista con gli elementi di l1 in posizioni pari e quelli di l2 in posizioni dispari
 */
-bool subset(Insieme a, Insieme b) {
-    IteratoreInsieme iter = creaIteratoreInsieme(a);
-    return subsetter(b, iter);
-}
-
-/**
- * *ESERCIZIO 6:
- * Implementare la funzione che, dati in ingresso due insiemi a e b, restituisce true se e solo se gli insiemi a e b sono uguali.
- * @param a insieme a
- * @param b insieme b
-*/
-bool equaler(Insieme a, IteratoreInsieme iter_a, Insieme b, IteratoreInsieme iter_b) {
-    if (!hasNext(iter_a) && !hasNext(iter_b)) {
-        return true;
-    } else if (!hasNext(iter_a) || !hasNext(iter_b)) {
-        return false;
-    } else {
-        T elem_a = next(iter_a);
-        T elem_b = next(iter_b);
-        return membro(a, elem_b) && membro(b, elem_a) && equaler(a, iter_a, b, iter_b);
-    }
-}
-/**
- * *ESERCIZIO 6:
- * Implementare la funzione che, dati in ingresso due insiemi a e b, restituisce true se e solo se gli insiemi a e b sono uguali.
- * @param a insieme a
- * @param b insieme b
-*/
-bool equal(Insieme a, Insieme b) {
-    IteratoreInsieme iter_a = creaIteratoreInsieme(a);
-    IteratoreInsieme iter_b = creaIteratoreInsieme(b);
-    return equaler(a, iter_a, b, iter_b);
-}
-
-/**
- * *ESERCIZIO 7:
- * Implementare la funzione che, dati in ingresso due insiemi a e b, restituisce l’insieme corrispondente all’intersezione tra i due.
- * @param a insieme a
- * @param b insieme b
-*/
-Insieme intersectioner(Insieme ins, IteratoreInsieme iter) {
-    if (!hasNext(iter)) {
-        return insiemeVuoto();
-    }
-    T e = next(iter);
-    if (membro(ins, e)) {
-        return inserisci(intersectioner(ins, iter), e);
-    } else {
-        return intersectioner(ins, iter);
-    }
-}
-/**
- * *ESERCIZIO 7:
- * Implementare la funzione che, dati in ingresso due insiemi a e b, restituisce l’insieme corrispondente all’intersezione tra i due.
- * @param a insieme a
- * @param b insieme b
-*/
-Insieme intersection(Insieme a, Insieme b) {
-    IteratoreInsieme iter = creaIteratoreInsieme(a);
-    return intersectioner(b, iter);
-}
-
-/**
- * *ESERCIZIO 8:
- * Implementare la funzione che, dati in ingresso due insiemi a e b, restituisce l’insieme corrispondente all’unione dei due.
- * @param a insieme a
- * @param b insieme b
-*/
-Insieme unioner(Insieme ins, IteratoreInsieme iter) {
-    if (!hasNext(iter)) {
-        return copy(ins);
-    } else {
-        T e = next(iter);
-        return inserisci(unioner(ins, iter), e);
-    }
-}
-/**
- * *ESERCIZIO 8:
- * Implementare la funzione che, dati in ingresso due insiemi a e b, restituisce l’insieme corrispondente all’unione dei due.
- * @param a insieme a
- * @param b insieme b
-*/
-Insieme union_(Insieme a, Insieme b) {
-    IteratoreInsieme iter = creaIteratoreInsieme(b);
-    return unioner(a, iter);
+TipoLista interleave(TipoLista l1, TipoLista l2) {
+    return interleaver(l1, l2, 0);
 }
 
 
 void test1() {
     printf("\nTEST ESERCIZIO 1:\n");
     const int n = 5;
-	int a[n] = {1, 2, 3, 4, 5};
+    int a[n] = {1, 2, 3, 4, 5};
 
-    Insieme ins = init(a, n);
-    printf("insieme: ");
-    print(ins);
+    TipoLista list = init(a, n);
+    printf("lista: ");
+    printlist(list);
 }
 
 void test2() {
 	printf("\nTEST ESERCIZIO 2:\n");
     const int n = 5;
-	int a[n] = {1, 2, 3, 4, 5};
-    Insieme ins = init(a, n);
-    
-    printf("insieme: ");
-    print(ins);
+    int a[n] = {1, 2, 3, 4, 5};
+
+    TipoLista list = init(a, n);
+    printf("lista: ");
+    printlist(list);
+
+    TipoLista l = doubledCopy(list);
+    printf("lista doppia: ");
+    printlist(l);
 }
 
 void test3() {
 	printf("\nTEST ESERCIZIO 3:\n");
-    const int n = 5;
-	int a[n] = {1, 2, 3, 4, 5};
-    Insieme ins1 = init(a, n);
+    const int n = 6;
+    int m = 2;
+    int a[n] = {0, 1, 2, 3, 4, 5};
 
-    printf("insieme 1: ");
-    print(ins1);
+    TipoLista list = init(a, n);
+    printf("lista: ");
+    printlist(list);
 
-    Insieme ins2 = copy(ins1);
-    printf("insieme 2: ");
-    print(ins2);
+    TipoLista l = multipleSublist(list, m);
+    printf("lista con multipli di %d: ", m);
+    printlist(l);
 }
 
 void test4() {
 	printf("\nTEST ESERCIZIO 4:\n");
-    const int n = 5;
-	int a[n] = {1, 2, 3, 4, 5};
-    Insieme ins = init(a, n);
+    const int n = 6;
+    int start = 2, end = 8;
+    int a[n] = {0, 1, 2, 3, 4, 5};
 
-    printf("insieme: ");
-    print(ins);
-    printf("dimensione insieme: %d\n", size(ins));
+    TipoLista list = init(a, n);
+    printf("lista: ");
+    printlist(list);
+
+    TipoLista l = subList(list, start, end);
+    printf("sottolista: ");
+    printlist(l);
 }
 
 void test5() {
 	printf("\nTEST ESERCIZIO 5:\n");
-    const int n = 5, m = 10;
-	int a[n] = {1, 2, 3, 4, 5};
-    int b[m] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    Insieme ins1 = init(a, n);
-    Insieme ins2 = init(b, m);
+    const int n = 5;
+    int a[n] = {1, 2, 3, 4, 5};
+    int b[n] = {10, 9, 8, 7, 6};
 
-    printf("insieme a: ");
-    print(ins1);
-    printf("insieme b: ");
-    print(ins2);
+    TipoLista l1 = init(a, n);
+    printf("lista 1: ");
+    printlist(l1);
 
-    const char *s = (subset(ins1, ins2)) ? "true" : "false";
+    TipoLista l2 = init(b, n);
+    printf("lista 1: ");
+    printlist(l2);
 
-    printf("insieme a incluso in insieme b: %s\n", s);
-}
-
-void test6() {
-	printf("\nTEST ESERCIZIO 6:\n");
-    const int n = 5, m = 5;
-	int a[n] = {1, 3, 2, 4, 5};
-    int b[m] = {1, 2, 3, 4, 5};
-    Insieme ins1 = init(a, n);
-    Insieme ins2 = init(b, m);
-
-    printf("insieme a: ");
-    print(ins1);
-    printf("insieme b: ");
-    print(ins2);
-
-    const char *s = (equal(ins1, ins2)) ? "true" : "false";
-
-    printf("insieme a uguale a insieme b: %s\n", s);
-}
-
-void test7() {
-	printf("\nTEST ESERCIZIO 7:\n");
-    const int n = 6, m = 7;
-	int a[n] = {1, 2, 3, 4, 5, 6};
-    int b[m] = {1, 2, 3, 7, 5, 9, 10};
-    Insieme ins1 = init(a, n);
-    Insieme ins2 = init(b, m);
-
-    printf("insieme a: ");
-    print(ins1);
-    printf("insieme b: ");
-    print(ins2);
-
-    Insieme res = intersection(ins1, ins2);
-    printf("intersezione: ");
-    print(res);
-}
-
-void test8() {
-	printf("\nTEST ESERCIZIO 8:\n");
-    const int n = 6, m = 7;
-	int a[n] = {1, 2, 3, 4, 5, 6};
-    int b[m] = {1, 2, 3, 7, 5, 9, 10};
-    Insieme ins1 = init(a, n);
-    Insieme ins2 = init(b, m);
-
-    printf("insieme a: ");
-    print(ins1);
-    printf("insieme b: ");
-    print(ins2);
-
-    Insieme res = union_(ins1, ins2);
-    printf("unione: ");
-    print(res);
+    TipoLista l = interleave(l1, l2);
+    printf("interleave: ");
+    printlist(l);
 }
