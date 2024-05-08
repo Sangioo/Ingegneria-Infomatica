@@ -1,0 +1,10 @@
+Oggetto,Antenato,Erede
+Anello_di_smeraldi,Marco,Paolo
+Anello,Silvia,Paolo
+Anello_di_smeraldi,Paolo,Anna
+Anello_di_smeraldi,Anna,Giorgio
+Anello,Silvia,Giorgio
+Anello,Paolo,Sergio
+Anello,Paolo,Sergio
+Vaso,Anna,Sergio
+Vaso,Paolo,Sergio
