@@ -97,6 +97,13 @@ bool membro(int e, const int *arr, int n) {
     return false;
 }
 
+/**
+ * Crea una pila con elementi casuali in un range
+ * @param len lunghezza della pila
+ * @param lower limite inferiore per i valori
+ * @param upper limite superiore per i valori
+ * @returns una pila con elementi casuali
+*/
 Pila* pilaInit(int len, int lower, int upper) {
     Pila *p = pilaVuota();
 

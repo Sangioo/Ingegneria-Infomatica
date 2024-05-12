@@ -1,79 +1,123 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+
 #include "auxiliary.h"
 
 /**
- * Crea una lista vuota.
- * @returns una lista vuota
+ * Restituisce una coda vuota.
+ * @returns una coda vuota
 */
-TipoLista listaVuota() {
-    return NULL;
+Coda * codaVuota() {
+	Coda *c = (Coda *)malloc(sizeof(Coda));
+	*c = NULL;
+	return c;
 }
 
 /**
- * Verifica se una lista e' vuota.
- * @param l lista in input
- * @returns true se la lista e' vuota, false altrimenti
+ * Verifica se la coda e' vuota.
+ * @param *c coda in input
+ * @returns true se la coda e' vuota, false altrimenti
 */
-int estVuota(TipoLista l) {
-    return l == NULL;
+bool estCodaVuota(Coda *c) {
+	if (!c) {
+		puts("errore: null input");
+		exit(1);
+	}
+  return *c == NULL;
 }
 
 /**
- * Aggiunge un elemento in testa alla lista.
- * @param e elemnento da aggiungere
- * @param l lista a cui aggiungere l'elemento
- * @returns una lista composta dalla lista in input con in testa l'elemento
+ * Inserisce nella coda l'elemento e.
+ * @param *c coda in input
+ * @param e elemento da inserire
 */
-TipoLista cons(T e, TipoLista l) {
-    TipoLista nuovo = (TipoLista)malloc(sizeof(TipoNodo));
-    nuovo->info = e;
-    nuovo->next = l;
-    return nuovo;
+void inCoda(Coda *c , T e) {
+	if (!c) {
+		puts("ERRORE: null input");
+		exit(1);
+	}
+	if (*c == NULL) {
+		*c = (TipoNodo *)malloc(sizeof(TipoNodo));
+		(*c)->info = e;
+		(*c)->next = NULL;
+	} else {
+		inCoda(&((*c)->next), e);
+	}
 }
 
 /**
- * Legge il valore del primo elemento della lista
- * @param l lista da cui leggere
- * @returns il primo elemento della lista
+ * Estrae il primo elemento dalla coda.
+ * @param *c coda in input
+ * @returns il primo elemento della coda
 */
-T car(TipoLista l) {
-    if (l == NULL) {
-        printf("ERRORE: lista vuota \n ");
-        exit(1);
+T outCoda(Coda *c) {
+	if (!c) {
+		puts("ERRORE: null input");
+		exit(1);
+	}
+	if (*c == NULL ){
+		puts("ERRORE: coda vuota");
+		exit(1);
+	}
+	TipoNodo *primo = *c;
+	T primo_valore = primo->info;
+	*c = (*c)->next;
+	free(primo);
+
+	return primo_valore;
+}
+
+/**
+ * Legge il primo elemento della coda, senza modificarla.
+ * @param *c coda in input
+ * @returns il primo elemento della coda
+*/
+T primoCoda(Coda* c) {
+	if (!c) {
+		puts("ERRORE: null input");
+		exit(1);
+	}
+	if (*c == NULL ){
+		puts("ERRORE: coda vuota");
+		exit(1);
+	}
+  return (*c)->info;
+}
+
+/**
+ * Crea una coda con elementi casuali in un range
+ * @param len lunghezza della coda
+ * @param lower limite inferiore per i valori
+ * @param upper limite superiore per i valori
+ * @returns una coda con elementi casuali
+*/
+Coda* initCoda(int len, int lower, int upper) {
+    Coda *c = codaVuota();
+
+    for (int i=0; i<len; i++) {
+        T e = (rand() % (upper - lower + 1)) + lower; 
+        inCoda(c, e);
     }
-    return l->info;
+
+    return c;
 }
 
 /**
- * Restituisce la lista data in input meno il primo elemento
- * @param l lista in input
- * @returns la lista in input meno il primo elemento
+ * Stampa la coda.
+ * @param *c coda da stampare
 */
-TipoLista cdr(TipoLista l) {
-    if (l == NULL) {
-        printf("ERRORE: lista vuota \n ");
-        exit(1);
+void printCoda(Coda *c) {
+	Coda *t = codaVuota();
+
+    while (!estCodaVuota(c)) {
+		T e = outCoda(c);
+        printf("%d ", e);
+		inCoda(t, e);
     }
-    return l->next;
-}
+    printf("\n");
 
-/**
- * Helper per la funzione printlist()
- * @param l lista da stampare
-*/
-void printlist_aux(TipoLista l) {
-	if (estVuota(l))
-        return;
-	printf("%d ", car(l));
-	printlist_aux(cdr(l));
-}
-
-/**
- * Stampa in output la lista
- * @param l lista da stampare
-*/
-void printlist(TipoLista l) {
-	printlist_aux(l);
-	printf("\n");
+	while (!estCodaVuota(t)) {
+		inCoda(c, outCoda(t));
+	}
 }

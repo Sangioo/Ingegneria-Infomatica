@@ -5,183 +5,171 @@
 #include "auxiliary.h"
 
 /**
- * *ESERCIZIO 1:
- * Implementare la funzione che, dato un array in ingresso di lunghezza len, restituisca una nuova Lista corrispondente alla sequenza contenuta nell’array.
- * @param *vec array in input
- * @param len dimensione dell'array
- * @returns lista corrispondente all'array fornito
+ * *ESERCIZIO 6:
+ * Implementare la funzione che legge una sequenza di numeri inseriti da tastiera. 
+ * Quando in input viene inserito un numero negativo, la sequenza termina, e la funzione deve stampare in output tutta la sequenza inserita fino a quel momento.
 */
-TipoLista init(T *vec, int len) {
-    TipoLista list = listaVuota();
+void stampa_sequenza() {
+    int in = 0;
+    Coda *c = codaVuota();
 
-    for (int i=len-1; i>=0; i--) {
-        list = cons(vec[i], list);
+    printf("inserire numero: ");
+    scanf("%d", &in);
+    while (in >= 0) {
+        inCoda(c, in);
+        printf("inserire numero: ");
+        scanf("%d", &in);
     }
 
-    return list;
+    printf("sequenza inserita: ");
+    while (!estCodaVuota(c)) {
+        printf("%d ", outCoda(c));
+    }
+    printf("\n");
 }
 
 /**
- * *ESERCIZIO 2:
- * Implementare la funzione che data una lista di input, restituisca una nuova lista che contiene, per ogni elemento della lista di input, due ripetizioni contigue dello stesso.
- * Se la lista in input è vuota, si restituisca la lista vuota.
- * @param list lista in input
- * @returns una lista con due istanze contigue di ogni elemento
+ * *ESERCIZIO 7:
+ * Implementare la funzione che data una coda c in input, rimuova i primi pos elementi e restituisca il valore in posizione pos.
+ * Se la posizione non è nella coda, si restituisca il valore -1.
+ * @param *c coda in input
+ * @param pos indice da estrarre
+ * @returns l'elemento in i-esima posizione
 */
-TipoLista doubledCopy(TipoLista list) {
-    TipoLista l = listaVuota();
-
-    while (!estVuota(list)) {
-        T e = car(list);
-        l = cons(e, l);
-        l = cons(e, l);
-        list = cdr(list);
-    }
-
-    return l;
-}
-
-/**
- * *ESERCIZIO 3:
- * Implementare la funzione che data in input una lista list, restituisca una nuova lista che contiene i soli elementi di list i cui valori sono multipli di m.
- * Se la lista in input è vuota, si restituisca la lista vuota.
- * @param list insieme da copiare
- * @param m numero in input
- * @returns una lista contenente solo gli elementi multipli di m
-*/
-TipoLista multipleSublist(TipoLista list, unsigned int m) {
-    TipoLista l = listaVuota();
-
-    while (!estVuota(list)) {
-        T e = car(list);
-        if (e%m == 0)
-            l = cons(e, l);
-        list = cdr(list);
-    }
-
-    return l;
-}
-
-/**
- * *ESERCIZIO 4:
- * Implementare la funzione che data in input una lista e due posizioni start e end, restituisca una nuova Lista che contiene i valori dell’input da start a end.
- * Il valore in posizione start deve essere incluso nell’output mentre quello in posizione end no.
- * @param list lista in input
- * @param start indice di inizio
- * @param end indice di fine
- * @returns una sottolista dall'indice start (incluso) all'indice end (escluso)
-*/
-TipoLista subList(TipoLista list, int start, int end) {
-    TipoLista l = listaVuota();
+int elemento_iesimo(Coda *c, int pos) {
     int i = 0;
-    while (!estVuota(list)) {
-        T e = car(list);
-        if (start <= i && i < end)
-            l = cons(e, l);
-        
-        list = cdr(list);
+    while (!estCodaVuota(c)) {
+        T e = outCoda(c);
+        if (i == pos)
+            return e;
         i++;
     }
-
-    return l;
+    return -1;
 }
 
 /**
- * *ESERCIZIO 5:
- * Scrivere una funzione che, date due liste in input, ritorni una nuova lista contenente tutti gli elementi di l1 nelle posizioni pari, e tutti quelli di l2 nelle posizioni dispari.
- * Si assuma che l1 e l2 abbiano la stessa lunghezza.
- * @param l1 lista 1
- * @param l2 lista 2
- * @returns una lista con gli elementi di l1 in posizioni pari e quelli di l2 in posizioni dispari
+ * *ESERCIZIO 8:
+ * Implementare la funzione che data una coda c in input, stampi tutti gli elementi della coda tranne quelli uguali ad elem.
+ * Dopo l’esecuzione della funzione, la coda c deve ancora contenere gli elementi di partenza.
+ * @param *c coda da stampare
+ * @param elem elemento da evitare
 */
-TipoLista interleave(TipoLista l1, TipoLista l2) {
-    TipoLista l = listaVuota();
-    int i = 0;
-    while (!estVuota(l1) || !estVuota(l2)) {
-        T e;
-        if (i%2 == 0) {
-            e = car(l1);
-            l1 = cdr(l1);
-        } else {
-            e = car(l2);
-            l2 = cdr(l2);
+void avoid_stampa(Coda *c, int elem) {
+    Coda *t = codaVuota();
+
+    while (!estCodaVuota(c)) {
+        T e = outCoda(c);
+        if (e != elem) {
+            printf("%d ", e);
         }
-        l = cons(e, l);
-        i++;
+        inCoda(t, e);
     }
-    return l;
+    printf("\n");
+
+    while (!estCodaVuota(t)) {
+        inCoda(c, outCoda(t));
+    }
+}
+
+/**
+ * *ESERCIZIO 9:
+ * Implementare la funzione che data una coda c in input e un numero di elementi da stampare n, restituisce una nuova coda di n elementi, ottenuta dalla coda c nel seguente modo:
+ * 1. Se n è minore o uguale al numero di elementi contenuti in c, la coda risultante conterrà i primi n elementi di c
+ * 2. Se n è maggiore del numero di elementi in c, la coda conterrà gli elementi di c, in sequenza, ricominciando dal primo, ogni qualvolta la coda viene “esaurita”, finché non si arriva ad n.
+ * @param *c coda in input
+ * @param n numero di elementi da stampare
+ * @returns una coda di n elementi
+*/
+Coda * coda_circolare(Coda *c, int n) {
+    Coda *out = codaVuota();
+    for (int i=0; i<n; i++) {
+        T e = outCoda(c);
+        inCoda(out, e);
+        inCoda(c, e);
+    }
+
+    return out;
+}
+
+/**
+ * *ESERCIZIO 10:
+ * Implementare la funzione che data una coda c in input, restituisca una nuova coda con solo gli elementi di c in posizione pari.
+ * @param *c coda in input
+ * @returns una coda con solo gli elementi pari di c
+*/
+Coda * elementi_pari(Coda *c) {
+    Coda *out = codaVuota();
+    Coda *t = codaVuota();
+    int i = 0;
+
+    while (!estCodaVuota(c)) {
+        T e = outCoda(c);
+        if (i%2 == 0)
+            inCoda(out, e);
+        i++;
+        inCoda(t, e);
+    }
+
+    while (!estCodaVuota(t)) {
+        inCoda(c, outCoda(t));
+    }
+
+    return out;
 }
 
 
-void test1() {
-    printf("\nTEST ESERCIZIO 1:\n");
-    const int n = 5;
-    int a[n] = {1, 2, 3, 4, 5};
-
-    TipoLista list = init(a, n);
-    printf("lista: ");
-    printlist(list);
+void test6() {
+    printf("\nTEST ESERCIZIO 6:\n");
+    // stampa_sequenza();
 }
 
-void test2() {
-	printf("\nTEST ESERCIZIO 2:\n");
-    const int n = 5;
-    int a[n] = {1, 2, 3, 4, 5};
+void test7() {
+	printf("\nTEST ESERCIZIO 7:\n");
+    Coda *c = initCoda(10, 0, 20);
+    int pos = 5;
 
-    TipoLista list = init(a, n);
-    printf("lista: ");
-    printlist(list);
-
-    TipoLista l = doubledCopy(list);
-    printf("lista doppia: ");
-    printlist(l);
+    printf("coda: ");
+    printCoda(c);
+    
+    printf("elemento in posizione %d: %d\n", pos, elemento_iesimo(c, pos));
 }
 
-void test3() {
-	printf("\nTEST ESERCIZIO 3:\n");
-    const int n = 6;
-    int m = 2;
-    int a[n] = {0, 1, 2, 3, 4, 5};
+void test8() {
+	printf("\nTEST ESERCIZIO 8:\n");
+    Coda *c = initCoda(10, 0, 20);
+    int elem = 5;
 
-    TipoLista list = init(a, n);
-    printf("lista: ");
-    printlist(list);
+    printf("coda: ");
+    printCoda(c);
 
-    TipoLista l = multipleSublist(list, m);
-    printf("lista con multipli di %d: ", m);
-    printlist(l);
+    printf("coda senza %d: ", elem);
+    avoid_stampa(c, elem);
+
+    printf("coda: ");
+    printCoda(c);
 }
 
-void test4() {
-	printf("\nTEST ESERCIZIO 4:\n");
-    const int n = 6;
-    int start = 2, end = 5;
-    int a[n] = {0, 1, 2, 3, 4, 5};
+void test9() {
+	printf("\nTEST ESERCIZIO 9:\n");
+    Coda *c = initCoda(10, 0, 20);
+    int n = 15;
 
-    TipoLista list = init(a, n);
-    printf("lista: ");
-    printlist(list);
+    printf("coda: ");
+    printCoda(c);
 
-    TipoLista l = subList(list, start, end);
-    printf("sottolista: ");
-    printlist(l);
+    Coda *cc = coda_circolare(c, n);
+    printf("coda circolare: ");
+    printCoda(cc);
 }
 
-void test5() {
-	printf("\nTEST ESERCIZIO 5:\n");
-    const int n = 5;
-    int a[n] = {1, 2, 3, 4, 5};
-    int b[n] = {10, 9, 8, 7, 6};
+void test10() {
+	printf("\nTEST ESERCIZIO 10:\n");
+    Coda *c = initCoda(10, 0, 20);
 
-    TipoLista l1 = init(a, n);
-    printf("lista 1: ");
-    printlist(l1);
+    printf("coda: ");
+    printCoda(c);
 
-    TipoLista l2 = init(b, n);
-    printf("lista 1: ");
-    printlist(l2);
-
-    TipoLista l = interleave(l1, l2);
-    printf("interleave: ");
-    printlist(l);
+    Coda *p = elementi_pari(c);
+    printf("coda con elementi in posizione pari: ");
+    printCoda(p);
 }
