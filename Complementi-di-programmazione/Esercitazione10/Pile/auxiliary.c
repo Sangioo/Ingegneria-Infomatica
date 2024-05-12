@@ -97,7 +97,7 @@ bool membro(int e, const int *arr, int n) {
     return false;
 }
 
-Pila* pilaInit(int len, int upper, int lower) {
+Pila* pilaInit(int len, int lower, int upper) {
     Pila *p = pilaVuota();
 
     for (int i=0; i<len; i++) {
@@ -109,8 +109,16 @@ Pila* pilaInit(int len, int upper, int lower) {
 }
 
 void printPila(Pila *p) {
+	Pila *t = pilaVuota();
+
     while (!estPilaVuota(p)) {
-        printf("%d ", outPila(p));
+		T e = outPila(p);
+        printf("%d ", e);
+		inPila(t, e);
     }
     printf("\n");
+
+	while (!estPilaVuota(t)) {
+		inPila(p, outPila(t));
+	}
 }
