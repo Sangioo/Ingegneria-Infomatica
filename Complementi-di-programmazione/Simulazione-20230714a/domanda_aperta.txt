@@ -1,0 +1,2 @@
+Fornire la specifica del tipo di dato astratto Pila, l'implementazione (in pseudocodice) della specifica con condivisione della memoria.
+Per ogni funzione implementata descriverne anche il costo asintotico. 
