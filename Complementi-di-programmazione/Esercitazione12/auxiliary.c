@@ -122,3 +122,40 @@ TipoAlbero initAlbero(char *nome_file) {
 bool isFoglia(TipoAlbero a) {
     return a->sinistro == NULL && a->destro == NULL;
 }
+
+TipoInfoAlbero minimo_aux(TipoAlbero a) {
+    if (a == NULL)
+        return 0;
+    
+    int sx = minimo_aux(a->sinistro);
+    int dx = minimo_aux(a->destro);
+
+    if (a->info < dx) {
+        if (a->info < sx)
+            return a->info;
+        else
+            return sx;
+    } else {
+        if (dx < sx)
+            return dx;
+        else
+            return sx;
+    }
+}
+TipoInfoAlbero minimo(TipoAlbero a) {
+    if (a == NULL) return -1;
+
+    return minimo_aux(a);
+}
+
+void delAlbero(TipoAlbero *a) {
+    if (*a == NULL) {
+        return;
+    }
+    if (isFoglia(*a)) {
+        free(*a);
+        return;
+    }
+    delAlbero(&((*a)->sinistro));
+    delAlbero(&((*a)->destro));
+}
