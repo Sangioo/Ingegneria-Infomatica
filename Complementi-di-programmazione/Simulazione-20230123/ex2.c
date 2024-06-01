@@ -70,18 +70,36 @@ output: 8 (8 è il massimo tra 2, 0, 4, 8 e 0)
 
 #include "aux.h"
 
-
-TipoLista minimiLocali(TipoLista l) {
-
-	// TODO: risolvere in modo ricorsivo
+TipoLista minimiAux(TipoLista l, T e) {
+	if (estVuota(cdr(l)))
+      	return listaVuota();
   
-  return NULL;
+  	if (car(l) <= e && car(l) <= car(cdr(l)))
+      	return cons(car(l), minimiAux(cdr(l), car(l)));
+ 	
+  	return minimiAux(cdr(l), car(l));
 }
 
+TipoLista minimiLocali(TipoLista l) {
+	return minimiAux(cdr(l), car(l));
+}
 
-int massimaSommaMinimi(TipoLista* liste, int n){
+int sommaLista(TipoLista l) {
+	if (estVuota(l))
+      	return 0;
+  	
+  	return car(l) + sommaLista(cdr(l));
+}
+
+int massimaSommaMinimi(TipoLista* liste, int n) {
+	if (n == 0) return 0;
   
-	// TODO: risolvere
-
-  return 0;
+  	int max = sommaLista(minimiLocali(liste[0]));
+  	for (int i=1; i<n; i++) {
+    	TipoLista l = minimiLocali(liste[i]);
+      	int sum = sommaLista(l);
+      	if (sum > max)
+          	max = sum;
+    }
+  	return max;
 }

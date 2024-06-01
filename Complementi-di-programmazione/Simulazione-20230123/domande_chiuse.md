@@ -16,10 +16,10 @@ int main() {
 ```
 Una sola delle seguenti affermazioni è vera. Quale?
 
-1. La funzione g() causa un errore a tempo di compilazione.
-2. La funzione main() causa un errore a tempo di esecuzione.
-3. L'esecuzione della funzione main() termina correttamente.
-4. La funzione g() viene compilata correttamente ma la funzione main() causa un errore a tempo di compilazione.
+- [ ] La funzione g() causa un errore a tempo di compilazione.
+- [ ] La funzione main() causa un errore a tempo di esecuzione.
+- [ ] L'esecuzione della funzione main() termina correttamente.
+- [X] La funzione g() viene compilata correttamente ma la funzione main() causa un errore a tempo di compilazione.
 
 ## Domanda 2
 Si considerino la seguente definizione di SCL:
@@ -54,10 +54,10 @@ void addSCL(TipoSCL scl, TipoInfoSCL v){
 ```
 Una sola delle seguenti affermazioni è vera. Quale?
 
-1. La funzione addSCL effettua correttamente l'inserimento dell'elemento v in testa alla SCL di input.
-2. La funzione addSCL effettua correttamente l'inserimento dell'elemento v in coda alla SCL di input.
-3. La funzione addSCL effettua correttamente l'inserimento dell'elemento v in coda alla SCL di input, solo se questa è non vuota.
-4. La funzione addSCL non può modificare in alcun modo la SCL di input.
+- [ ] La funzione addSCL effettua correttamente l'inserimento dell'elemento v in testa alla SCL di input.
+- [ ] La funzione addSCL effettua correttamente l'inserimento dell'elemento v in coda alla SCL di input.
+- [X] La funzione addSCL effettua correttamente l'inserimento dell'elemento v in coda alla SCL di input, solo se questa è non vuota.
+- [ ] La funzione addSCL non può modificare in alcun modo la SCL di input.
 
 ## Domanda 3
 Si considerino la seguente rappresentazione collegata di alberi binari:
@@ -94,7 +94,7 @@ void stampaPari(TipoAlbero a){
 ```
 Una sola delle seguenti affermazioni è vera. Quale?
 
-1. La funzione stampaPari genera un errore a tempo di esecuzione.
-2. La funzione stampaPari stampa correttamente il contenuto dei nodi di a aventi valore pari.
-3. Se l'albero a è non vuoto ed il nodo radice contiene un valore pari, la funzione stampaPari stampa esclusivamente il contenuto del nodo radice.
-4. La funzione stampaPari causa un errore a tempo di compilazione.
+- [ ] La funzione stampaPari genera un errore a tempo di esecuzione.
+- [ ] La funzione stampaPari stampa correttamente il contenuto dei nodi di a aventi valore pari.
+- [ ] Se l'albero a è non vuoto ed il nodo radice contiene un valore pari, la funzione stampaPari stampa esclusivamente il contenuto del nodo radice.
+- [X] La funzione stampaPari causa un errore a tempo di compilazione.
