@@ -1,16 +1,18 @@
-# Domanda a risposta aperta
+## domanda
+
+## risposta
 L'algoritmo merge sort sfrutta un approccio dividi e conquista, procedendo ricorsivamente a dividere l'array in input in sottoarray grandi ogni passo la metà del passo precedente, fino a che ogni sotto array non abbia grandezza 1, a questo punto ritornando indietro si fondono i sottoarray in maniera ordinata, di seguito la schematizzazione dell'algoritmo:
 
-Se la dimensione n<2 allora è già ordinato. Fine.
+Se la dimensione n<2 allora è già ordinato. Fine. \
 ​Altrimenti:
-​- ordina la metà sinistra
-- ordina la metà destra
-- fondi le due metà ordinate
+* ordina la metà sinistra
+* ordina la metà destra
+* fondi le due metà ordinate
 
 Il costo asintotico del merge sort è nlogn, questo perchè a ogni passo facciamo n operazioni per unire i sottoarray e i passi in totale sono logn, perchè a ogni passo si procede a dividere la lunghezza a metà dunque si arriverà a sottoarray di lunghezza 1 dopo logn passi.
  
-n2k≥2⇔k≤log⁡2(n2)
-2kn​≥2⇔k≤log2​(2n​) 
+$$\frac{n}{2^k} \geq 2 ⇔ k \leq \frac{log(n)}{2}$$
+
 ​Per il merge sort non esiste caso peggiore in quanto in ogni caso utilizzeremo n operazioni a ogni passaggio per fondere le due metà e i passaggi saranno in ogni caso logn.
 
 Esempio di esecuzione:
@@ -88,8 +90,3 @@ passaggio 4:
 passaggio 5:
     fondo le due metà dell'array
     [ 3 4 6 9 ]  [ 1 5 7 8 ]  --->   [ 1 3 4 5 6 7 8 9 ]
-
-# Domande a risposta chiusa
-domanda 1: B
-domanda 2: D
-domanda 3: A

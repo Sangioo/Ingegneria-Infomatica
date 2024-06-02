@@ -1,2 +1,0 @@
-Scrivere una funzione ricorsiva a piacere (input: un intero, output: un intero) che usi un passaggio di parametro per valore,
-una porzione di codice che invoca tale funzione, il risultato dell'esecuzione della chiamata e una descrizione dell'esecuzione run-time della funzione mettendo in evidenza la memoria usata nel passaggio di parametro per valore.
