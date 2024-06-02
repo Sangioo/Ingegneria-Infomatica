@@ -21,7 +21,7 @@ Una sola delle seguenti affermazioni è vera. Quale?
 
 - [ ] Il programma genera la stampa del valore 0.
 - [ ] Il programma genera un errore a tempo di esecuzione.
-- [ ] Il programma genera la stampa del valore 10.
+- [X] Il programma genera la stampa del valore 10.
 - [ ] Il programma genera un errore a tempo di compilazione.
 
 ## Domanda 2
@@ -57,7 +57,7 @@ Una sola delle seguenti affermazioni è corretta. Quale?
 
 - [ ] La funzione costruisciSCL crea correttamente e restituisce una SCL contenente tutti e soli i valori nell'intervallo [0, n], in ordine crescente.
 - [ ] La funzione costruisciSCL crea correttamente e restituisce una SCL contenente tutti e soli i valori nell'intervallo [0, n], in ordine decrescente.
-- [ ] Se n è positivo, la funzione costruisciSCL restituisce una SCL non allocata correttamente.
+- [X] Se n è positivo, la funzione costruisciSCL restituisce una SCL non allocata correttamente.
 - [ ] La funzione costruisciSCL genera un errore a tempo di compilazione.
 
 ## Domanda 3
@@ -119,5 +119,5 @@ Una sola delle seguenti affermazioni è vera. Quale?
 
 - [ ] L'esecuzione della funzione main stampa il valore 1.
 - [ ] L'esecuzione della funzione main stampa il valore 2.
-- [ ] L'esecuzione della funzione main stampa il valore 3.
+- [X] L'esecuzione della funzione main stampa il valore 3.
 - [ ] L'esecuzione della funzione main genera un errore a tempo di esecuzione.
