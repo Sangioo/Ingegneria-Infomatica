@@ -12,6 +12,7 @@ public class MyFrame extends JFrame {
         super(titolo);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(X, Y, WIDTH, HEIGHT);
+        this.setResizable(false);
 
         Container cont = this.getContentPane();
         cont.setLayout(new BorderLayout());
