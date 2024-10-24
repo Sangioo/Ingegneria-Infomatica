@@ -9,3 +9,15 @@ Esame svolto in python, sono presenti le dispense, le esercitazioni settimanali 
 ## Complementi di programmazione
 
 Esame svolto in C, sono presenti solo le esercitazioni settimanali al momento, in futuro aggiungero' le dispense e esami di anni precedenti.
+
+## Progettazione del software
+
+Esame svolto in Java, aggiungo progressivamente le varie esercitazioni svolte durante il corso.
+
+## Fondamenti di comunicazione e internet
+
+Aggiungo progressivamente le esercitazioni in Python svolte sia per la parte di comunicazioni che per la parte di internet.
+
+## Sistemi dinamici
+
+Aggiungo progressivamente gli esercizi in matlab che vengono assegnati dalla professoressa.
