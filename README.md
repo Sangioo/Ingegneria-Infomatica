@@ -6,9 +6,9 @@ Ropository which collects programs, exercises, simulations, slides and projects 
 
 ## First year
 
-* *Introduzione alla programmazione* <br>
+* **Introduzione alla programmazione** <br>
 
-First programming exam, the language of choice was Python, in here there are materials given by the professor, weekly exercises and some exams from past years. There is also an optional project which I will do at some point.
+    First programming exam, the language of choice was Python, in here there are materials given by the professor, weekly exercises and some exams from past years. There is also an optional project which I will do at some point.
 
 ### Fondamenti di matematica
 
