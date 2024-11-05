@@ -5,17 +5,17 @@ import javax.swing.*;
 
 public class MyFrame extends JFrame {
 
-    public JTextField txt_address = new JTextField(15);
-    public JTextField txt_port = new JTextField(16);
-    public JButton b_connect = new JButton("Connect");
-    public JButton b_disconnect = new JButton("Disconnect");
+    private final JTextField txtAddress = new JTextField(15);
+    private final JTextField txtPort = new JTextField(16);
+    private final JButton bConnect = new JButton("Connect");
+    private final JButton bDisconnect = new JButton("Disconnect");
 
-    public JButton b_start = new JButton("Start");
-    public JButton b_stop = new JButton("Stop");
+    private final JButton bStart = new JButton("Start");
+    private final JButton bStop = new JButton("Stop");
 
-    public JTextArea area_usa = new JTextArea(10, 25);
-    public JTextArea area_ita = new JTextArea(10, 25);
-    public JTextArea area_log = new JTextArea(10, 25);
+    private final JTextArea areaUsa = new JTextArea(10, 25);
+    private final JTextArea areaIta = new JTextArea(10, 25);
+    private final JTextArea areaLog = new JTextArea(10, 25);
 
     public MyFrame() {
         super("Andrea Sangiovanni 2108098");
@@ -30,51 +30,51 @@ public class MyFrame extends JFrame {
 
         p_nord.add(new JLabel("Server Address"));
 
-        txt_address.setText("94.177.218.70");
-        p_nord.add(txt_address);
+        txtAddress.setText("localhost");
+        p_nord.add(txtAddress);
 
-        txt_port.setText("4400");
+        txtPort.setText("4400");
         p_nord.add(new JLabel("Port"));
-        p_nord.add(txt_port);
+        p_nord.add(txtPort);
 
-        b_connect.setActionCommand(MyListener.CONNECT);
-        b_connect.addActionListener(listener);
-        p_nord.add(b_connect);
+        bConnect.setActionCommand(MyListener.CONNECT);
+        bConnect.addActionListener(listener);
+        p_nord.add(bConnect);
 
-        b_disconnect.setActionCommand(MyListener.DISCONNECT);
-        b_disconnect.addActionListener(listener);
-        p_nord.add(b_disconnect);
+        bDisconnect.setActionCommand(MyListener.DISCONNECT);
+        bDisconnect.addActionListener(listener);
+        p_nord.add(bDisconnect);
 
         container.add(p_nord, BorderLayout.NORTH);
 
         //South panel
         JPanel p_sud = new JPanel();
 
-        b_start.setActionCommand(MyListener.START);
-        b_start.addActionListener(listener);
-        p_sud.add(b_start);
+        bStart.setActionCommand(MyListener.START);
+        bStart.addActionListener(listener);
+        p_sud.add(bStart);
 
-        b_stop.setActionCommand(MyListener.STOP);
-        b_stop.addActionListener(listener);
-        p_sud.add(b_stop);
+        bStop.setActionCommand(MyListener.STOP);
+        bStop.addActionListener(listener);
+        p_sud.add(bStop);
 
         container.add(p_sud, BorderLayout.SOUTH);
 
         //Central panel
         JPanel p_centro = new JPanel();
 
-        area_usa.setEditable(false);
-        JScrollPane pane_usa = new JScrollPane(area_usa);
+        areaUsa.setEditable(false);
+        JScrollPane pane_usa = new JScrollPane(areaUsa);
         pane_usa.setBorder(BorderFactory.createTitledBorder("USA"));
         p_centro.add(pane_usa);
 
-        area_ita.setEditable(false);
-        JScrollPane pane_ita = new JScrollPane(area_ita);
+        areaIta.setEditable(false);
+        JScrollPane pane_ita = new JScrollPane(areaIta);
         pane_ita.setBorder(BorderFactory.createTitledBorder("Italia"));
         p_centro.add(pane_ita);
 
-        area_log.setEditable(false);
-        JScrollPane pane_log = new JScrollPane(area_log);
+        areaLog.setEditable(false);
+        JScrollPane pane_log = new JScrollPane(areaLog);
         pane_log.setBorder(BorderFactory.createTitledBorder("Log"));
         p_centro.add(pane_log);
 
@@ -83,18 +83,37 @@ public class MyFrame extends JFrame {
         //Frame settings
         this.enableButtons(false, false);
         this.pack();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocation(300, 300);
         this.setResizable(false);
         this.setVisible(true);
     }
 
     public void enableButtons(boolean connected, boolean transmitting) {
-        b_connect.setEnabled(!connected && !transmitting);
-        b_disconnect.setEnabled(connected && !transmitting);
-        b_start.setEnabled(connected && !transmitting);
-        b_stop.setEnabled(connected && transmitting);
+        bConnect.setEnabled(!connected && !transmitting);
+        bDisconnect.setEnabled(connected && !transmitting);
+        bStart.setEnabled(connected && !transmitting);
+        bStop.setEnabled(connected && transmitting);
         this.setDefaultCloseOperation(connected ? JFrame.DO_NOTHING_ON_CLOSE : JFrame.EXIT_ON_CLOSE);
+    }
+
+    public JTextField getTxtAddress() {
+        return txtAddress;
+    }
+
+    public JTextField getTxtPort() {
+        return txtPort;
+    }
+
+    public JTextArea getAreaUsa() {
+        return areaUsa;
+    }
+
+    public JTextArea getAreaIta() {
+        return areaIta;
+    }
+
+    public JTextArea getAreaLog() {
+        return areaLog;
     }
 }
 

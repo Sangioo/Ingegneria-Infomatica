@@ -1,17 +1,31 @@
 package gui;
 
-import java.util.Scanner;
+import javax.swing.*;
+import java.util.*;
 
 public class Downloader implements Runnable {
 
-    private Scanner inputScanner;
-    private MyFrame frame;
-    private MyListener listener;
+    public static final String END = "END";
+    public static final String INTERRUPTED = "INTERRUPTED";
+    public static final String START = "START";
+
+    private final Scanner inputScanner;
+    private final MyFrame frame;
+    private final MyListener listener;
+    private final JTextArea areaIta;
+    private final JTextArea areaUsa;
+    private final JTextArea areaLog;
+
+    private ArrayList<String> arrUsa = new ArrayList<String>();
+    private ArrayList<String> arrIta = new ArrayList<String>();
 
     public Downloader(Scanner s, MyFrame frame, MyListener listener) {
         this.inputScanner = s;
         this.frame = frame;
         this.listener = listener;
+        this.areaIta = frame.getAreaIta();
+        this.areaUsa = frame.getAreaUsa();
+        this.areaLog = frame.getAreaLog();
     }
 
     @Override
@@ -19,33 +33,37 @@ public class Downloader implements Runnable {
         while (true) {
             String newLine = this.inputScanner.nextLine();
             System.out.println(newLine);
-            if (newLine.equals("END")) {
+            if (newLine.equals(END)){
                 listener.transmitting = false;
                 frame.enableButtons(listener.connected, listener.transmitting);
                 break;
-            } else if (newLine.equals("INTERRUPTED")) {
+            } else if (newLine.equals(INTERRUPTED)){
                 listener.transmitting = false;
                 frame.enableButtons(listener.connected, listener.transmitting);
                 break;
-            } else if (!newLine.equals("START")) {
+            } else if (!newLine.equals(START)) {
                 String[] splitted = newLine.split(":");
                 if (splitted[0].equals("USA")) {
-                    if (frame.area_usa.getText().contains(splitted[1])) {
-                        frame.area_usa.setText(frame.area_usa.getText() + splitted[1] + " dopp\n");
-                    } else {
-                        frame.area_usa.setText(frame.area_usa.getText() + splitted[1] + "\n");
-                    }
+                    updateArea(arrUsa, areaUsa, splitted[1]);
                 } else if (splitted[0].equals("ITALIA")) {
-                    if (frame.area_ita.getText().contains(splitted[1])) {
-                        frame.area_ita.setText(frame.area_ita.getText() + splitted[1] + " dopp\n");
-                    } else {
-                        frame.area_ita.setText(frame.area_ita.getText() + splitted[1] + "\n");
-                    }
+                    updateArea(arrIta, areaIta, splitted[1]);
                 }
-                frame.area_log.setText(frame.area_log.getText() + newLine + "\n");
+                areaLog.setText(areaLog.getText() + newLine + "\n");
             }
         }
     }
 
+    private void updateArea(ArrayList<String> arr, JTextArea area, String city) {
+        if (arr.contains(city + "\n")) {
+            int index = arr.indexOf(city + "\n");
+            arr.set(index, city + " dopp\n");
+        } else if (!arr.contains(city + " dopp\n")) {
+            arr.add(city + "\n");
+        }
+
+        StringBuffer sb = new StringBuffer();
+        for (String elem : arr) { sb.append(elem); }
+        area.setText(sb.toString());
+    }
 }
 
