@@ -4,15 +4,10 @@ import java.awt.*;
 public class MyFrame extends JFrame {
     private final int X = 200;
     private final int Y = 200;
-    private final int WIDTH = 500;
-    private final int HEIGHT = 200;
     private MyListener manager;
 
     public MyFrame(String titolo) {
         super(titolo);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(X, Y, WIDTH, HEIGHT);
-        this.setResizable(false);
 
         Container cont = this.getContentPane();
         cont.setLayout(new BorderLayout());
@@ -22,19 +17,19 @@ public class MyFrame extends JFrame {
         
         JPanel matricola = new JPanel(new GridLayout(2, 1));
         JLabel lbl_matricola = new JLabel("Matricola");
-        JTextField txt_matricola = new JTextField();
+        JTextField txt_matricola = new JTextField(20);
         matricola.add(lbl_matricola);
         matricola.add(txt_matricola);
 
         JPanel address = new JPanel(new GridLayout(2, 1));
         JLabel lbl_address = new JLabel("IP Address");
-        JTextField txt_address = new JTextField();
+        JTextField txt_address = new JTextField(20);
         address.add(lbl_address);
         address.add(txt_address);
 
         JPanel port = new JPanel(new GridLayout(2, 1));
         JLabel lbl_port = new JLabel("Porta");
-        JTextField txt_port = new JTextField();
+        JTextField txt_port = new JTextField(20);
         port.add(lbl_port);
         port.add(txt_port);
 
@@ -71,6 +66,10 @@ public class MyFrame extends JFrame {
 
         cont.add(pulsanti, BorderLayout.SOUTH);
 
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocation(X, Y);
+        this.pack();
+        this.setResizable(false);
         this.setVisible(true);
     }
 }

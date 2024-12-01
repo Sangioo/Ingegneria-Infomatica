@@ -29,8 +29,8 @@ public class Rettangolo extends FiguraGeometrica {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append(getDescrizione() + " ");
-        sb.append(Double.toString(base) + " ");
+        sb.append(getDescrizione()).append(" ");
+        sb.append(Double.toString(base)).append(" ");
         sb.append(Double.toString(altezza));
         return sb.toString();
     }

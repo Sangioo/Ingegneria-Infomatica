@@ -23,7 +23,7 @@ public class Quadrato extends FiguraGeometrica {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append(getDescrizione() + " ");
+        sb.append(getDescrizione()).append(" ");
         sb.append(lato);
         return sb.toString();
     }

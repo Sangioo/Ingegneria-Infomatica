@@ -30,8 +30,8 @@ public class Ellisse extends FiguraGeometrica {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append(getDescrizione() + " ");
-        sb.append(Double.toString(max_semiasse) + " ");
+        sb.append(getDescrizione()).append(" ");
+        sb.append(Double.toString(max_semiasse)).append(" ");
         sb.append(Double.toString(min_semiasse));
         return sb.toString();
     }
