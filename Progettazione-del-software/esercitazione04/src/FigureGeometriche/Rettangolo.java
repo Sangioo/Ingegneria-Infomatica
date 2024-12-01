@@ -1,6 +1,14 @@
+package FigureGeometriche;
+
 public class Rettangolo extends FiguraGeometrica {
     private final double base;
     private final double altezza;
+
+    public Rettangolo(double base, double altezza) {
+        super();
+        this.base = base;
+        this.altezza = altezza;
+    }
 
     public Rettangolo(String descrizione, double base, double altezza) {
         super(descrizione);
@@ -16,22 +24,19 @@ public class Rettangolo extends FiguraGeometrica {
         return altezza;
     }
 
-    @Override
     public double area() {
-        return base * altezza;
+        return getBase() * getAltezza();
     }
 
-    @Override
     public double perimetro() {
-        return 2 * (base + altezza);
+        return 2 * (getBase() + getAltezza());
     }
 
-    @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
-        sb.append(getDescrizione()).append(" ");
-        sb.append(Double.toString(base)).append(" ");
-        sb.append(Double.toString(altezza));
-        return sb.toString();
+        return "Rettangolo " + getDescrizione()
+                + " base = " + getBase()
+                + " altezza = " + getAltezza()
+                + " perimetro = " + perimetro()
+                + " area = " + area();
     }
 }

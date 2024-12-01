@@ -1,6 +1,9 @@
-public class FiguraGeometrica {
+package FigureGeometriche;
 
-    private String descrizione;
+public abstract class FiguraGeometrica {
+    private String descrizione = "";
+
+    public FiguraGeometrica() {}
 
     public FiguraGeometrica(String descrizione) {
         this.descrizione = descrizione;
@@ -14,18 +17,11 @@ public class FiguraGeometrica {
         this.descrizione = descrizione;
     }
 
-    @Override
-    public String toString() {
-        return descrizione;
-    }
+    public abstract String toString();
 
-    public double area() {
-        return 0;
-    }
+    public abstract double area();
 
-    public double perimetro() {
-        return 0;
-    }
+    public abstract double perimetro();
 
     public static double sommaAree(FiguraGeometrica[] f) {
         double somma = 0;
