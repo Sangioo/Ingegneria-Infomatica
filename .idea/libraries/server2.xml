@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="server2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Progettazione-del-software/esercitazione06/out/production/esercitazione06/server.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

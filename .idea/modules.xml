@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Ingegneria-Infomatica.iml" filepath="$PROJECT_DIR$/.idea/Ingegneria-Infomatica.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Progettazione-del-software/Progettazione-del-software.iml" filepath="$PROJECT_DIR$/Progettazione-del-software/Progettazione-del-software.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Progettazione-del-software/esercitazione03/esercitazione03.iml" filepath="$PROJECT_DIR$/Progettazione-del-software/esercitazione03/esercitazione03.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Progettazione-del-software/esercitazione04/esercitazione04.iml" filepath="$PROJECT_DIR$/Progettazione-del-software/esercitazione04/esercitazione04.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Progettazione-del-software/esercitazione05/esercitazione05.iml" filepath="$PROJECT_DIR$/Progettazione-del-software/esercitazione05/esercitazione05.iml" />
+    </modules>
+  </component>
+</project>
