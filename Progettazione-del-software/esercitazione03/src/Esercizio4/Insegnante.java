@@ -1,42 +1,41 @@
-package Esercizio4;
+package esercizio4;
 
 public class Insegnante {
-    private String nome;
-    private String cognome;
-    private int annoVincita;
-    private Scuola scuola;
+	private final String nome;
+	private final String cognome;
+	private final String annoVincita;
+	private Scuola scuola;
+	
+	public Insegnante(String nome, String cognome, String annoVincita, Scuola scuola) {
+		this.nome = nome;
+		this.cognome = cognome;
+		this.annoVincita = annoVincita;
+		this.scuola = scuola;
+	}
 
-    public Insegnante(String nome, String cognome, int annoVincita,  Scuola scuola) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.annoVincita = annoVincita;
-        this.scuola = scuola;
-    }
+	public Scuola getScuola() {
+		return scuola;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public void setScuola(Scuola scuola) {
+		this.scuola = scuola;
+	}
 
-    public String getCognome() {
-        return cognome;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public int getAnnoVincita() {
-        return annoVincita;
-    }
+	public String getCognome() {
+		return cognome;
+	}
 
-    public Scuola getScuola() {
-        return scuola;
-    }
+	public String getAnnoVincita() {
+		return annoVincita;
+	}
 
-    public void setScuola(Scuola nuova_scuola) {
-        this.scuola = nuova_scuola;
-    }
-
-    public void stampaInsegnante() {
-        System.out.println("Nome: " + nome);
-        System.out.println("Cognome: " + cognome);
-        System.out.println("AnnoVincita: " + Integer.toString(annoVincita));
-        System.out.println("Scuola: " + scuola.getNome());
-    }
+	@Override
+	public String toString() {
+		return "Insegnante " + nome + " " + cognome + ", annoVincita: " + annoVincita + ", scuola: "
+				+ scuola + ".";
+	}
 }

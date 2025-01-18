@@ -1,24 +1,31 @@
-package Esercizio4;
+package esercizio4;
 
 public class Es4 {
-    public static void esercizio4() {
-        Scuola scuola = new Scuola("Federico Caffè", "Via Fonteiana 111", "Roma");
-        Insegnante[] insegnanti = new Insegnante[3];
-        insegnanti[0] = new Insegnante("Alfio", "Aricò", 2000, scuola);
-        insegnanti[1] = new Insegnante("Giovanni", "Antonucci", 2000, scuola);
-        insegnanti[2] = new Insegnante("Galeno", "Laura", 2000, scuola);
+	public static void esercizio4() {
+		Scuola s1 = new Scuola("Scuola elementare Giuseppe Tomassetti", "Provveditorato 1", "Via Ariosto 25");
 
-        Classe classe = new Classe(scuola, "5CI", insegnanti, 19);
+		Insegnante i1 = new Insegnante("Walter", "White", "1989", s1);
+		Insegnante i2 = new Insegnante("Elliot", "Alderson", "2015", s1);
+		Insegnante i3 = new Insegnante("Mary", "Poppins", "2001", s1);
+		
+		Classe c1 = new Classe("I A", s1, i1, i2, i3, 20);
+		Classe c2 = new Classe("IV A", s1, i2, i3, i1, 22);
+		Classe c3 = new Classe("III A", s1, i3, i1, i2, 21);
 
-        scuola.stampaScuola();
-        System.out.println();
-        classe.stampaClasse();
-        System.out.println();
-        insegnanti[0].stampaInsegnante();
-        System.out.println();
-        insegnanti[1].stampaInsegnante();
-        System.out.println();
-        insegnanti[2].stampaInsegnante();
-        System.out.println();
-    }
+		System.out.println(s1);
+		System.out.println(i1);
+		System.out.println(i2);
+
+		System.out.println();
+		System.out.println(c1);
+		System.out.println(c2);
+		System.out.println(c3);
+
+		c2.setNumAlunni(24);
+		c2.inserisciInsegnante(1,i2);
+		c2.inserisciInsegnante(2,i1);
+
+		System.out.println();
+		System.out.println(c2);
+	}
 }
