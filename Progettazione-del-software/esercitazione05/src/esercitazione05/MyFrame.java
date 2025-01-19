@@ -25,7 +25,6 @@ public class MyFrame extends JFrame {
 		super(titolo);
 		this.setLocation(200, 200);
 		this.setLayout(new BorderLayout());
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		Container container = this.getContentPane();
 		
@@ -102,16 +101,19 @@ public class MyFrame extends JFrame {
 			this.bDisconnect.setEnabled(false);
 			this.bStart.setEnabled(false);
 			this.bStop.setEnabled(true);
+			this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		} else if (isConnesso && !isTrasmettendo) {
 			this.bConnect.setEnabled(false);
 			this.bDisconnect.setEnabled(true);
 			this.bStart.setEnabled(true);
 			this.bStop.setEnabled(false);
+			this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		} else if (!isConnesso && !isTrasmettendo) {
 			this.bConnect.setEnabled(true);
 			this.bDisconnect.setEnabled(false);
 			this.bStart.setEnabled(false);
 			this.bStop.setEnabled(false);
+			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		}
 	}
 }
