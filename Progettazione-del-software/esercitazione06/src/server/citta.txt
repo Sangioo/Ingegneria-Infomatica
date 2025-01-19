@@ -1,0 +1,12 @@
+USA:New York
+USA:Los Angeles
+USA:Los Angeles
+USA:Washington
+USA:Miami
+USA:Miami
+ITALIA:Roma
+ITALIA:Roma
+ITALIA:Napoli
+ITALIA:Milano
+ITALIA:Torino
+ITALIA:Torino

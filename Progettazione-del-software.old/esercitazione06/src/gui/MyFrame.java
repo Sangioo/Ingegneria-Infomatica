@@ -18,7 +18,7 @@ public class MyFrame extends JFrame {
     private final JTextArea areaLog = new JTextArea(10, 25);
 
     public MyFrame() {
-        super("Andrea Sangiovanni 2108098");
+        super("Andrea Sangiovanni");
 
         MyListener listener = new MyListener(this);
 
