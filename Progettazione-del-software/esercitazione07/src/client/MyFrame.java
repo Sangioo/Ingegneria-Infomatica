@@ -1,7 +1,9 @@
-package gui;
+package client;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -14,14 +16,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class MyFrame extends JFrame {
-	private JTextField tAddress, tPorta;
-	private JButton bConnect, bDisconnect, bStart, bStop;
-	private JTextArea areaUsa, areaIta, areaLog;
+	private JTextField tAddress, tPorta, tNumero;
+	private JButton bConnect, bDisconnect, bGet, bReset;
+	private JTextArea areaLog;
+	private JButton[] display = new JButton[25];
 
 	public MyFrame(String titolo) {
 		super(titolo);
 		this.setLocation(200,200);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		Container container = this.getContentPane();
 		MyListener listener = new MyListener(this);
@@ -52,66 +54,47 @@ public class MyFrame extends JFrame {
 		container.add(pNord, BorderLayout.NORTH);
 		
 		//Pannello centrale
-		JPanel pCentrale = new JPanel(new GridLayout(1,3));
-		areaUsa = new JTextArea(10,25);
-		JScrollPane scrollUsa = new JScrollPane(areaUsa);
-		scrollUsa.setBorder(BorderFactory.createTitledBorder("USA"));
+		JPanel pCentrale = new JPanel();
 		
-		areaIta = new JTextArea(10,25);
-		JScrollPane scrollIta = new JScrollPane(areaIta);
-		scrollIta.setBorder(BorderFactory.createTitledBorder("Italia"));
+		JPanel pDisplay = new JPanel(new GridLayout(5,5));
+		
+		for (int i=0; i<25; i++) {
+			display[i] = new JButton();
+			display[i].setBackground(Color.WHITE);
+			display[i].setEnabled(false);
+			display[i].setPreferredSize(new Dimension(100,100));
+			pDisplay.add(display[i]);
+		}
+		pCentrale.add(pDisplay);
 		
 		areaLog = new JTextArea(10,25);
 		JScrollPane scrollLog = new JScrollPane(areaLog);
 		scrollLog.setBorder(BorderFactory.createTitledBorder("Log"));
 		
-		pCentrale.add(scrollUsa);
-		pCentrale.add(scrollIta);
 		pCentrale.add(scrollLog);
-		
 		container.add(pCentrale, BorderLayout.CENTER);
 		
 		//Pannello sud
 		JPanel pSud = new JPanel();
-		bStart = new JButton("Start");
-		bStop = new JButton("Stop");
+		JLabel lNumero = new JLabel("Numero:");
+		tNumero = new JTextField(10);
+		bGet = new JButton("Get");
+		bReset = new JButton("Reset");
 		
-		bStart.addActionListener(listener);
-		bStop.addActionListener(listener);
+		bGet.addActionListener(listener);
+		bReset.addActionListener(listener);
 		
-		pSud.add(bStart);
-		pSud.add(bStop);
+		pSud.add(lNumero);
+		pSud.add(tNumero);
+		pSud.add(bGet);
+		pSud.add(bReset);
 		
 		container.add(pSud, BorderLayout.SOUTH);
-		
+
 		setPulsanti(false, false);
 		this.setVisible(true);
 		this.pack();
 		this.setResizable(false);
-	}
-
-	public void setAreaUsa(String text) {
-		this.areaUsa.setText(text);
-	}
-	
-	public void setAreaIta(String text) {
-		this.areaIta.setText(text);
-	}
-	
-	public void setAreaLog(String text) {
-		this.areaLog.setText(text);
-	}
-	
-	public String getAreaUsa() {
-		return areaUsa.getText();
-	}
-
-	public String getAreaIta() {
-		return areaIta.getText();
-	}
-
-	public String getAreaLog() {
-		return areaLog.getText();
 	}
 
 	public String getAddress() {
@@ -126,20 +109,20 @@ public class MyFrame extends JFrame {
 		if (isConnesso && isTrasmettendo) {
 			this.bConnect.setEnabled(false);
 			this.bDisconnect.setEnabled(false);
-			this.bStart.setEnabled(false);
-			this.bStop.setEnabled(true);
+			this.bGet.setEnabled(false);
+			this.bReset.setEnabled(true);
 			this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		} else if (isConnesso && !isTrasmettendo) {
 			this.bConnect.setEnabled(false);
 			this.bDisconnect.setEnabled(true);
-			this.bStart.setEnabled(true);
-			this.bStop.setEnabled(false);
+			this.bGet.setEnabled(true);
+			this.bReset.setEnabled(false);
 			this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		} else if (!isConnesso && !isTrasmettendo) {
 			this.bConnect.setEnabled(true);
 			this.bDisconnect.setEnabled(false);
-			this.bStart.setEnabled(false);
-			this.bStop.setEnabled(false);
+			this.bGet.setEnabled(false);
+			this.bReset.setEnabled(false);
 			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		}
 	}

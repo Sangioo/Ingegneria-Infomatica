@@ -1,4 +1,4 @@
-package gui;
+package client;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
 
 public class MyListener implements ActionListener {
 	private MyFrame finestra;
-	private Downloader downloader;
 	private Thread downloadThread;
 	
 	private Socket sock = null;
