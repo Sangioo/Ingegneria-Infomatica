@@ -53,14 +53,17 @@ public class MyFrame extends JFrame {
 		//Pannello centrale
 		JPanel pCentrale = new JPanel(new GridLayout(1,3));
 		areaUsa = new JTextArea(10,25);
+		areaUsa.setEditable(false);
 		JScrollPane scrollUsa = new JScrollPane(areaUsa);
 		scrollUsa.setBorder(BorderFactory.createTitledBorder("USA"));
 		
 		areaIta = new JTextArea(10,25);
+		areaIta.setEditable(false);
 		JScrollPane scrollIta = new JScrollPane(areaIta);
 		scrollIta.setBorder(BorderFactory.createTitledBorder("Italia"));
 		
 		areaLog = new JTextArea(10,25);
+		areaLog.setEditable(false);
 		JScrollPane scrollLog = new JScrollPane(areaLog);
 		scrollLog.setBorder(BorderFactory.createTitledBorder("Log"));
 		

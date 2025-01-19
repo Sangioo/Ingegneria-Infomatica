@@ -105,25 +105,57 @@ public class MyFrame extends JFrame {
 		return tPorta.getText();
 	}
 	
-	public void setPulsanti(boolean isConnesso, boolean isTrasmettendo) {
-		if (isConnesso && isTrasmettendo) {
+	public String getNumero() {
+		return tNumero.getText();
+	}
+	
+	public String getLog() {
+		return areaLog.getText();
+	}
+	
+	public void setLog(String log) {
+		this.areaLog.setText(log);
+	}
+	
+	public void setNumero(String numero) {
+		this.tNumero.setText(numero);
+	}
+	
+	public void setPulsanti(boolean isConnesso, boolean isScaricando) {
+		if (isConnesso && isScaricando) {
 			this.bConnect.setEnabled(false);
 			this.bDisconnect.setEnabled(false);
 			this.bGet.setEnabled(false);
 			this.bReset.setEnabled(true);
 			this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		} else if (isConnesso && !isTrasmettendo) {
+		} else if (isConnesso && !isScaricando) {
 			this.bConnect.setEnabled(false);
 			this.bDisconnect.setEnabled(true);
 			this.bGet.setEnabled(true);
-			this.bReset.setEnabled(false);
+			this.bReset.setEnabled(true);
 			this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		} else if (!isConnesso && !isTrasmettendo) {
+		} else if (!isConnesso && !isScaricando) {
 			this.bConnect.setEnabled(true);
 			this.bDisconnect.setEnabled(false);
 			this.bGet.setEnabled(false);
 			this.bReset.setEnabled(false);
 			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		}
+	}
+	
+	public void resetDisplay() {
+		for (int i=0; i<25; i++) {
+			display[i].setBackground(Color.WHITE);
+		}
+	}
+	
+	public void disegna(String numero) {
+		for (int i=0; i<25; i++) {
+			if (numero.charAt(i) == '1') {
+				display[i].setBackground(Color.BLACK);
+			} else {
+				display[i].setBackground(Color.WHITE);
+			}
 		}
 	}
 }
