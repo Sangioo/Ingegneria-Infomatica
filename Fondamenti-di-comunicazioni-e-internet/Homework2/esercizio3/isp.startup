@@ -1,0 +1,8 @@
+ip addr add 130.63.255.254/30 dev eth0	# R1
+ip addr add 130.63.255.225/30 dev eth1	# R9
+ip addr add 130.63.255.250/30 dev eth2	# R8
+
+ip route add default via 130.63.255.253 dev eth0
+ip route add 130.63.176.0/21 via 130.63.255.226 dev eth1
+ip route add 130.63.204.0/22 via 130.63.255.249 dev eth2
+ip route add 130.63.160.0/20 via 130.63.255.249 dev eth2

@@ -1,0 +1,5 @@
+ip addr add 130.63.128.1/19 dev eth0		# Fiuggi
+ip addr add 130.63.255.229/30 dev eth1		# R4
+ip addr add 130.63.255.222/30 dev eth2		# R2
+
+ip route add default via 130.63.255.230 dev eth1

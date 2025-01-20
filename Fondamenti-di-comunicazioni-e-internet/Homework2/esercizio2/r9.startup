@@ -1,0 +1,5 @@
+ip addr add 130.63.255.226/30 dev eth0		# R2
+ip addr add 130.63.255.250/30 dev eth1		# R8
+ip addr add 130.63.176.1/21 dev eth2		# Como
+
+ip route add default via 130.63.255.225 dev eth0

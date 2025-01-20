@@ -1,0 +1,11 @@
+ip addr add 130.63.255.238/30 dev eth0		# R5
+ip addr add 130.63.208.1/25 dev eth1		# Pisa
+ip addr add 130.63.96.1/19 dev eth2		# Livorno
+ip addr add 130.63.255.241/30 dev eth3		# R7
+ip addr add 130.63.255.214/30 dev eth4		# R1
+
+ip route add 130.63.255.252/30 via 130.63.255.213 dev eth4
+ip route add 130.63.0.0/16 via 130.63.255.242 dev eth3
+ip route add default via 130.63.255.213 dev eth4
+
+ip route add 130.63.16.0/32 via 130.63.255.213 dev eth4

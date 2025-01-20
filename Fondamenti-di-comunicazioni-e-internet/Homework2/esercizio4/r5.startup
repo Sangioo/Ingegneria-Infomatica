@@ -1,0 +1,5 @@
+ip addr add 130.63.255.234/30 dev eth0		# R4
+ip addr add 130.63.200.1/22 dev eth1		# Imola
+ip addr add 130.63.255.237/30 dev eth2		# R6
+
+ip route add default via 130.63.255.238 dev eth2

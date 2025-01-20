@@ -1,0 +1,9 @@
+ip addr add 130.63.192.1/21 dev eth0		# Gela
+ip addr add 130.63.32.1/19 dev eth1		# Lodi
+ip addr add 130.63.255.233/30 dev eth2		# R5
+ip addr add 130.63.255.210/30 dev eth3		# R1
+ip addr add 130.63.255.230/30 dev eth4		# R3
+
+ip route add 130.63.255.252/30 via 130.63.255.209 dev eth3
+ip route add 130.63.0.0/16 via 130.63.255.234 dev eth2
+ip route add default via 130.63.255.209 dev eth3

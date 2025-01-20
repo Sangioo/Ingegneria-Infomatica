@@ -1,0 +1,9 @@
+ip addr add 130.63.255.249/30 dev eth0		# R9
+ip addr add 130.63.255.218/30 dev eth1		# R1
+ip addr add 130.63.255.246/30 dev eth2		# R7
+ip addr add 130.63.160.1/20 dev eth3		# Orta
+ip addr add 130.63.204.1/22 dev eth4		# Lucca
+
+ip route add 130.63.255.252/30 via 130.63.255.217 dev eth1
+ip route add 130.63.0.0/16 via 130.63.255.250 dev eth0
+ip route add default via 130.63.255.217 dev eth1
