@@ -38,6 +38,14 @@ public class Main {
         mat1.set(18, 17, 12);
         System.out.println(mat1);
         System.out.println("");
+        System.out.println("Somma mat1 e mat2");
+        System.out.println(mat1.add(mat1, mat1));
+        System.out.println("");
+        System.out.println("Trasposta");
+        System.out.println(mat1.tra(mat1));
+        System.out.println("");
+        System.out.println("Prodotto mat1 e mat2");
+        System.out.println(mat1.mul(mat1, mat1));
     }
 
     private static MatriceSparsa readMatFF() {

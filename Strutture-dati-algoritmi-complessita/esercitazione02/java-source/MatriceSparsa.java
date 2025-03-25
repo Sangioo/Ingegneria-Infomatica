@@ -84,6 +84,8 @@ public class MatriceSparsa {
     }
 
     public MatriceSparsa add(MatriceSparsa mat1, MatriceSparsa mat2) {
+        if (mat1.getNumCol() != mat2.getNumCol() || mat1.getNumRow() != mat2.getNumRow()) return null;
+
 		int m = mat1.getNumRow(), n = mat1.getNumCol();
         MatriceSparsa mat = new MatriceSparsa(m, n);
         for (int i=0; i<m; i++) {
@@ -95,12 +97,30 @@ public class MatriceSparsa {
     }
 
     public MatriceSparsa tra(MatriceSparsa mat) {
-        // TODO: Implement here
-        return null;
+        int m = mat.getNumRow(), n = mat.getNumCol();
+        MatriceSparsa out = new MatriceSparsa(m, n);
+        for (int i=0; i<m; i++) {
+            for (int j=0; j<n; j++) {
+                out.set(i, j, mat.get(j, i));
+            }
+        }
+        return out;
     }
 
     public MatriceSparsa mul(MatriceSparsa mat1, MatriceSparsa mat2) {
-        // TODO: Implement here
-        return null;
+        if (mat1.getNumCol() != mat2.getNumRow()) return null;
+
+        int m = mat1.getNumRow(), n = mat2.getNumCol();
+        MatriceSparsa out = new MatriceSparsa(m, n);
+        for (int i=0; i<m; i++) {
+            for (int j=0; j<n; j++) {
+                int num = 0;
+                for (int k=0; k<mat2.getNumCol(); k++) {
+                    num += mat1.get(i, k) * mat2.get(k, j);
+                }
+                out.set(i, j, num);
+            }
+        }
+        return this.tra(out);
     }
 }
