@@ -1,0 +1,44 @@
+QUESITO 6
+A.
+find_min_intervals(A):
+    out = []
+    out = out u A[1]
+    max = A[1] + 1
+    i = 2
+    while i <= len(A):
+        if A[i] > max:
+            out = out u A[i]
+            max = A[i] + 1
+        i = i + 1
+    return out
+
+L'algoritmo crea una lista, inizialmente contenente solo il primo elemento di A, che contiene il minimo contenuto da ogni intervallo.
+Definisce la variabile max che ogni iterazione viene aggiornata con il massimo dell'intervallo preso in considerazione.
+Ciò che viene fatto nel while è:
+* controllo se il punto è maggiore del massimo valore che copre l'intervallo corrente
+* se sì aggiungo il punto alla lista, dunque posiziono un nuovo intervallo a partire da A[i] incluso, e aggiorno next con il massimo dell'intervallo
+* se no incremento solamente i di 1
+alla fine viene ritornata la lista contenente gli intervalli identificati dai loro minimi
+(visto che conosciamo la lunghezza degli intervalli trovare i rispettivi massimi è banale)
+
+B.
+Dimostriamolo per induzione che l'algoritmo copre tutti i punti:
+* invariante di ciclo: all'inizio del ciclo while la lista out contiene gli intervalli che coprono almeno i punti da x_0 a x_(i-1)
+* inizializzazione: all'inizio out contiene solo il primo intervallo che copre i punti a partire dal primo dunque l'invariante è vera
+* conservazione: all'iterazione i-esima nell'if controlliamo se siamo usciti dall'intervallo precedente,
+    - se sì aggiungiamo un intervallo e aggiorniamo il massimo
+    - se no non facciamo nulla
+    dunque l'invariante rimane vero
+* conclusione: quando i = len(A) siamo all'ultimo punto x_n, se x_n è coperto dall'ultimo intervallo inserito bene altrimenti ne aggiungiamo uno a partire da x_n,
+    dunque l'invariante rimane vero
+
+Dimostriamo che la soluzione è ottima:
+questo è un algoritmo greedy dunque ha una sottostruttura ottima, ovvero una volta preso un intervallo risolviamo lo stesso problema a partire dal primo punto fuori dall'intervallo.
+Per massimizzare il numero di punti coperti dal primo intervallo dobbiamo farlo partire dal primo punto x_0 altrimenti sprecheremmo spazio prima di esso, dunque la soluzione è ottima.
+
+
+QUESITO 7
+
+
+
+

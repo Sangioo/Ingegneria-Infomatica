@@ -1,0 +1,29 @@
+QUESITO 2
+L'inserimento parte confrontando la radice con l'elemento da inserire, 15 in questo caso; essendo 15 > 12 l'elemento va inserito nel sottoalbero destro.
+Continuiamo confrontando l'elemento con il figlio destro del nodo appena controllato (la radice) ovvero 19, essendo 15 < 19 l'elemento va inserito nel sottoalbero sinistro.
+Ora confrontiamo l'elemento con il figlio sinistro del nodo appena controllato (il nodo 19) ovvero 18, essendo 15 < 18 l'elemento va inserito nel sottoalbero sinistro.
+Visto che il nodo 18 non ha figli (è una foglia) poniamo 15 come figlio sinistro di 18, otteniamo così un albero binario di ricerca.
+Albero finale:
+
+        12
+      /    \
+     /      \
+    7        19
+   / \      /  \
+  4   9    18  30
+ / \      /
+2   5    15     
+
+
+
+QUESITO 3
+| Iterazione | Arco aggiunto a T | Peso complessivo |
+| ---------- | ----------------- | ---------------- |
+|     1      |       (2,3)       |        7         |
+|     2      |       (3,4)       |        16        |
+|     3      |       (2,8)       |        18        |
+|     4      |       (2,5)       |        22        |
+|     5      |       (5,6)       |        24        |
+|     6      |       (6,7)       |        25        |
+|     7      |       (1,2)       |        33        |
+|     8      |       (0,1)       |        37        |

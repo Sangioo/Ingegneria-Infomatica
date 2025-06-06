@@ -1,0 +1,5 @@
+Cognome: Cognome
+Nome: Nome
+Matricola: 1234567
+Linguaggio ([C]/[J]ava): J
+Note (eventuali integrazioni o altro):

@@ -1,0 +1,2 @@
+Domanda 4: C
+Si entra nello stato waiting sempre dallo stato running, non dallo stato ready. Infatti, per invocare una system call è necessario che il processo sia in esecuzione.

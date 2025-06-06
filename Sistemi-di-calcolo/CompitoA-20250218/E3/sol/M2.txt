@@ -1,0 +1,3 @@
+Domanda 2: D
+
+Se lo spazio logico di memoria è molto grande anche il numero di pagine sarà grande. Ad esempio per spazi logici a 64 bit e pagine da 4 KiB = 2^12 byte si hanno 2^52 pagine e uno spazio necessario per pagina di almeno 2^52 byte, ampiamente sopra l'ordine dei MiB previsti dalla domanda.
