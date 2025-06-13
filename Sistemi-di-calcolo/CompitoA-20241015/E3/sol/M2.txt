@@ -1,0 +1,4 @@
+Il numero della system call è in eax (1), mentre ebx contiene il primo ed unico argomento (0);
+0x80 è l’indice dell’interrupt vector per eseguire una syscall.
+
+La risposta corretta è quindi la D

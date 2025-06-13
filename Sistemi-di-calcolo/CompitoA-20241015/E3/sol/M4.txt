@@ -1,0 +1,21 @@
+Poiché l’array è allineato a un indirizzo multiplo di 8, può essere partizionato in quattro blocchi da 8 byte, 
+ciascuno dei quali può essere portato in cache come un unico pacco:
+    blocco 0: b[0], b[1], b[2], b[3]
+    blocco 1: b[4], b[5], b[6], b[7]
+    blocco 2: b[8], b[9], b[10], b[11]
+    blocco 3: b[12], b[13], b[14], b[15]
+
+Poiché la cache è completamente associativa, ogni blocco dell’array può essere portato in uno qualsiasi dei due 
+blocchi di cache. La sequenza di accessi a memoria è:
+    scrive b[1] (blocco 0): miss (cold) - blocco 0 portato nella prima linea di cache {0, -}
+    legge b[1] (blocco 0): hit {0. -}
+    scrive b[2] (blocco 0): hit {0, -}
+    scrive b[4] (blocco 1): miss (cold) - blocco 1 portato nella seconda linea di cache {0, 1}
+    scrive b[0] (blocco 0):  hit {0, 1}
+    scrive b[12] (blocco 3): miss (capacity) - blocco 3 portato nella seconda linea di cache {0, 3}
+    legge b[10] (blocco 2): miss (capacity) - blocco 2 portato nella prima linea di cache {2, 3}
+    scrive b[2] (blocco 0): miss (capacity) - blocco 0 portato nella seconda linea di cache {2, 0}
+    legge b[1] (blocco 0): hit {2, 0}
+    scrive b[10] (blocco 2): hit {2, 0}
+
+Sono quindi 5 miss in totale. La risposta corretta è la C

@@ -1,0 +1,5 @@
+I sigsegv possono essere gestiti e, a volte, si può risolvere il problema che li ha generati.
+Il programma dovrà prevedere il codice per catturare e gestire il relativo segnale.
+Quando questo accade, l’esecuzione può riprendere senza problemi.
+
+Quindi la risposta corretta è C

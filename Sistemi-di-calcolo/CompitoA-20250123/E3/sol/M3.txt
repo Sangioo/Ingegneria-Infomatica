@@ -1,0 +1,11 @@
+Abbiamo che:
+
+S = 1 / (0.25 + 0.75*X) = ~1.42
+
+Dove:
+A => X = 0.8 => S = ~1.17
+B => X = 0.7 => S = ~1.29
+C => X = 0.6 => S = ~1.42
+D => X = 0.5 => S = ~1.6
+
+Quindi la risposta corretta è C.

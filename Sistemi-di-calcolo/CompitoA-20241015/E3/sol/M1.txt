@@ -1,0 +1,8 @@
+Nel momento in cui viene eseguita la quarta istruzione nello stack troviamo:
+    (%esp + 0) il valore di count aggiunto dalla terza istruzione
+    (%esp + 4) il valore di %ebx salvato dalla prima istruzione
+    (%esp + 8) return address
+    (%esp + 12) primo argomento (buf)
+    (%esp + 16) secondo argomento (len)
+
+La risposta corretta è quindi B (12)

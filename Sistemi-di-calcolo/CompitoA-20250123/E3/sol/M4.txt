@@ -1,0 +1,9 @@
+In memoria la struct avrà il seguente layout:
+typedef struct S {
+  char x;     |x...|
+  char *y;    |xxxx|
+  short z;    |xx..|
+} S;
+
+dove . indica padding e X byte usati dal field. 
+Il campo z si trova ad offset 8, quindi la risposta falsa è la C.
