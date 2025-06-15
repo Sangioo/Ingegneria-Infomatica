@@ -1,0 +1,19 @@
+Poiché l’array è allineato a un indirizzo multiplo di 16, può essere partizionato in quattro
+blocchi da 16 byte, ciascuno dei quali può essere portato in cache come un unico pacco:
+- blocco 0: v[0], v[1], v[2], v[3]
+- blocco 1: v[4], v[5], v[6], v[7]
+- blocco 2: v[8], v[9], v[10], v[11]
+- blocco 3: v[12], v[13], v[14], v[15]
+
+Poiché la cache è completamente associativa, ogni blocco dell’array può essere portato in uno
+qualsiasi dei due blocchi di cache. La sequenza di accessi a memoria è:
+- scrive v[0] (blocco 0): miss (cold) - blocco 0 portato nella prima linea di cache {0, -}
+- scrive v[6] (blocco 1): miss (cold) - blocco 1 portato nella seconda linea di cache {0, 1}
+- scrive v[2] (blocco 0):  hit {0, 1}
+- scrive v[15] (blocco 3): miss (capacity) - blocco 3 portato nella seconda linea di cache {0, 3}
+- legge v[8] (blocco 2): miss (capacity) - blocco 2 portato nella prima linea di cache {2, 3}
+- scrive v[2] (blocco 0): miss (capacity) - blocco 0 portato nella seconda linea di cache {2, 0}
+- legge v[1] (blocco 0): hit {2, 0}
+- scrive v[10] (blocco 0): hit {2, 0}
+
+Il numero complessivo di cache miss è quindi 5 (risposta A)

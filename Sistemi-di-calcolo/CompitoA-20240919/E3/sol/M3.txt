@@ -1,0 +1,6 @@
+A: *p è una zona di memoria allocata con malloc e quindi si trova in heap > FALSA
+B: *p è in heap se malloc termina senza errore. info, essendo globale è in .data > VERA
+C: *p è in heap se malloc termina senza errore. foo, essendo codice, è in .text > VERA
+D: n, parametro di foo, è una variabile locale e quindi in stack. *info, se fosse oggetto di allocazione con malloc in qualche altra parte del codice, sarebbe effettivamente collocata in heap > VERA
+
+L'affermazione FALSA è quindi la A

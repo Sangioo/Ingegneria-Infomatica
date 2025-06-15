@@ -1,0 +1,12 @@
+L'esecuzione delle 5 istruzioni nella pipeline, genera il seguente scenario:
+
+1: movl  $1, %eax              F D E M W
+2: movl  %eax, %ecx              - - - F D E M W
+3: movl  $2, %edx                        F D E M W
+4: subl  $1, %eax                          F D E M W
+5: testl %ecx, %ecx                          - F D E M W
+
+Essendo l'istruzione 5 dipendente dal risultato dell'istruzione 2, si tratta di hazard sui dati.
+La risposta giusta è quindi la B.
+
+(notare che l'istruzione 4 non deve attendere il W dell'istruzione 2, poiché l'istruzione 2 utilizza %eax solamente in lettura)

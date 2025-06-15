@@ -1,0 +1,2 @@
+Il primo elemento dell’array a non viene inizializzato poiché nel ciclo for la variabile i assume come valore iniziale 1.
+Quindi la risposta corretta è la C.

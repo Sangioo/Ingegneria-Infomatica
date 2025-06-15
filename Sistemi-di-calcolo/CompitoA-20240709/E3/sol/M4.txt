@@ -1,0 +1,8 @@
+Spazio logico a 34 bit → 2^34 byte indirizzabili.
+Tabella di 8 MB → 2^23 byte.
+Grandezza di ciascuna entry 32 bit → 4 byte → 2^2
+
+Il numero di entry nella tabella delle pagine è: 2^23 / 2^2 = 2^21
+Ciascuna pagina occuperà quindi: 2^34 / 2^21 = 2^13 byte = 8 KB
+
+Quindi la risposta corretta è la C.
