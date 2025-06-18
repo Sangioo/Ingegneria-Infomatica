@@ -1,0 +1,2 @@
+Il comando ha 3 argomenti più il nome del binario, quindi argc sarà 4. argv[1] sarà uguale al primo argomento della riga di comando, quindi -r.
+La risposta corretta è quindi la C.

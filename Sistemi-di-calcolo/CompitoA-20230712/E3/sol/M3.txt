@@ -1,0 +1,7 @@
+La rappresentazione binaria dei permessi richiesti può essere tradotta nella seguente rappresentazione ottale:
+
+    | user | group | other |
+    |  rw- |  r-x  |  -w-  |
+0   |   6  |   5   |   2   |
+ 
+Quindi la risposta corretta è la B.

@@ -1,0 +1,17 @@
+Sono richiesti 14 cicli di clock per completare tutte le istruzioni:
+
+movl $5, %eax	F D E M W
+incl %ebx		- F D E M W
+addl %ecx, %eax	- - - - F D E M W
+subl %ebx, %eax	- - - - - - - - F D E M W
+incl %edx		- - - - - - - - - F D E M W
+
+È possibile riordinare le istruzioni riducendo a 13 i cicli di clock necessari
+
+movl $5, %eax	F D E M W
+incl %ebx		- F D E M W
+incl %edx		- - F D E M W
+addl %ecx, %eax	- - - - F D E M W
+subl %ebx, %eax	- - - - - - - - F D E M W
+
+Quindi la risposta corretta è la B.

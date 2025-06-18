@@ -1,0 +1,10 @@
+Grandezza tabella: 1KB = 2^10 byte
+Grandezza entry tabella 16bit = 2^1 byte
+Numero di pagine: 2^10/2^1 = 2^9 pagine = 512 pagine
+
+Numero indirizzi possibili nello spazio logico: 2^10 indirizzi
+Indirizzi per pagina: 2^10/2^9 = 2^1 = 2
+
+Poiché ogni indirizzo rappresenta 1 byte, una pagina deve essere grande 2 byte.
+
+La risposta giusta è quindi la D.

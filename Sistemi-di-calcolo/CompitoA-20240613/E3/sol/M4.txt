@@ -1,0 +1,3 @@
+L'interrupt vector table viene gestita dal sistema operativo.
+Quindi nessun processo user space può modificarne direttamente il contenuto.
+La risposta corretta è quindi la C.

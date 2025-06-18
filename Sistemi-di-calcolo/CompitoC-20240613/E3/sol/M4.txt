@@ -1,0 +1,13 @@
+Lo stack frame della funzione foo è il seguente:
+
+32(%esp)-> arg2
+28(%esp)-> arg1
+24(%esp)-> return address
+20(%esp)-> reg. callee-save
+16(%esp)-> reg. callee-save
+12(%esp)-> reg. callee-save
+ 8(%esp)-> var. locale
+ 4(%esp)-> s2 (perché i parametri di funzione occupano tutti 4 byte)
+  (%esp)-> s1 (perché i parametri di funzione occupano tutti 4 byte)	
+
+Quindi la risposta corretta è la B.

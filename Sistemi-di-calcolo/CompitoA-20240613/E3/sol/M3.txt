@@ -1,0 +1,5 @@
+A) il permesso per il proprietario è 6 che equivale a rw-. Quindi il proprietario non può eseguire il file.
+B) il permesso per il gruppo proprietario è 0 che equivale a ---. Quindi il gruppo proprietario non può scrivere sul file.
+D) I permessi per il proprietario e per altri utenti sono di tipo rw-, e quindi permettono la lettura del file.
+
+La risposta corretta è quindi la C.

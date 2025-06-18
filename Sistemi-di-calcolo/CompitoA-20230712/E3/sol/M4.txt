@@ -1,0 +1,22 @@
+p1 = malloc(6)
+XX
+
+p2 = malloc(3)
+XX|X
+
+p3 = malloc(14)
+XX|X|XXXX
+
+free(p2)
+XX|.|XXXX
+
+p4 = malloc(9)
+XX|.|XXXX|XXX
+
+free(p3)
+XX|.|....|XXX
+
+p6 = malloc(20)
+XX|.|....|XXX|XXXXX
+
+Quindi la risposta corretta è la B.

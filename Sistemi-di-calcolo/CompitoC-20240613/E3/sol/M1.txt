@@ -1,0 +1,4 @@
+A) Una mov non può avere sia source che destination come operandi memoria
+B)L’istruzione copia la variabile richiesta all’indirizzo puntato da esp (tramite push), non a quello puntato da ecx
+C) Non copia il puntatore richiesto, ma copia il valore da esso puntato.
+Pertanto, la risposta corretta è la D

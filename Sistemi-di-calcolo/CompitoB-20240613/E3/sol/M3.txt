@@ -1,0 +1,6 @@
+Lo speedup si calcola come S = T/T’ con T’ il tempo ottimizzato, se T = T1+T2 e T’ = T1 + T2/k, con k lo speed up, possiamo estrarre il valore dello speed-up (assumendo che T1 occupi il 40%).
+
+1.6 = T/(T1+ T2/k) = T/(0.4T+0.6T/k) 
+k = 2.67x
+
+Quindi la risposta corretta è la A.

@@ -1,0 +1,4 @@
+La funzione con più parametri che viene chiamata è la memset, che ha 3 parametri; le altre (malloc e exit) ne hanno soltanto uno. Quindi serviranno almeno 12 bytes per i parametri delle funzioni chiamate. Il return address della funzione occuperà altri 4 bytes. La funzione non richiede che vengano usati registri callee save.
+In totale: 12 bytes per argomenti e 4 bytes per return address. 
+
+La risposta corretta è la A.

@@ -1,0 +1,7 @@
+L’istruzione 1 esegue una conversione di tipo senza segno copiando il byte contenuto in %al nei 2 byte di %cx, riempiendo con zero il byte che %cx ha in più rispetto ad %al. 
+Quindi al termine dell'istruzione 1: %ecx=0xCAFE0034
+
+L’istruzione 2 effettua uno shift aritmetico espellendo 1 byte verso sinistra, senza influenzare il bit del segno.
+Quindi al termine dell'istruzione 2: %ecx=0xAFE00340
+
+La risposta corretta è la B.

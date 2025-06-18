@@ -1,0 +1,4 @@
+Spazio logico a 33 bit -> 2^33 byte indirizzabili.
+Tabella di 4 MB -> 2^22 byte.
+Grandezza di ciascuna entry 16 bit -> 2 byte
+Ciascuna pagina occuperà: (2^33 * 2^1) / 2^22 = 2^12 byte = 4 KB

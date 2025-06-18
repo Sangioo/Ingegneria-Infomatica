@@ -1,0 +1,138 @@
+#include "../e2A.h"
+
+// inserisci la soluzione qui...
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int calculateTimeDifference(const char* time1, const char* time2);
+char * addMinutesToTime(const char* inputTime, int minutesToAdd);
+
+int getFirstEmptySlot (const char * filename, int len, char ** output){
+
+	FILE* fp;
+	* output = (char *) malloc((sizeof(char)*17));
+
+	// Apro il file
+	fp = fopen(filename, "r");
+	if (fp==NULL) return -1;
+
+	char data_corrente [11];
+	char ora_corrente [6];
+	char buf[50];
+	char data_tmp [11];
+	char ora_tmp [6];
+	char ora_next [6];
+	char durata_tmp [4];
+	int termina = 0;
+
+	//Leggo il primo appuntamento disponibile
+	char * ret = fgets(buf, sizeof(buf), fp);
+	if (ret!=NULL) {
+		// Estraggo dalla prenotazione la data
+		strncpy(data_tmp, buf+30, 10);
+		data_tmp[10] = '\0';
+		// Estraggo dalla prenotazione l'ora
+		strncpy(ora_tmp, buf+40, 5);
+		ora_tmp[5] = '\0';
+		// Estraggo dalla prenotazione la durata
+		strncpy(durata_tmp, buf+45, 3);
+		durata_tmp[3] = '\0';
+	}
+
+	//Ciclo su tutti i giorni possibili
+	for (int d=18; d<23; d++) {
+		//Calcolo la data attuale
+		sprintf(data_corrente, "%02d/09/2023", d);
+		strcpy(ora_corrente,"08:00");
+
+		//Controllo se l'ultimo appuntamento letto dal file è per la data corrente
+		while (strcmp(data_tmp,data_corrente)==0) {
+			//Controllo se c'è spazio prima dell'ultimo appuntamento letto
+			strcpy(ora_next,ora_tmp);
+			if (calculateTimeDifference(ora_corrente,ora_next)>=len) {
+				sprintf(*output, "%s %s", data_corrente, ora_corrente);
+				termina=1;
+				break;
+			}
+			strcpy(ora_corrente,addMinutesToTime(ora_next, atoi(durata_tmp)));
+
+			//Leggo l'appuntamento successivo
+			ret = fgets(buf, sizeof(buf), fp);
+			if (ret!= NULL){
+				// Estraggo dalla prenotazione la data
+				strncpy(data_tmp, buf+30, 10);
+				data_tmp[10] = '\0';
+				// Estraggo dalla prenotazione l'ora
+				strncpy(ora_tmp, buf+40, 5);
+				ora_tmp[5] = '\0';
+				// Estraggo dalla prenotazione la durata
+				strncpy(durata_tmp, buf+45, 3);
+				durata_tmp[3] = '\0';
+			} else {
+				//Non ci sono ulteriori appuntamenti
+				strcpy(data_tmp, "23/09/2023");
+				strcpy(ora_next,"18:00");
+			}
+		}
+
+		if(termina==1) break;
+
+		strcpy(ora_next,"18:00");
+		
+		if (calculateTimeDifference(ora_corrente,ora_next)>=len) {
+			sprintf(*output, "%s %s", data_corrente, ora_corrente);
+			termina=1;
+			break;
+		}
+	
+		strcpy(ora_corrente, "08:00");
+	}
+
+	// Chiudo il file
+	fclose(fp);
+	if (termina==1)
+		return 0;
+	else
+		return -1;
+}
+
+
+int calculateTimeDifference(const char* time1, const char* time2) {
+    int hours1, minutes1, hours2, minutes2;
+
+    // Analizza le due stringhe per estrarre ore e minuti
+    sscanf(time1, "%d:%d", &hours1, &minutes1);
+    sscanf(time2, "%d:%d", &hours2, &minutes2);
+
+    // Calcola la differenza in minuti
+    int totalMinutes1 = hours1 * 60 + minutes1;
+    int totalMinutes2 = hours2 * 60 + minutes2;
+    int difference = totalMinutes2 - totalMinutes1;
+
+    return difference;
+}
+
+char* addMinutesToTime(const char* inputTime, int minutesToAdd) {
+    int hours, minutes;
+    sscanf(inputTime, "%d:%d", &hours, &minutes);
+
+    // Calcola il nuovo orario
+    int totalMinutes = hours * 60 + minutes;
+    totalMinutes += minutesToAdd;
+
+    // Assicurati che l'orario rimanga all'interno di una giornata (0-1439 minuti)
+    totalMinutes = (totalMinutes + 1440) % 1440;
+
+    // Estrai le nuove ore e i nuovi minuti
+    hours = totalMinutes / 60;
+    minutes = totalMinutes % 60;
+
+    // Alloca spazio per la stringa risultante nel formato "hh:mm"
+    char* resultTime = (char*)malloc(6 * sizeof(char));
+
+    // Formatta la stringa risultante
+    sprintf(resultTime, "%02d:%02d", hours, minutes);
+
+    return resultTime;
+}

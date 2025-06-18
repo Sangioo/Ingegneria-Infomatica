@@ -1,0 +1,4 @@
+Analizzando la struttura if-else possiamo notare che la fork() all’interno della condizione genererà un figlio che entrerà in “else” e stamperà 2 volte “fork” ( il secondo è fuori dal costrutto ), anche il padre farà 2 stampe ma entrando nell’if per un totale di 4. 
+Considerando che c’è un fork iniziale, il numero è raddoppiato ad 8.
+
+La risposta corretta è quindi la B.

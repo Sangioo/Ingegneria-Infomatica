@@ -1,0 +1,8 @@
+Riordinando le istruzioni come segue, è possibile eseguire le istruzioni in 9 cicli di clock:
+
+addl %esi, %edx	F D E M W
+movl $5, %eax	- F D E M W
+subl $10, %ecx	- - F D E M W
+movl $3, %edi	- - - F D E M W
+incl %edx	- - - - F D E M W
+

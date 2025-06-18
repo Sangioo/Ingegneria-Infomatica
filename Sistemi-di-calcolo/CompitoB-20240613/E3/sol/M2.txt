@@ -1,0 +1,3 @@
+Nel codice non viene gestita la sincronizzazione tra i thread mediante la funzione pthread_join(). Il programma non attende la terminazione dei thread, pertanto il valore stampato potrà variare ad ogni esecuzione.
+
+Quindi la risposta corretta è la D.
