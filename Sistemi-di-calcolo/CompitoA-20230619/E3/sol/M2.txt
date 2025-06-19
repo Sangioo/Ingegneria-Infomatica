@@ -1,0 +1,8 @@
+movl $10, %eax	F D E M W
+addl %esi, %edx	- F D E M W
+subl $5, %eax	- - - - F D E M W
+incl %esi	- - - - - F D E M W
+movl $3, %ebx	- - - - - - F D E M W
+
+In totale si hanno 11 cicli di clock.
+

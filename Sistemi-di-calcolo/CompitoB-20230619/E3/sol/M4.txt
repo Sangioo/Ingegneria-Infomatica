@@ -1,0 +1,3 @@
+D4 è sostituito da FE, C3 da FF per la conversione di tipo con segno (MOVS), poi i byte vengono semplicemente spostati da un registro all'altro. Non viene quindi invertito l'ordine dei byte perchè non c'è alcun accesso alla memoria (su cui occorre ragionare in base all'endianness)
+
+Quindi la risposta corretta è la B.

@@ -1,0 +1,12 @@
+Abbiamo che:
+
+S = 1 / (0.7 + 0.3*X) = ~1.21
+
+Dove:
+A => X = 0.8 => S = ~1.06
+B => X = 0.6 => S = ~1.13
+C => X = 0.4 => S = ~1.21
+D => X = 0.2 => S = ~1.31
+
+Quindi la risposta corretta è C.
+

@@ -1,0 +1,11 @@
+In memoria la struct avrà il seguente layout:
+
+typedef struct S {
+  short x;		|x...|
+  char *y;		|xxxx|
+  char z;		|x...|
+  int w;		|xxxx|
+} S;
+
+dove . indica padding e X byte usati dal field. 
+Quindi il campo w si trova ad offset 12, ossia la risposta C.

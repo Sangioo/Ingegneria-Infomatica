@@ -1,0 +1,8 @@
+La rappresentazione ottale dei permessi 0745 può essere tradotta nella seguente rappresentazione binaria:
+
+0  |   7  |    4  |   5   |
+   | user | group | other |
+   |  rwx |  r--  |  r-x  |
+ 
+La risposta errata è quindi la D dato che gli altri utenti (diversi dall’utente proprietario e non membri del gruppo proprietario) hanno il permesso di leggere il file.
+
