@@ -1,5 +1,5 @@
 void factorial(int n, int* result) {
-    *result=1;
+    *result=n;
     while(--n){
         *result *= n;
     }

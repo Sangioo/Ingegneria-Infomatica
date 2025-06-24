@@ -12,7 +12,8 @@
 
 int main() {
 	int* buf = calloc(10, sizeof(int));
-	for (int i = 0; i <= 10; i++)
+	for (int i = 0; i < 10; i++)
 		buf[i] = i;
+	free(buf);
 	return 0;
 }

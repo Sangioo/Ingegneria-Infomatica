@@ -16,7 +16,7 @@
 int main(){
    int x;
    printf("Inserisci un intero: ");
-   scanf("%d", x);
+   scanf("%d", &x);
    printf("\nIntero inserito: %d \n", x);
    return 0;
 }

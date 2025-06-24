@@ -16,12 +16,12 @@ void repeat(int n) {
 		char* s = malloc(128);
 		snprintf(s, 128, "Iteration: %d", i);
 		puts(s);
+		free(s);
 	}
 }
 
 int main(){
 	repeat(100);
 	char* s = "hello";
-	free(s);
 	return 0;
 }
