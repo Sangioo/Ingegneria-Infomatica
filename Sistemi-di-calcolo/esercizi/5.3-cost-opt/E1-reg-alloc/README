@@ -1,0 +1,5 @@
+Versione senza allocazione dei registri:
+gcc -S e1.c -m32
+
+Versione con allocazione dei registri:
+gcc -S e1.c -O1 -m32
