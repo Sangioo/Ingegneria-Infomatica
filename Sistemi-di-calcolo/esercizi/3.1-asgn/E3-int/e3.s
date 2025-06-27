@@ -1,1 +1,5 @@
-// Scrivi la soluzione qui...
+.globl f
+
+f:
+	movl $10, %eax
+	ret

@@ -1,8 +1,8 @@
 .globl myabs
 myabs:
-	movl 4(%esp), %eax	# int a = x;
-    cmpl $0, %eax		# if (a>=0) 
-	jge L				# goto L;
-	negl %eax			# a = -a;
-L:
-    ret 				# return a;
+	movl 4(%esp), %eax
+	cmpl $0, %eax
+	jge E
+	negl %eax
+E:
+	ret

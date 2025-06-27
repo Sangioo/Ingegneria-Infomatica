@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct node {
-    char * id;
-    char * value;
+    char id[16];
+    char value[16];
     struct node * next;
 } node_t;
 
@@ -12,14 +13,12 @@ static int count = 0;
 node_t* add_node(node_t* l, char* value) {
     node_t* node = malloc(sizeof(node_t));
 
-    char id[16];
-    sprintf(id, "ID_%d", count++);
-    node->id = id;
-    node->value = value;
+    sprintf(node->id, "ID_%d", count++);
+    strcpy(node->value, value);
 
     if (l != NULL)
         node->next = l;
-   
+
     return node;
 }
 
@@ -33,12 +32,12 @@ void print_list(node_t* head) {
 }
 
 void delete_list(node_t * head) {
-    node_t* current = head;
+    node_t* current = head, *tmp = NULL;
 
     while (current != NULL) {
+        tmp = current->next;
         free(current);
-        free(current->value);
-        current = current->next;
+        current = tmp;
     }
 }
 

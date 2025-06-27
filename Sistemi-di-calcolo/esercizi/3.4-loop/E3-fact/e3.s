@@ -1,15 +1,15 @@
 .globl fact
 fact:
-    movl $1, %eax   # unsigned a = 1, c;
-    movl $2, %ecx   # c = 2;
+    movl 4(%esp), %edx
+    movl $1, %eax
+    movl $2, %ecx
 L:
-    cmpl 4(%esp), %ecx  # if (c > n) 
-    ja E                # goto E;
-    imull %ecx, %eax    # a *= c;   # POTENZIALMENTE SBAGLIATO 
-                                    # QUANDO VARIABILE C E' (UNSIGNED) LONG LONG 
-    # alternativa con uso MUL:
-    # mull %ecx         # a *= c; 
-    incl %ecx           # ++c;
-    jmp L               # goto L;
+    cmpl %edx, %ecx
+    ja E
+
+    imull %ecx, %eax
+
+    incl %ecx
+    jmp L
 E:
-    ret                 # return a;
+    ret

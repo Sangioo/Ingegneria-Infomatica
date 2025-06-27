@@ -10,9 +10,9 @@ f:
     movl $2, %edx
     addl $3, %edx
 
-    imull %ecx,  %eax
+    imull %ecx, %eax
     subl %edx, %eax
-    imull $3,  %eax
+    imull $3, %eax
 
     addl $1, %eax
     ret

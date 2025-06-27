@@ -1,7 +1,7 @@
 .globl times2
 times2:
-    movl 4(%esp), %eax  # short* a = p;
-    movw (%edx), %cx    # short cx = *a;
-    imulw $2, %cx       # cx = cx * 2;
-    movw %cx, (%eax)    # *a = cx;
+    movl 4(%esp), %eax
+    movl (%eax), %ecx
+    imull $2, %ecx
+    movl %ecx, (%eax)
     ret

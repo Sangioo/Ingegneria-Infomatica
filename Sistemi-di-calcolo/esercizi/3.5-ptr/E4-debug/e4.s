@@ -1,21 +1,23 @@
 .globl f
 f:
-    movw 4(%esp), %ax
+    movl 8(%esp), %eax
+    movl 12(%esp), %edx
+    movw $0, (%eax)
+    movw $0, (%edx)
     xorw %cx, %cx
-    movw 8(%esp), %dx
-    movw $0, %dx
-    movw 12(%esp), %dx
-    movw $0, %dx
-L:  cmpw %cx, %ax
+L:
+    cmpw 4(%esp), %cx
     jg E
+
     testw $1, %cx
-    jne F
-    movw 8(%esp), %dx
-    addw %cx, %dx
-    jmp C
-F:
-    movw 12(%esp), %dx
-    addw %cx, %dx
-C:
+    jnz ELSE
+    addw %cx, (%eax)
+    jmp FI
+ELSE:
+    addw %cx, (%edx)
+FI:
+
     incw %cx
+    jmp L
 E:
+    ret

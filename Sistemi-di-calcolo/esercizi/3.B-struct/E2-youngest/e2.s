@@ -1,30 +1,26 @@
 .globl find_youngest
 
-#  typedef struct {   // base
-#     char gender;    // offset: 0 |x...|    (base)
-#     char* name;     // offset: 4 |xxxx|   4(base)
-#     char age;       // offset: 8 |x...|   8(base)
-# } person_t;         // sizeof: 12
-
-find_youngest: # person_t *find_youngest(person_t *v, int n) {
+find_youngest:
     pushl %ebx
-    xorl %eax, %eax     # person_t *a = NULL;
-    xorl %ecx, %ecx     # int c = 0;
-    movl 8(%esp), %ebx  # person_t* b = v;
+    movl 8(%esp), %edx
+    xorl %eax, %eax
+    xorl %ecx, %ecx
 L:
-    cmpl 12(%esp), %ecx # if(c>=n) 
-    jge E               # goto E;
-    testl %eax, %eax    # if (a==NULL) 
-    jz A                # goto A;
-    movb 8(%ebx), %dl   # char dl = b.age; 
-    cmpb 8(%eax), %dl   # if (dl >= a->age) 
-    jge A2              # goto A2;
-A:
-    movl %ebx, %eax     # a = b;
-A2:
-    incl %ecx           # ++c;
-    addl $12, %ebx      # b++; // aritmetica dei puntatori
-    jmp L               # goto L;
+    cmpl 12(%esp), %ecx
+    jge E
+
+    testl %eax, %eax
+    jz F
+    movb 8(%edx, %ecx), %bl
+    cmpb 8(%eax), %bl
+    jl F
+    jmp G
+F:
+    leal (%edx, %ecx), %eax
+G:
+
+    addl $12, %ecx
+    jmp L
 E:
     popl %ebx
-    ret     # return a;
+    ret

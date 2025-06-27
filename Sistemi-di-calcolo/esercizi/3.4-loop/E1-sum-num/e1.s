@@ -1,12 +1,12 @@
 .globl sum
 sum:
-    xorl %eax, %eax     # int a = 0;
-    movl 4(%esp), %ecx  # int c = n;
+    movl 4(%esp), %ecx
+    xorl %eax, %eax
 L:
-    testl %ecx, %ecx    # if (c<=0) 
-    jle E               # goto E; 
-    addl %ecx, %eax     # a += c;
-    decl %ecx           # c--;
-    jmp L               # goto L;
+    cmpl $0, %ecx
+    jle E
+    addl %ecx, %eax
+    decl %ecx
+    jmp L
 E:
-    ret                 # return a;
+    ret
