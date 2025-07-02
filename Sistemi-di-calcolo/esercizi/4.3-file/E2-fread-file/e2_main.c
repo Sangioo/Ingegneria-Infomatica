@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "e1.h"
+#include "e2.h"
 
 // la funzione read_file deve allocare dinamicamente un buffer
 // e caricarci dentro il contenuto di un file

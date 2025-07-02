@@ -4,5 +4,7 @@
 #include <stdlib.h> // atoi
 
 void f(char* in[], int out[], int n) {
-    // scrivere la soluzione...
+    for (int i = 0; i < n; i++) {
+        out[i] = atoi(in[i]);
+    }
 }

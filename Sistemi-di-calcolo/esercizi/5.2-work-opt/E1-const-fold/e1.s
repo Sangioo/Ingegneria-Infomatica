@@ -10,5 +10,5 @@ f:
 	.cfi_endproc
 .LFE0:
 	.size	f, .-f
-	.ident	"GCC: (Ubuntu 4.8.4-2ubuntu1~14.04.3) 4.8.4"
+	.ident	"GCC: (GNU) 15.1.1 20250521 (Red Hat 15.1.1-2)"
 	.section	.note.GNU-stack,"",@progbits

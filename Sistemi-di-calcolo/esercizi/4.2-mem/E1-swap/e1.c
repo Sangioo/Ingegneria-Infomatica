@@ -4,6 +4,13 @@
 #include <string.h> // memcpy
 
 void mem_swap(void* s1, void* s2, size_t n) {
-    // scrivere la soluzione...
+    void* tmp = malloc(n);
+    assert(tmp != NULL);
+
+    memcpy(tmp, s1, n);
+    memcpy(s1, s2, n);
+    memcpy(s2, tmp, n);
+
+    free(tmp);
 }
 

@@ -17,12 +17,12 @@ int main(){
     fprintf(stdout, "%s", str);
 
     // approccio #3
-    write(1 /* file descriptor */, str, len);
-
-    // approccio #4
     fwrite(str, 1, len, stdout);
 
-    // NOTA: stdour e' una variabile globale definita da stdio.h
+    // approccio #4
+    write(1 /* file descriptor */, str, len);
+
+    // NOTA: stdout e' una variabile globale definita da stdio.h
 
     // approccio #{2, 3, 4} possono essere facilmente
     // cambiati per lavorare sullo standard error

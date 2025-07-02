@@ -17,7 +17,7 @@ int main (int argc, char *argv[]){
    for(t = 0; t < NUM_THREADS; t++) {
       printf("Funzione main: creo il thread %ld\n", t);
       rc = pthread_create(&threads[t], NULL, PrintHello, (void *)t);
-	  pthread_detach(threads[t]);
+	   pthread_detach(threads[t]);
       if (rc) {
          printf("ERRORE: codice %d\n", rc);
          exit(-1);
