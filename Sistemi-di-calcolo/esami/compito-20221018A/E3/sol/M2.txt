@@ -1,0 +1,5 @@
+Come spiegato nella dispensa nel capitolo 6.2.2, una misprediction comporta normalmente uno svuotamento della pipeline, quindi la risposta correta e' A. 
+Inoltre:
+- B e' falsa perche' una misprediction porta ad una perdita di performance
+- C e' falsa perche' l'instruction scheduling è appositamente pensato per evitare, ove possibile, l'insirimento di bollo
+- D e' falsa perche' in caso di misprediction non serve insirire bolle nella pipeline

@@ -1,0 +1,11 @@
+Abbiamo che:
+
+S = 1 / (0.50 + 0.50 * X) = ~1.33
+
+Dove:
+A => X = 0.6 => S = ~1.25
+B => X = 0.5 => S = ~1.33
+C => X = 0.4 => S = ~1.43
+D => X = 0.3 => S = ~1.54
+
+Quindi la risposta corretta è B.

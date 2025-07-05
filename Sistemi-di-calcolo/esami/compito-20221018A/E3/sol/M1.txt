@@ -1,0 +1,1 @@
+Il registro è callr-saved, quindi il callee, ossia foo, non ha l'obbligo di preservarne il valore. Per questo non e' possibile prevedere quale sara' il valore di ecx dopo l'esecuzione di foo.
