@@ -1,0 +1,7 @@
+La rappresentazione ottale dei permessi 0423 può essere tradotta nella seguente rappresentazione binaria:
+
+0  |   4  |  2  |  3  |
+   | user |group|other|
+   |  r-- | -w- | -wx |
+ 
+La risposta errata è quindi la C dato che il gruppo proprietario non ha il permesso 'r' di lettura. 

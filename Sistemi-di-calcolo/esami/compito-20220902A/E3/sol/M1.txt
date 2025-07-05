@@ -1,0 +1,12 @@
+1 => eax = 0
+2 => ax = 16
+3 => cx = 0
+4 => cx = 2
+5 => ax = 16 << 2 = 16 * 4 => 64
+6 => ax = 64 | 1 = 65
+
+Se A: 7 => ax = 65 - 23 = 42
+Se B: 7 => ax = 65 ^ 107 = 42
+Se C: 7 => ax = 65 + -23 = 42 
+
+Quindi la risposta corretta è la D
