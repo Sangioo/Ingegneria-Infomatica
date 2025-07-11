@@ -1,0 +1,6 @@
+I permessi specificati possono essere scritti così
+
+    rwx | r-x | --x
+     7     5     1
+
+La risposta è quindi la B: 0751 (lo 0 iniziale si mette per convenzione)

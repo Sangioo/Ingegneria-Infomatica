@@ -1,0 +1,10 @@
+                0       1       2       3
+230     7       -       -       7(0)    -       COLD MISS
+56      1       -       -       7(1)    1(0)    COLD MISS
+243     7       -       -       7(0)    1(1)    CACHE HIT
+67      2       2(0)    -       7(1)    1(2)    COLD MISS
+361     11      2(1)    -       7(2)    11(0)   CAPACITY MISS
+182     5       2(2)    -       5(0)    11(1)   CAPACITY MISS
+294     9       2(3)    -       5(1)    9(0)    CAPACITY MISS
+
+Risposta A: 2, -, 5, 9
