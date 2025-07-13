@@ -1,0 +1,4 @@
+addl $1, %eax       F D E M W
+movl %edx, %ebx       
+subb %bl, %cl       
+movl %eax, %esi     
