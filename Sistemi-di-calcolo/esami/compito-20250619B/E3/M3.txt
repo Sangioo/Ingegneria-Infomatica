@@ -1,0 +1,11 @@
+p1 = malloc(2);         |X|
+p2 = malloc(4);         |X|X|
+p3 = malloc(16);        |X|X|XXXX|
+free(p2);               |X|.|XXXX|
+p4 = malloc(1);         |X|X|XXXX|
+free(p3);               |X|X|....|
+p5 = malloc(30);        |X|X|....|XXXXXXXX|
+p6 = malloc(13);        |X|X|XXXX|XXXXXXXX|
+free(p1);               |.|X|XXXX|XXXXXXXX|
+p7 = malloc(2);         |X|X|XXXX|XXXXXXXX|
+free(p4);               |X|.|XXXX|XXXXXXXX|

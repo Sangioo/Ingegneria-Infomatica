@@ -1,0 +1,5 @@
+0: addl $0x01, %edx    F D E M W
+1: movl (%esp),%ebx      F D E M W
+2: addl $0x10, %eax        F D E M W
+3: movl $0x41, %ecx          F D E M W
+4: addl $0x42, %edx              F D E M W

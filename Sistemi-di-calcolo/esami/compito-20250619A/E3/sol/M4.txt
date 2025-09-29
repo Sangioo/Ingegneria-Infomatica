@@ -1,0 +1,14 @@
+   Cicli di clock ->        | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| 11| 12| 13| 14| 15| 16| 17| 18|
+   --------------------------------------------------------------------------------------------------
+1: subl $8, %esp            | F | D | E | M | W |
+2: movl %esp, %eax          |   |   |   |   | F | D | E | M | W |
+3: addl $4, %eax            |   |   |   |   |   |   |   |   | F | D | E | M | W |
+4: movl $0x41414141, %(esp) |   |   |   |   |   |   |   |   |   | F | D | E | M | W |
+5: movl $0x42424242, %(eax) |   |   |   |   |   |   |   |   |   |   |   |   |   | F | D | E | M | W |
+
+Infatti:
+ - 2 dipende da 1 su ESP
+ - 3 dipende da 2 su EAX
+ - 5 dipende da 3 su EAX
+
+ La risposta corretta è quindi la A

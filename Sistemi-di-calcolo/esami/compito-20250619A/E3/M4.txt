@@ -1,0 +1,6 @@
+subl $8, %esp               F D E M W
+movl %esp, %eax                     F D E M W
+addl $4, %eax                               F D E M W
+movl $0x41414141, %(esp)                      F D E M W
+movl $0x42424242, %(eax)                              F D E M W
+                            

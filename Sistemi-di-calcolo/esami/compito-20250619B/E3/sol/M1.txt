@@ -1,0 +1,3 @@
+L’istruzione leal (%eax, %eax), %eax moltiplica il registro per 2 (infatti calcola eax + eax), che equivale quindi a -12. 
+Le altre istruzioni (A, C, D) eseguono una moltiplicazione per 8 in modi diversi, tramite shift logico a sinistra di 3, 
+moltiplicazione, e con load effective address sul valore di eax, ottenendo lo stesso risultato di -48.

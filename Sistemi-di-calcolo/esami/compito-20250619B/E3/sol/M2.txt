@@ -1,0 +1,3 @@
+Il comando chmod 644 test assegna i permessi rw-r--r--, che non 
+corrispondono a rwxr-xr-- mostrati nel DOPO.
+La rispostacorretta è quindi la D

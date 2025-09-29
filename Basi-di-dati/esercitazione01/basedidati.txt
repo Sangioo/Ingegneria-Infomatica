@@ -1,0 +1,82 @@
+Bar(nome, indirizzo)
+
+'Pub Marcello',		'via Roma 802'
+'Frantoio',		'via Giolitti 108'
+'Dante Pub', 		'via Roma 912'
+'Baldoria', 		'via Roma 905'
+'Bar Centrale', 	'via Romania 108'
+
+
+Birra(nome, fabbrica)
+
+'Poretti',	 	'Poretti Brewery'
+'Amstel', 		'Amstel Brewery'
+'Budweiser',		'Anheuser-Busch Inc.'
+'Corona', 		'Grupo Modelo'
+'Moretti', 		'Moretti Brewing'
+'Menabrea', 		'Menabrea Weissbrau'
+'Peroni', 		'Peroni Brewing'
+
+
+Bevitore(nome, indirizzo)
+
+'Anna',	 	'via Roma 100'
+'Bruno', 	'via Roma 101'
+'Carlo', 	'via Garibaldi 200'
+'Diego', 	'via Garibaldi 300'
+'Elena', 	'via Roma 100'
+
+
+Frequenta(bevitore, bar, volte_a_settimana)
+
+'Anna', 	'Dante Pub', 		2
+'Bruno', 	'Dante Pub', 		1
+'Bruno', 	'Baldoria', 		2
+'Bruno', 	'Bar Centrale', 	1
+'Carlo', 	'Pub Marcello', 	1
+'Carlo', 	'Frantoio', 		1
+'Diego', 	'Pub Marcello', 	2
+'Diego', 	'Frantoio', 		1
+'Diego', 	'Dante Pub', 		1
+'Diego', 	'Baldoria', 		2
+'Diego', 	'Bar Centrale', 	2
+'Elena', 	'Dante Pub', 		2
+
+
+Serve(bar, birra, prezzo)
+
+'Pub Marcello', 	'Amstel', 		2.75
+'Pub Marcello', 	'Budweiser', 		2.25
+'Pub Marcello', 	'Corona', 		3.00
+'Frantoio', 		'Amstel', 		2.75
+'Frantoio', 		'Budweiser', 		2.50
+'Frantoio', 		'Corona', 		3.00
+'Dante Pub', 		'Amstel', 		3.00
+'Dante Pub', 		'Corona', 		3.25
+'Dante Pub', 		'Moretti', 		3.00
+'Dante Pub', 		'Menabrea', 		3.50
+'Baldoria', 		'Amstel', 		2.75
+'Baldoria', 		'Budweiser', 		2.25
+'Baldoria', 		'Corona', 		2.75
+'Baldoria', 		'Moretti', 		2.75
+'Baldoria', 		'Peroni', 		2.75
+'Bar Centrale', 	'Amstel', 		2.50
+'Bar Centrale', 	'Budweiser', 		2.20
+
+
+Gradisce(bevitore, birra)
+
+'Anna', 	'Amstel'
+'Anna', 	'Corona'
+'Bruno', 	'Amstel'
+'Bruno', 	'Budweiser'
+'Carlo', 	'Moretti'
+'Diego', 	'Amstel'
+'Diego', 	'Budweiser'
+'Diego', 	'Corona'
+'Diego', 	'Moretti'
+'Diego', 	'Menabrea'
+'Diego', 	'Peroni'
+'Diego', 	'Poretti'
+'Elena', 	'Amstel'
+'Elena', 	'Corona'

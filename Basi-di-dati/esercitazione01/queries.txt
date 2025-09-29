@@ -1,0 +1,29 @@
+(1) Calcolare il nome dei bar che servono la birra Peroni
+	\project_{bar}(\select_{birra = 'Peroni'}(Serve));
+
+(2) Calcolare il nome dei bevitori che gradiscono la birra Amstel o la birra Corona
+	\project_{bevitore}(\select_{birra = 'Amstel' OR birra = 'Corona'}(Gradisce));
+
+(3) Calcolare il nome dei bevitori che gradiscono sia la birra Amstel sia la birra Corona
+	\project_{bevitore}(\select_{birra = 'Amstel'}(Gradisce) \intersect \select_{birra = 'Corona'}(Gradisce));
+
+(4) Verificare la veridicità dell'assunzione che la lista completa dei bar si trovi nella relazione Bar
+	(\project_{bar}(Frequenta) \union \project_{bar}(Serve)) \diff \project_{nome}(Bar);
+
+(5) Calcolare il nome delle birre che non sono servite da alcun bar
+	\rename_{birra}(\project_{nome}(Birra)) \diff \project_{birra}(Serve);
+
+(6) Calcolare le coppie di nomi di bevitori che risiedono nello stesso indirizzo, evitando nel risultato sia ogni coppia <x,x>, sia ogni coppia <x,y> se già compare <y,x>
+	\project_{nome, nome1}(\select_{nome < nome1}(Bevitore \join \rename_{nome1, indirizzo}(Bevitore)));
+
+(7) Calcolare le coppie (x,y) tali che al bevitore x non piace la birra y
+	(\project_{nome}(Bevitore) \cross \project_{nome}(Birra)) \diff Gradisce;
+
+(8) Calcolare i bevitori a cui piacciono tutte le birre
+	\project_{nome}(Bevitore) \diff \project_{nome}((\project_{nome}(Bevitore) \cross \project_{nome}(Birra)) \diff Gradisce);
+
+(9) Calcolare qual è la birra (o le birre, se sono più d’una) vendute al massimo prezzo (non importa in quale bar)
+	\project_{birra}(Serve) \diff \project_{birra}(Serve \join_{prezzo < prezzo1} \rename_{bar1, birra1, prezzo1}(Serve));
+
+(10) Per ogni birra calcolare il bar (o i bar, se sono più d’uno) in cui viene venduta al minor prezzo
+	\project_{birra, bar}(Serve \diff \project_{bar, birra, prezzo}(Serve \join_{prezzo > prezzo1} \rename_{bar1, birra1, prezzo1}(Serve)));

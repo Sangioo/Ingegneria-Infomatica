@@ -1,0 +1,32 @@
+Ordinare dal campo più grande (int) al più piccolo riduce il padding.
+Considerate le opzioni proposte:
+
+*** A ***
+char   |x    
+short    .xx|
+char   |x...|
+int    |xxxx|
+TOTALE: 12 bytes
+
+*** B ***
+short  |xx
+char      x.|
+int    |xxxx|
+char   |x...|
+TOTALE: 12 bytes
+
+*** C ***
+char   |x
+char     x..|
+int    |xxxx|
+short  |xx..|
+TOTALE: 12 bytes
+
+*** D ***
+int    |xxxx|
+short  |xx
+char      x
+char       x|
+TOTALE: 8 bytes
+
+La risposta corretta è quindi la D

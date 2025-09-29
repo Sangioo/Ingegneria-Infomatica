@@ -1,0 +1,3 @@
+Mentre l'istruzione a linea 1 sta leggendo %(esp) dalla memoria (stadio MEMORY)
+la CPU cerca di leggere l'istruzione 4 da memoria (stadio FETCH)
+Si verifica quindi un hazard strutturale (risposta A)

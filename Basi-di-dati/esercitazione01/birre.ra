@@ -1,0 +1,98 @@
+/*
+ * RA script used to create a sample database.
+ */
+\sqlexec_{DROP TABLE IF EXISTS Frequenta};
+\sqlexec_{DROP TABLE IF EXISTS Serve};
+\sqlexec_{DROP TABLE IF EXISTS Gradisce};
+\sqlexec_{DROP TABLE IF EXISTS Bar};
+\sqlexec_{DROP TABLE IF EXISTS Birra};
+\sqlexec_{DROP TABLE IF EXISTS Bevitore};
+\sqlexec_{
+CREATE TABLE Bar(nome VARCHAR(20) NOT NULL PRIMARY KEY,
+                 indirizzo VARCHAR(20))
+};
+\sqlexec_{
+CREATE TABLE Birra(nome VARCHAR(20) NOT NULL PRIMARY KEY,
+                  fabbrica VARCHAR(20))
+};
+\sqlexec_{
+CREATE TABLE Bevitore(nome VARCHAR(20) NOT NULL PRIMARY KEY,
+                     indirizzo VARCHAR(20))
+};
+\sqlexec_{
+CREATE TABLE Frequenta(bevitore VARCHAR(20) NOT NULL REFERENCES Bevitore(name),
+                       bar VARCHAR(20) NOT NULL REFERENCES Bar(name),
+                       volte_a_settimana SMALLINT CHECK(volte_a_settimana > 0),
+                       PRIMARY KEY(bevitore, bar))
+};
+\sqlexec_{
+CREATE TABLE Serve(bar VARCHAR(20) NOT NULL REFERENCES Bar(name),
+                    birra VARCHAR(20) NOT NULL REFERENCES Birra(name),
+                    prezzo DECIMAL(5,2) CHECK(prezzo > 0),
+                    PRIMARY KEY(bar, birra))
+};
+\sqlexec_{
+CREATE TABLE Gradisce(bevitore VARCHAR(20) NOT NULL REFERENCES Bevitore(name),
+                   birra VARCHAR(20) NOT NULL REFERENCES Birra(name),
+                   PRIMARY KEY(bevitore, birra))
+};
+\sqlexec_{INSERT INTO Bar VALUES('Pub Marcello', 'via Roma 802')};
+\sqlexec_{INSERT INTO Bar VALUES('Frantoio', 'via Giolitti 108')};
+\sqlexec_{INSERT INTO Bar VALUES('Dante Pub', 'via Roma 912')};
+\sqlexec_{INSERT INTO Bar VALUES('Baldoria', 'via Roma 905')};
+\sqlexec_{INSERT INTO Bar VALUES('Bar Centrale', 'via Romania 108')};
+\sqlexec_{INSERT INTO Birra VALUES('Poretti', 'Poretti Brewery')};
+\sqlexec_{INSERT INTO Birra VALUES('Amstel', 'Amstel Brewery')};
+\sqlexec_{INSERT INTO Birra VALUES('Budweiser', 'Anheuser-Busch Inc.')};
+\sqlexec_{INSERT INTO Birra VALUES('Corona', 'Grupo Modelo')};
+\sqlexec_{INSERT INTO Birra VALUES('Moretti', 'Moretti Brewing')};
+\sqlexec_{INSERT INTO Birra VALUES('Menabrea', 'Menabrea Weissbrau')};
+\sqlexec_{INSERT INTO Birra VALUES('Peroni', 'Peroni Brewing')};
+\sqlexec_{INSERT INTO Bevitore VALUES('Anna', 'via Roma 100')};
+\sqlexec_{INSERT INTO Bevitore VALUES('Bruno', 'via Roma 101')};
+\sqlexec_{INSERT INTO Bevitore VALUES('Carlo', 'via Garibaldi 200')};
+\sqlexec_{INSERT INTO Bevitore VALUES('Diego', 'via Garibaldi 300')};
+\sqlexec_{INSERT INTO Bevitore VALUES('Elena', 'via Roma 100')};
+\sqlexec_{INSERT INTO Frequenta VALUES('Anna', 'Dante Pub', 2)};
+\sqlexec_{INSERT INTO Frequenta VALUES('Bruno', 'Dante Pub', 1)};
+\sqlexec_{INSERT INTO Frequenta VALUES('Bruno', 'Baldoria', 2)};
+\sqlexec_{INSERT INTO Frequenta VALUES('Bruno', 'Bar Centrale', 1)};
+\sqlexec_{INSERT INTO Frequenta VALUES('Carlo', 'Pub Marcello', 1)};
+\sqlexec_{INSERT INTO Frequenta VALUES('Carlo', 'Frantoio', 1)};
+\sqlexec_{INSERT INTO Frequenta VALUES('Diego', 'Pub Marcello', 2)};
+\sqlexec_{INSERT INTO Frequenta VALUES('Diego', 'Frantoio', 1)};
+\sqlexec_{INSERT INTO Frequenta VALUES('Diego', 'Dante Pub', 1)};
+\sqlexec_{INSERT INTO Frequenta VALUES('Diego', 'Baldoria', 2)};
+\sqlexec_{INSERT INTO Frequenta VALUES('Diego', 'Bar Centrale', 2)};
+\sqlexec_{INSERT INTO Frequenta VALUES('Elena', 'Dante Pub', 2)};
+\sqlexec_{INSERT INTO Gradisce VALUES('Anna', 'Amstel')};
+\sqlexec_{INSERT INTO Gradisce VALUES('Anna', 'Corona')};
+\sqlexec_{INSERT INTO Gradisce VALUES('Bruno', 'Amstel')};
+\sqlexec_{INSERT INTO Gradisce VALUES('Bruno', 'Budweiser')};
+\sqlexec_{INSERT INTO Gradisce VALUES('Carlo', 'Moretti')};
+\sqlexec_{INSERT INTO Gradisce VALUES('Diego', 'Amstel')};
+\sqlexec_{INSERT INTO Gradisce VALUES('Diego', 'Budweiser')};
+\sqlexec_{INSERT INTO Gradisce VALUES('Diego', 'Corona')};
+\sqlexec_{INSERT INTO Gradisce VALUES('Diego', 'Moretti')};
+\sqlexec_{INSERT INTO Gradisce VALUES('Diego', 'Menabrea')};
+\sqlexec_{INSERT INTO Gradisce VALUES('Diego', 'Peroni')};
+\sqlexec_{INSERT INTO Gradisce VALUES('Diego', 'Poretti')};
+\sqlexec_{INSERT INTO Gradisce VALUES('Elena', 'Amstel')};
+\sqlexec_{INSERT INTO Gradisce VALUES('Elena', 'Corona')};
+\sqlexec_{INSERT INTO Serve VALUES('Pub Marcello', 'Amstel', 2.75)};
+\sqlexec_{INSERT INTO Serve VALUES('Pub Marcello', 'Budweiser', 2.25)};
+\sqlexec_{INSERT INTO Serve VALUES('Pub Marcello', 'Corona', 3.00)};
+\sqlexec_{INSERT INTO Serve VALUES('Frantoio', 'Amstel', 2.75)};
+\sqlexec_{INSERT INTO Serve VALUES('Frantoio', 'Budweiser', 2.50)};
+\sqlexec_{INSERT INTO Serve VALUES('Frantoio', 'Corona', 3.00)};
+\sqlexec_{INSERT INTO Serve VALUES('Dante Pub', 'Amstel', 3.00)};
+\sqlexec_{INSERT INTO Serve VALUES('Dante Pub', 'Corona', 3.25)};
+\sqlexec_{INSERT INTO Serve VALUES('Dante Pub', 'Moretti', 3.00)};
+\sqlexec_{INSERT INTO Serve VALUES('Dante Pub', 'Menabrea', 3.50)};
+\sqlexec_{INSERT INTO Serve VALUES('Baldoria', 'Amstel', 2.75)};
+\sqlexec_{INSERT INTO Serve VALUES('Baldoria', 'Budweiser', 2.25)};
+\sqlexec_{INSERT INTO Serve VALUES('Baldoria', 'Corona', 2.75)};
+\sqlexec_{INSERT INTO Serve VALUES('Baldoria', 'Moretti', 2.75)};
+\sqlexec_{INSERT INTO Serve VALUES('Baldoria', 'Peroni', 2.75)};
+\sqlexec_{INSERT INTO Serve VALUES('Bar Centrale', 'Amstel', 2.50)};
+\sqlexec_{INSERT INTO Serve VALUES('Bar Centrale', 'Budweiser', 2.20)};
