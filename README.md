@@ -37,3 +37,19 @@ Ropository which collects programs, exercises, simulations, slides and projects 
     Exam about dynamic systems and how to mathematically model them, I will progressively add Matlab homeworks assigned by the professor.
 
 * **Programmazione matematica** <br>
+
+* **Sistemi di controllo** <br>
+
+* **Sistemi di calcolo** <br>
+
+* **Strutture dati, algoritmi e complessita'** <br>
+
+## Third year
+
+* **Logica, modelli di calcolo e metodi probabilistici per l'informatica** <br>
+
+* **Economia e organizzazione aziendale** <br>
+
+* **Sistemi operativi e reti di calcolatori** <br>
+
+* **Basi di dati** <br>
