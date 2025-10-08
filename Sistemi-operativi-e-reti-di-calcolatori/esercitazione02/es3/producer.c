@@ -16,34 +16,38 @@ void initSemaphores() {
     sem_unlink(SEMNAME_EMPTY);
     sem_unlink(SEMNAME_CS);
 
-    /* We create three named semaphores:
-    * - sem_filled to check that our buffer is not empty
-    *   (we need to initialize it to 0)
-    * - sem_empty to check that our buffer is not full
-    *   (we need to initialize it to the buffer's capacity BUFFER_SIZE)
-    * - sem_cs to enforce mutual exclusion when accessing the file
-    */
+    /** 
+     * We create three named semaphores:
+     * - sem_filled to check that our buffer is not empty
+     *   (we need to initialize it to 0)
+     * - sem_empty to check that our buffer is not full
+     *   (we need to initialize it to the buffer's capacity BUFFER_SIZE)
+     * - sem_cs to enforce mutual exclusion when accessing the file
+     */
 
-    /* TODO: create the semaphores as described above */
-
-    sem_filled = NULL;
+    sem_filled = sem_open(SEMNAME_FILLED, O_CREAT|O_EXCL, 0640, 0);
     if (sem_filled == SEM_FAILED) handle_error("sem_open filled");
 
-    sem_empty = NULL;
+    sem_empty = sem_open(SEMNAME_EMPTY, O_CREAT|O_EXCL, 0640, BUFFER_SIZE);
     if (sem_empty == SEM_FAILED) handle_error("sem_open empty");
 
-    sem_cs = NULL;
+    sem_cs = sem_open(SEMNAME_CS, O_CREAT|O_EXCL, 0640, 1);
     if (sem_cs == SEM_FAILED) handle_error("sem_open cs");
 }
 
 void closeSemaphores() {
-    /* When the program that controls the producer(s) terminates, we
-     * need to close all the the semaphores we previously opened */
+    /** 
+     * When the program that controls the producer(s) terminates, we
+     * need to close all the the semaphores we previously opened
+     */
 
-    /* TODO: implement the operations described above, and handle
-     * possible errors using the predefined handle_error() macro */
-
-
+    int ret;
+    ret = sem_unlink(SEMNAME_FILLED);
+    if (ret) handle_error("sem_unlink filled");
+    ret = sem_unlink(SEMNAME_EMPTY);
+    if (ret) handle_error("sem_unlink empty");
+    ret = sem_unlink(SEMNAME_CS);
+    if (ret) handle_error("sem_unlink cs");
 }
 
 static inline int performRandomTransaction() {
@@ -59,27 +63,29 @@ void produce(int id, int numOps) {
     int localSum = 0;
     while (numOps > 0) {
 
-        /* Before adding an element to the buffer, we have to check that
+        /**
+         * Before adding an element to the buffer, we have to check that
          * it is not full by using the semaphore sem_empty.
          * We need also to access to the critical section by enforcing
-         * mutual esclusion, which can be achieved using sem_cs. */
+         * mutual esclusion, which can be achieved using sem_cs.
+         */
 
-        /* TODO: implement the operations described above, and handle
-         * possible errors using the predefined handle_error() macro */
-
+        if (sem_wait(sem_empty)) handle_error("sem_wait empty");
+        if (sem_wait(sem_cs)) handle_error("sem_wait cs");
 
         // CRITICAL SECTION
         int value = performRandomTransaction();
         writeToBufferFile(value, BUFFER_SIZE, BUFFER_FILENAME);
         localSum += value;
 
-        /* On leaving the critical section we have to "release" the
+        /**
+         * On leaving the critical section we have to "release" the
          * shared resource via sem_cs, and notify the consumer(s) that
-         * a new element is available using the semaphore sem_filled. */
+         * a new element is available using the semaphore sem_filled.
+         */
 
-        /* TODO: implement the operations described above, and handle
-         * possible errors using the predefined handle_error() macro */
-
+        if (sem_post(sem_cs)) handle_error("sem_post cs");
+        if (sem_post(sem_filled)) handle_error("sem_post filled");
 
         numOps--;
     }
