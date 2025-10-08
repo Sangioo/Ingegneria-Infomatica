@@ -42,12 +42,12 @@ void closeAndDestroySemaphores() {
     ret = sem_close(sem_cs);
     if (ret) handle_error("sem_close cs");
 
-    // ret = sem_unlink(SEMNAME_FILLED);
-    // if (ret) handle_error("sem_unlink filled");
-    // ret = sem_unlink(SEMNAME_EMPTY);
-    // if (ret) handle_error("sem_unlink empty");
-    // ret = sem_unlink(SEMNAME_CS);
-    // if (ret) handle_error("sem_unlink cs");
+    ret = sem_unlink(SEMNAME_FILLED);
+    if (ret) handle_error("sem_unlink filled");
+    ret = sem_unlink(SEMNAME_EMPTY);
+    if (ret) handle_error("sem_unlink empty");
+    ret = sem_unlink(SEMNAME_CS);
+    if (ret) handle_error("sem_unlink cs");
 }
 
 void consume(int id, int numOps) {
