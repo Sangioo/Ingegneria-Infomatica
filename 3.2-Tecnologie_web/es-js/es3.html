@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercitazione form JavaScript</title>
+    <style>
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: wrap;
+        }
+
+        .box {
+            width: 50px;
+            height: 50px;
+            aspect-ratio: 1;
+        }
+    </style>
+    <script>
+        function aggiungi() {
+            const n = parseInt(document.getElementById("quantita").value);
+            const container = document.getElementById("container");
+            const color = document.getElementById("colore").value;
+            let myDiv;
+            for (let i = 0; i < n; i++) {
+                myDiv = document.createElement("div");
+                myDiv.classList.add("box");
+                myDiv.style.backgroundColor = color;
+                container.appendChild(myDiv);
+            }
+        }
+        function rimuovi() {
+            document.getElementById("container").lastChild.remove();
+        }
+    </script>
+</head>
+<body>
+    <div id="container" class="container">
+        <input type="number" name="quantita" id="quantita">
+        <input type="color" name="colore" id="colore">
+        <input type="button" value="aggiungi" id="aggiungi" onclick="aggiungi()">
+        <input type="button" value="rimuovi" id="rimuovi" onclick="rimuovi()">
+    </div>
+</body>
+</html>

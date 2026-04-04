@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercitazione form JavaScript</title>
+    <style>
+        ul {margin: 0px;}
+        br,ul {margin-bottom: 7px;}
+    </style>
+    <script>
+        function valida() {
+            const lavoratore = document.getElementById("stud-lav").checked;
+            const desc = document.getElementById("descrizione").value;
+            if (lavoratore && desc === "") {
+                alert("se sei studente lavoratore devi inserire una descrizione");
+                return false;
+            }
+
+            const radioEmail = document.getElementById("contatto-email").checked;
+            const email = document.getElementById("email").value;
+            const radioTel = document.getElementById("contatto-tel").checked;
+            const tel = document.getElementById("telefono").value;
+            if (radioEmail && email === "") {
+                alert("hai selezionato email come contatto ma non e' stata inserita");
+                return false;
+            }
+            if (radioTel && tel === "") {
+                alert("hai selezionato telefono come contatto ma non e' stato inserito");
+                return false;
+            }
+
+            return true;
+        }
+
+        function toggleRegione() {
+            document.getElementById("regione").disabled = document.getElementById("straniero").checked;
+        }
+
+        function checkCap() {
+            const cap = document.getElementById("cap").value;
+            if (cap.length !== 5 || isNaN(cap)) {
+                alert("cap non valido");
+            }
+        }
+
+        function checkNome() {
+            if (!isNaN(document.getElementById("nome").value)) {
+                alert("nome e cognome non validi");
+            }
+        }
+    </script>
+</head>
+<body>
+    <form action="#" name="modulo" method="POST" onsubmit="return valida()">
+        Nome e cognome:
+        <input id="nome" name="nome" type="text" size="50" onchange="checkNome()"><br>
+
+        <!---->
+
+        Matricola:
+        <input id="matricola" name="matricola" type="text" size="7"><br>
+
+        <!---->
+
+        Nazionalità straniera:
+        <input id="straniero" name="straniero" type="checkbox" onclick="toggleRegione()"><br>
+
+        <!---->
+
+        CAP:
+        <input id="cap" name="cap" type="text" size="5" onchange="checkCap()"><br>
+
+        <!---->
+
+        Regione:
+        <select id="regione" name="regione">
+            <option value="" selected>Scegli regione</option>
+            <option>Abruzzo</option>
+            <option>Basilicata</option>
+            <option>Calabria</option>
+            <option>Campania</option>
+            <option>Emilia-Romagna</option>
+            <option>Friuli-Venezia Giulia</option>
+            <option>Lazio</option>
+            <option>Liguria</option>
+            <option>Lombardia</option>
+            <option>Marche</option>
+            <option>Molise</option>
+            <option>Piemonte</option>
+            <option>Puglia</option>
+            <option>Sardegna</option>
+            <option>Sicilia</option>
+            <option>Toscana</option>
+            <option>Trentino-Alto Adige</option>
+            <option>Umbria</option>
+            <option>Valle d'Aosta</option>
+            <option>Veneto</option>
+        </select><br>
+
+        <!---->
+
+        Email:
+        <input id="email" name="email" type="email" size="30"><br>
+
+        <!---->
+
+        Telefono:
+        <input id="telefono" name="telefono" type="tel" size="15"><br>
+
+        <!---->
+
+        Contatto preferito:
+        <ul>
+            <li>
+                <input id="contatto-email" name="contatto" type="radio" value="email">
+                <label for="contatto-email">Email</label>
+            </li>
+            <li>
+                <input id="contatto-tel" name="contatto" type="radio" value="telefono">
+                <label for="contatto-tel">Telefono</label>
+            </li>
+        </ul>
+
+        <!---->
+
+        Status:
+        <input id="status" name="status" type="text" list="status-list">
+        <datalist id="status-list">
+            <option>in corso</option>
+            <option>fuori corso</option>
+            <option>part-time</option>
+        </datalist><br>
+
+        <!---->
+        
+        Studente lavoratore:
+        <input id="stud-lav" name="stud-lav" type="checkbox"><br>
+
+        <!---->
+        
+        Descrizione lavoro svolto:<br>
+        <textarea id="descrizione" name="descrizione" rows="12" cols="60"></textarea><br>
+
+        <!---->
+
+        <input type="submit" value="Invia">
+        <input type="reset" value="Reset">
+    </form>
+</body>
+</html>

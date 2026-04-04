@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercitazione form JavaScript</title>
+    <script>
+        function applica() {
+            const select = document.getElementById("lista").value;
+            document.getElementById("testo").value = select;
+        }
+        function modifica() {
+            const testo = document.getElementById("testo").value;
+            const select = document.getElementById("lista");
+            select[select.selectedIndex].innerText = testo;
+        }
+    </script>
+</head>
+<body>
+    <select name="lista" id="lista" onclick="applica()">
+        <option value="" selected>Seleziona un'opzione</option>
+        <option>Opzione 1</option>
+        <option>Opzione 2</option>
+        <option>Opzione 3</option>
+    </select>
+    <input type="text" name="testo" id="testo">
+    <input type="button" value="modifica" id="modifica" onclick="modifica()">
+</body>
+</html>
