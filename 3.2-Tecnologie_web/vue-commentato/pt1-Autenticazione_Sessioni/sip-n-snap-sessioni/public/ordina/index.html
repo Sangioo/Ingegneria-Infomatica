@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bootstrap.css">
+    <title>Sip 'n Snap</title>
+</head>
+<body class="min-vh-100 d-flex flex-column">
+    <header class="container-fluid bg-primary d-flex justify-content-between align-items-center">
+        <div>
+            <a href="/" class="nav-link text-decoration-none fs-1">Sip 'n Snap</a>
+        </div>
+
+        <div>
+            <a href="/ordina" class="text-decoration-none ms-4 fs-4">Ordina</a>
+            <a href="/chi-siamo" class="text-decoration-none ms-4 fs-4">Chi Siamo</a>
+            <a href="/contatti" class="text-decoration-none ms-4 fs-4">Contatti</a>
+            <a href="/profilo" class="text-decoration-none ms-4 fs-4">Profilo</a>
+        </div>
+    </header>
+
+
+    <main class="container my-5 flex-grow-1">
+        <div id="grid" class="row g-4">
+            
+        </div>
+    </main>
+
+
+
+    <script>
+        //Lato client
+
+        const caricaFrullati = async () => {
+            try {
+                
+                const response = await fetch('/api/frullati'); //effettua la chiamata API, (di defualt la funzione fetch invia una chiamata GET)
+               
+                //In caso di errore lanciamo l'errore e notifichiamo l'utente
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Errore nel caricamento');
+                }
+
+                //Se non c'è un errore allora prendo il JSON contenente i dati dei frullati
+                const frullati = await response.json();
+
+                console.log(frullati)
+
+                //carichiamo i frullati sulla pagina.
+                inserisciFrullati(frullati)
+                
+
+            } catch (err) {
+                console.error("Si è verificato un problema con la fetch:", err.message);
+            }
+        };
+
+        async function inviaOrdine(idFrullato) {
+            try {
+
+                console.log(`ricevuto ordine per il frullato ${idFrullato}`)
+                
+                //usiamo sempre fetch ma sta volta dobbiamo specificare che usiamo un metodo POST
+                //all'interno della richiesta inseriamo l'id del frullato incluso nell'ordine
+                const response = await fetch(`/api/ordina-frullato/${idFrullato}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                //lanciamo l'errore in caso ci sia stato, in modo da notificare l'utente
+                if (!response.ok) {
+                    throw new Error("Impossibile completare l'ordine");
+                }
+
+                //in caso di successo carichiamo la riga che il server ha inserito
+                const risultato = await response.json();
+                
+                // Feedback all'utente
+                alert(`Grazie! Ordine n° ${risultato.ordine.id} ricevuto.`);
+
+            } catch (error) {
+                console.error("Errore:", error);
+                alert("Ops! Qualcosa è andato storto con l'ordine.");
+            }
+        }
+
+        const inserisciFrullati = (frullati) => {
+            const grid = document.getElementById('grid')
+            frullati.forEach(frullato => {
+                
+
+                //Creo una card e ci assegno classi bootstrap
+                const card = document.createElement('div');
+                card.className = 'col-12 col-md-6 col-lg-4';
+
+                //Riempio la card con i dati del frullato
+                card.innerHTML = `
+                    <div class="bg-secondary p-2 d-flex flex-column rounded">
+                        <div class="d-flex">
+                            <img src="${frullato.img_path}" alt="" class="col-4 object-fit-cover rounded" style="aspect-ratio: 1;">
+                            <div class="d-flex flex-column ms-2">
+                                <h3>${frullato.nome}</h3>
+                                <p class="fs-3"> ${frullato.prezzo}€</p>
+                                <span class="text-bg-info rounded-3 fs-6 me-auto px-2">
+                                    ${frullato.categorie.nome}
+                                </span>
+                            </div>
+                        </div>
+                        <button id="btn-${frullato.id}"class="btn btn-secondary mt-3 col-6"  role="button">Ordina</button>
+                    </div>
+                `;
+
+                
+                //assegno un evento ai bottoni di ogni card
+                const btn = card.querySelector('button');
+                btn.addEventListener('click', () => inviaOrdine(frullato.id));
+
+                
+                grid.append(card);
+                
+
+            }); 
+        };
+
+        
+        caricaFrullati();
+        
+
+    </script>
+
+    <footer class="container-fluid bg-primary d-flex flex-column">
+        <div>
+            <a href="/" class="nav-link text-decoration-none fs-1">Sip 'n Snap</a>
+        </div>
+
+        <div class="d-flex flex-column">
+            <a href="/ordina" class="text-decoration-none fs-4">Ordina</a>
+            <a href="/chi-siamo" class="text-decoration-none fs-4">Chi Siamo</a>
+            <a href="/contatti" class="text-decoration-none fs-4">Contatti</a>
+            <a href="/profilo" class="text-decoration-none ms-4 fs-4">Profilo</a>
+        </div>
+    </footer>
+
+</body>
+</html>

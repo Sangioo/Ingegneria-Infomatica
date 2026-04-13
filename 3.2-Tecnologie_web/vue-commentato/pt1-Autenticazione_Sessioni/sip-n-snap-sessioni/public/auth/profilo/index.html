@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bootstrap.css">
+    <title>Login</title>
+</head>
+<body class="min-vh-100 d-flex flex-column">
+
+    <header class="container-fluid bg-primary d-flex justify-content-between align-items-center">
+        <div>
+            <a href="/" class="nav-link text-decoration-none fs-1">Sip 'n Snap</a>
+        </div>
+
+        <div>
+            <a href="/ordina" class="text-decoration-none ms-4 fs-4">Ordina</a>
+            <a href="/chi-siamo" class="text-decoration-none ms-4 fs-4">Chi Siamo</a>
+            <a href="/contatti" class="text-decoration-none ms-4 fs-4">Contatti</a>
+            <a href="/profilo" class="text-decoration-none ms-4 fs-4">Profilo</a>
+        </div>
+    </header>
+
+
+    <main class="container my-5 flex-grow-1 d-flex justify-content-start flex-column ">
+        <h3>Username: </h3>
+        <h2 id="username-display"></h2>
+
+        <h3>Email: </h3>
+        <h2 id="email-display"></h2>
+         <button id="logoutBtn" class="btn btn-danger col-2">Esci dal profilo</button>
+    </main>
+
+    
+    <footer class="container-fluid bg-primary d-flex flex-column">
+        <div>
+            <a href="/" class="nav-link text-decoration-none fs-1">Sip 'n Snap</a>
+        </div>
+
+        <div class="d-flex flex-column">
+            <a href="/ordina" class="text-decoration-none fs-4">Ordina</a>
+            <a href="/chi-siamo" class="text-decoration-none fs-4">Chi Siamo</a>
+            <a href="/contatti" class="text-decoration-none fs-4">Contatti</a>
+            <a href="/profilo" class="text-decoration-none ms-4 fs-4">Profilo</a>
+           
+        </div>
+    </footer>
+
+
+    <script>
+        async function fetchUser(){
+            try {
+                const response = await fetch('/api/me'); //sta volta uso GET
+
+                if (response.ok) {
+                    
+                    //aspetto la risposta del server
+                    const utente = await response.json();
+
+                    //riempio il contenuto html con i dati dell'utente
+                    document.getElementById('username-display').innerText = utente.username;
+                    document.getElementById('email-display').innerText = utente.email;
+                }else if (response.status === 401) {
+                    //mando l'utente alla pagina di login se non è autorizzato
+                    window.location.href = '/accedi/login';
+                }
+            }catch (error) {
+                console.error("Errore di rete:", error);
+            }
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/api/logout', {
+                    method: 'POST' //anche qui si usa post per il logout
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    //reindirizzo l'utente alla pagina principale quando il logout ha avuto successo
+                    window.location.href = '/';
+                    alert(data.message)
+                } else {
+                    alert("Errore durante il logout");
+                }
+            } catch (error) {
+                console.error("Errore di rete:", error);
+            }
+        });
+
+        fetchUser()
+
+    </script>
+    
+</body>
+</html>

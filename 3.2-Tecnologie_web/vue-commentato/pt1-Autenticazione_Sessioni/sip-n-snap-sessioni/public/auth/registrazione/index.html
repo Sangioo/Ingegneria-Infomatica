@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bootstrap.css">
+    <title>Registrazione</title>
+</head>
+<body class="min-vh-100 d-flex flex-column">
+
+    <header class="container-fluid bg-primary d-flex justify-content-between align-items-center">
+        <div>
+            <a href="/" class="nav-link text-decoration-none fs-1">Sip 'n Snap</a>
+        </div>
+
+        <div>
+            <a href="/ordina" class="text-decoration-none ms-4 fs-4">Ordina</a>
+            <a href="/chi-siamo" class="text-decoration-none ms-4 fs-4">Chi Siamo</a>
+            <a href="/contatti" class="text-decoration-none ms-4 fs-4">Contatti</a>
+            <a href="/profilo" class="text-decoration-none ms-4 fs-4">Profilo</a>
+        </div>
+    </header>
+
+
+    <main class="container my-5 flex-grow-1 d-flex justify-content-center align-items-start ">
+        <div class="bg-secondary col-xl-6 col-lg-8 col-12 rounded p-2">
+            <h1 class="fs-3">Registrazione</h1>
+            <form id="register-form">
+
+                <label for="username" class="form-label mt-3">Nome Utente</label>
+                <input type="text" id="username" class="form-control" required>
+                
+                <label for="email" class="form-label mt-3">Email</label>
+                <input type="email" id="email" class="form-control" required>
+
+                <label for="password" class="form-label mt-4">Password</label>
+                <input type="password" id="password" class="form-control"  required>
+
+                <label for="repeat-password" class="form-label mt-4"> Ripeti Password</label>
+                <input type="password" id="repeat-password" class="form-control"  required>
+
+                <div class="mt-4 d-flex flex-column flex-sm-row">
+                    <button type="submit" class="btn btn-secondary">Registrati</button>
+                    <a href="/accedi/login" class="text-decoration-none ms-sm-3 mt-3 mt-sm-2 fs-6">Hai già un account? Accedi</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    
+    <footer class="container-fluid bg-primary d-flex flex-column">
+        <div>
+            <a href="/" class="nav-link text-decoration-none fs-1">Sip 'n Snap</a>
+        </div>
+
+        <div class="d-flex flex-column">
+            <a href="/ordina" class="text-decoration-none fs-4">Ordina</a>
+            <a href="/chi-siamo" class="text-decoration-none fs-4">Chi Siamo</a>
+            <a href="/contatti" class="text-decoration-none fs-4">Contatti</a>
+            <a href="/profilo" class="text-decoration-none ms-4 fs-4">Profilo</a>
+        </div>
+    </footer>
+
+
+    <script>
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();  //serve ad evitare che il browser faccia il refresh della pagina dopo aver inviato un form (comportamento di default)
+
+            //prendiamo i dati utente dal form
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const repeatPassword= document.getElementById('repeat-password').value;
+
+
+            console.log("sto per fare una richiesta per: " + username +", "+ email +", " + password + ", "+repeatPassword)
+
+            //controllo che la password abbiamo almeno 8 caratteri, IMPORTANTE: questo controllo deve essere fatto anche lato server.
+            if(password.length < 8){
+                alert("La passwrod deve essere lunga almeno 8 caratteri")
+                return 
+            }
+            if(password !== repeatPassword){
+                alert("Le password inserite sono diverse")
+                return
+            }
+        
+
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password})
+                });
+
+                /*
+                Convenzionalmente le chiamate di login e registrazione sono di tipo post.
+
+                IMPORTANTE: non posso passare i dati utente (soprattutto la password) nella URL, ma devo usare il body. Non devo criptare password perche ci pensa già HTTPS.
+
+                */
+
+                
+                const data = await response.json();
+
+                if (response.ok) {
+                   
+                    window.location.href = '/';
+                    alert(data.message + "user id: " + data.user.id +"username: "+data.user.username)
+                   
+                    
+                } else {
+                    
+                    alert(data.error)
+                }
+            } catch (err) {
+                console.error("Errore di rete:", err);
+                alert("Errore di connessione al server")
+            }
+        });
+    </script>
+    
+</body>
+</html>
