@@ -4,10 +4,27 @@ import CardConTestoVariabile from '@/components/CardConTestoVariabile.vue'
 import CardConContenutoVariabile from '@/components/CardConContenutoVariabile.vue'
 import CardConPiuContenutiVariabili from '@/components/CardConPiuContenutiVariabili.vue'
 import CardConBottone from '@/components/CardConBottone.vue'
+import CardCustom from '@/components/CardCustom.vue'
+import { ref } from 'vue'
 
 const messaggioAllUtente = (messaggio) => {
   alert(messaggio)
 }
+
+const oggetto = ref([])
+oggetto.value = [{
+  titolo: 'Titolo da oggetto',
+  testo: 'Testo da oggetto'
+},
+{
+  titolo: 'Titolo da oggetto 2',
+  testo: 'Testo da oggetto 2'
+},
+{
+  titolo: 'Titolo da oggetto 3',
+  testo: 'Testo da oggetto 3'
+}
+];
 
 /*
 - prop
@@ -25,6 +42,9 @@ const messaggioAllUtente = (messaggio) => {
     <!-- assegno il valore alla prop titolo-della-card come se fosse un attributo di un elemento html-->
     <CardConTestoVariabile titolo-della-card="Testo scelto da me" />
     <br />
+
+
+    <CardCustom v-for="item in oggetto" :oggetto="item" />
 
     <CardConContenutoVariabile>
       <div class="bg-primary rounded col-12 p-1">Contenuto a Piacere</div>
